@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static "/css/app.css" %}">
   </head>
   <body>
-    <h1>CINS465</h1>
+    <h1>{% block h1 %}{% endblock %}</h1>
     {% block body %}
     {% endblock %}
 

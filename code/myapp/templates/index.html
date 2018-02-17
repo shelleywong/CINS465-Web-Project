@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
-Hello World
+{{ message }}
+{% endblock %}
+
+{% block h1 %}
+{{ class_num }}
 {% endblock %}
 
 {% block body %}
 <div class="grid-container">
   <div class="grid-x grid-padding-x">
     <div class="large-12">
-      <h2>Hello World</h2>
+      <h2>{{ message }}</h2>
     </div>
   </div>
 </div>
