@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{% static "/css/app.css" %}">
   </head>
   <body>
-    <h1>{% block h1 %}{% endblock %}</h1>
+    {% block nav-bar %}{% endblock %}
+
     {% block body %}
     {% endblock %}
 
