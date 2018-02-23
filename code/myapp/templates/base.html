@@ -8,13 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static "/css/foundation.css" %}">
-    <link rel="stylesheet" href="{% static "/css/app.css" %}">
+    <link rel="stylesheet" href="{% static "css/app.css" %}">
   </head>
   <body>
     {% block nav-bar %}{% endblock %}
-
-    {% block body %}
-    {% endblock %}
+    {% block body %}{% endblock %}
 
     <script src="{% static "js/vendor/jquery.js" %}"></script>
     <script src="{% static "js/vendor/what-input.js" %}"></script>

@@ -17,6 +17,14 @@
       <ul class="dropdown menu" data-dropdown-menu>
         <li class="menu-text">{{ class_num }}</li>
         <li class="has-submenu">
+          <a href="#">Hola Mundo</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <li><a href="#">uno</a></li>
+            <li><a href="#">dos</a></li>
+            <li><a href="#">tres</a></li>
+          </ul>
+        </li>
+        <li class="has-submenu">
           <a href="#">Bonjour Monde</a>
           <ul class="submenu menu vertical" data-submenu>
             <li><a href="#">un</a></li>
@@ -24,20 +32,12 @@
             <li><a href="#">trois</a></li>
           </ul>
         </li>
-        <li>
+        <li class="has-submenu">
           <a href="#">Hallo Welt</a>
           <ul class="submenu menu vertical" data-submenu>
             <li><a href="#">eins</a></li>
             <li><a href="#">zwei</a></li>
             <li><a href="#">drei</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">Hola Mundo</a>
-          <ul class="submenu menu vertical" data-submenu>
-            <li><a href="#">uno</a></li>
-            <li><a href="#">dos</a></li>
-            <li><a href="#">tres</a></li>
           </ul>
         </li>
       </ul>
@@ -51,11 +51,144 @@
 {% endblock %}
 
 {% block body %}
-<div class="grid-container">
+  <div class="grid-container">
+    <div class="grid-y medium-grid-frame">
+      <div class="cell shrink header medium-cell-block-container">
+        <h1>{{ message }}</h1>
+        <div class="grid-x grid-padding-x">
+          <div class="medium-8 large-8">
+            <h5>
+              {% if example_list|length > 1 %}
+                {% for item in example_list %} {{ item }} {% endfor %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list %} {{ item }} {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+            </h5>
+          </div>
+          <div class="cell auto medium-cell-block">
+            <h5 style="width:80vw;">
+              {% if example_list|length > 1 %}
+                {% for item in example_list %} {{ item }} {% endfor %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list %} {{ item }} {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+              <!-- {{ task.foo }} -->
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="cell medium-auto medium-cell-block-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-8 large-8 medium-cell-block-y">
+            <h3>Hola Mundo</h3>
+            <p>
+              Garita el asusta si ademas ir rincon. Loza una caso del paga pie asi.
+              Venir la panza ha notar da atado gacha te teson. Cuore son habil rapaz
+              del oro tabla tener mas detto. Aparejada izquierdo elegantes ahi etc.
+              Criadas parecer van don mejores pasable del. Habas ahi feo trapo negra
+              heroe nasal. Corria en cuerda ch me rumiar volvia mundos la. Se ti
+              logrono la lateral rapidos tu cabrero sarebbe muertas. Oro renovacion
+              terciopelo deliciosos sus cualquiera voz secretario constituia.
+            </p>
+            <p>
+              Hacendosas el entranable levantaban victorioso la. Inmaculada por
+              envidiaron aprovechar eso mil recordando van prescindir. Amado donde que
+              venta sol todos. Van ajenas exacta triste nos con horreo. Cada al cuyo
+              ti loca en lema nina sexo da. Ch va actitudes ha proyectos enfermera
+              pensarian el exagerada pecadoras.
+            </p>
+            <p>
+              Dedos si cifra casar ve torpe en. Hombro cumple mal del don mis exigia.
+              Vio ser adorador positivo cantando delicada. Encogia hembras tomaban sr
+              ya al cuentas te bilioso elevado. Pidio chi fue tibio inter. Agua os
+              esta ti so se pide. Espiritual levantaban os la exquisitas. Asi
+              brigadier eso declaraba anduviera enfermero retentiva.
+            </p>
+          </div>
+          <div class="cell auto medium-cell-block-y">
+            <h3>Bonjour Monde</h3>
+            <p>
+              Couleurs interdit continue ont peu. Certitude oh entremise je ameliorer
+              gachettes. Rage pont par vous etat mur nees. Ils bonne domes ete seuls
+              que repit aux. Les feeriques esplanade six incapable air sol. Le bonte
+              la du ou parmi sales.
+            </p>
+            <h3>Hallo Welt</h3>
+            <p>
+              Habs bi dies en satz. Oha was gefallt woruber erzahlt das stellte
+              steigst tat glatten. Ige der kraftiger schneider plaudernd vom
+              schonsten. Es du kenne vater stuck. Namlich abwarts gut mundart gab tur
+              nur. Viele du immer szene leise kaute so.
+            </p>
+        </div>
+      </div>
+    </div>
+    <div class="cell shrink footer">
+      <h3>Adios, Au Revoir, Auf Wiedersehen</h3>
+    </div>
+  </div>
+<!-- <div class="grid-container">
   <div class="grid-x grid-padding-x">
-    <div class="large-12">
-      <h2>{{ message }}</h2>
+    <div class="cell align-center">
+      <h1>{{ message }}</h1>
+      <h5>
+        {% if example_list|length > 1 %}
+          {% for item in example_list %} {{ item }} {% endfor %}
+          <em>{{ class_num }} {{ message }}</em>
+          {% for item in example_list %} {{ item }} {% endfor %}
+        {% else %}
+          None
+        {% endif %}
+        {{ task.foo }}
+      </h5>
+    </div>
+    <div class="cell medium-8 large-8">
+      <h3>Hola Mundo</h3>
+      <p>
+        Garita el asusta si ademas ir rincon. Loza una caso del paga pie asi.
+        Venir la panza ha notar da atado gacha te teson. Cuore son habil rapaz
+        del oro tabla tener mas detto. Aparejada izquierdo elegantes ahi etc.
+        Criadas parecer van don mejores pasable del. Habas ahi feo trapo negra
+        heroe nasal. Corria en cuerda ch me rumiar volvia mundos la. Se ti
+        logrono la lateral rapidos tu cabrero sarebbe muertas. Oro renovacion
+        terciopelo deliciosos sus cualquiera voz secretario constituia.
+      </p>
+      <p>
+        Hacendosas el entranable levantaban victorioso la. Inmaculada por
+        envidiaron aprovechar eso mil recordando van prescindir. Amado donde que
+        venta sol todos. Van ajenas exacta triste nos con horreo. Cada al cuyo
+        ti loca en lema nina sexo da. Ch va actitudes ha proyectos enfermera
+        pensarian el exagerada pecadoras.
+      </p>
+      <p>
+        Dedos si cifra casar ve torpe en. Hombro cumple mal del don mis exigia.
+        Vio ser adorador positivo cantando delicada. Encogia hembras tomaban sr
+        ya al cuentas te bilioso elevado. Pidio chi fue tibio inter. Agua os
+        esta ti so se pide. Espiritual levantaban os la exquisitas. Asi
+        brigadier eso declaraba anduviera enfermero retentiva.
+      </p>
+    </div>
+    <div class="cell auto">
+      <h3>Bonjour Monde</h3>
+      <p>
+        Couleurs interdit continue ont peu. Certitude oh entremise je ameliorer
+        gachettes. Rage pont par vous etat mur nees. Ils bonne domes ete seuls
+        que repit aux. Les feeriques esplanade six incapable air sol. Le bonte
+        la du ou parmi sales.
+      </p>
+      <h3>Hallo Welt</h3>
+      <p>
+        Habs bi dies en satz. Oha was gefallt woruber erzahlt das stellte
+        steigst tat glatten. Ige der kraftiger schneider plaudernd vom
+        schonsten. Es du kenne vater stuck. Namlich abwarts gut mundart gab tur
+        nur. Viele du immer szene leise kaute so.
+      </p>
     </div>
   </div>
 </div>
+-->
 {% endblock %}
