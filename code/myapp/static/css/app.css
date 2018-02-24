@@ -1,18 +1,18 @@
+/* Author: Shelley Wong */
 @import "foundation.css";
 
 a:active,
 a:hover {
-  /*background: #F5F5F5;*/
   color: #00008B;
   outline-width: 0;
 }
 
-.top-bar {
-  font-family: "Optima", sans-serif;
-  background: #808080;
-  border-radius: 5px;
+body {
+  background: #DCDCDC;
+  overflow-x: hidden;
 }
 
+/* font style */
 .sans-serif-text {
   font-family: "Optima", sans-serif;
 }
@@ -21,19 +21,16 @@ a:hover {
   font-family: "Garamond", serif;
 }
 
-body {
-  background: #DCDCDC;
-  overflow-x: hidden;
+/* navigation bar style */
+.top-bar {
+  font-family: "Optima", sans-serif;
+  background: #808080;
+  border-radius: 5px;
 }
 
+/* main body style */
 #main-body {
-  padding: 40px 20px;
-}
-
-.main-text {
-  font-size: 17px;
-  padding: 20px 20px;
-  background: #F5F5F5;
+  padding: 80px 30px;
 }
 
 .div-text {
@@ -41,18 +38,24 @@ body {
   background: #F5F5F5;
 }
 
-/*footer {
-  padding: 20px 0px;
-}*/
+.main-text {
+  font-size: 17px;
+  padding: 20px 30px;
+  background: #F5F5F5;
+}
 
-.foot-text {
+/* footer style */
+#foot-body {
   border-style: solid;
   border-width: 10px;
-  border-bottom: 20px solid #808080;
+  border-bottom: 40px solid #808080;
   border-radius: 5px;
-  /*color: #808080;*/
   border-color: #808080;
-  word-spacing: 10px;
   padding: 20px 0px;
   background: #DCDCDC;
+}
+
+.foot-text {
+  font-size: 15px;
+  padding: 20px 80px;
 }
