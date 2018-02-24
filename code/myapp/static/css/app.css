@@ -2,10 +2,57 @@
 
 a:active,
 a:hover {
-  background: #F0F8FF;
+  /*background: #F5F5F5;*/
+  color: #00008B;
   outline-width: 0;
 }
 
-body{
-  background: #FFFAF0;
+.top-bar {
+  font-family: "Optima", sans-serif;
+  background: #808080;
+  border-radius: 5px;
+}
+
+.sans-serif-text {
+  font-family: "Optima", sans-serif;
+}
+
+.serif-text {
+  font-family: "Garamond", serif;
+}
+
+body {
+  background: #DCDCDC;
+  overflow-x: hidden;
+}
+
+#main-body {
+  padding: 40px 20px;
+}
+
+.main-text {
+  font-size: 17px;
+  padding: 20px 20px;
+  background: #F5F5F5;
+}
+
+.div-text {
+  padding: 0px 5px;
+  background: #F5F5F5;
+}
+
+/*footer {
+  padding: 20px 0px;
+}*/
+
+.foot-text {
+  border-style: solid;
+  border-width: 10px;
+  border-bottom: 20px solid #808080;
+  border-radius: 5px;
+  /*color: #808080;*/
+  border-color: #808080;
+  word-spacing: 10px;
+  padding: 20px 0px;
+  background: #DCDCDC;
 }

@@ -12,7 +12,7 @@
     <button class="menu-icon" type="button" data-toggle="main-menu"></button>
     <div class="title-bar-title">{{ class_num }}</div>
   </div>
-  <div class="top-bar" id="main-menu">
+  <div class="top-bar">
     <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
         <li class="menu-text">{{ class_num }}</li>
@@ -45,21 +45,22 @@
     <div class="top-bar-right">
       <ul class="menu">
         <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li>
+        <li><button type="button [radius]" class="button">Search</button></li>
     </div>
   </div>
 {% endblock %}
 
 {% block body %}
-  <div class="grid-container">
+<!-- used template from:
+  https://foundation.zurb.com/sites/docs/xy-grid.html -->
+  <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1>{{ message }}</h1>
+        <h1 class="text-center sans-serif-text">{{ message }}</h1>
         <div class="grid-x grid-padding-x">
-          <div class="medium-8 large-8">
-            <h5>
+          <div class="cell medium-4">
+            <h5 class="text-right sans-serif-text">
               {% if example_list|length > 1 %}
-                {% for item in example_list %} {{ item }} {% endfor %}
                 <em>{{ class_num }} {{ message }}</em>
                 {% for item in example_list %} {{ item }} {% endfor %}
               {% else %}
@@ -67,25 +68,38 @@
               {% endif %}
             </h5>
           </div>
-          <div class="cell auto medium-cell-block">
-            <h5 style="width:80vw;">
+          <div class="cell medium-4 medium-cell-block">
+            <h5 class="div-text sans-serif-text" style="width: 80vw;">
               {% if example_list|length > 1 %}
+                <em>{{ class_num }} {{ message }}</em>
                 {% for item in example_list %} {{ item }} {% endfor %}
                 <em>{{ class_num }} {{ message }}</em>
                 {% for item in example_list %} {{ item }} {% endfor %}
+                <em>{{ class_num }} {{ message }}</em>
               {% else %}
                 None
               {% endif %}
               <!-- {{ task.foo }} -->
             </h5>
           </div>
+          <div class="cell medium-4">
+            <h5 class="text-left sans-serif-text">
+              {% if example_list|length > 1 %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list %} {{ item }} {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+            </h5>
+          </div>
         </div>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
-          <div class="cell medium-8 large-8 medium-cell-block-y">
-            <h3>Hola Mundo</h3>
-            <p>
+          <div class="cell medium-8 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <h3 class="serif-text">Hola Mundo</h3>
+              <p class="text-justify">
               Garita el asusta si ademas ir rincon. Loza una caso del paga pie asi.
               Venir la panza ha notar da atado gacha te teson. Cuore son habil rapaz
               del oro tabla tener mas detto. Aparejada izquierdo elegantes ahi etc.
@@ -93,43 +107,51 @@
               heroe nasal. Corria en cuerda ch me rumiar volvia mundos la. Se ti
               logrono la lateral rapidos tu cabrero sarebbe muertas. Oro renovacion
               terciopelo deliciosos sus cualquiera voz secretario constituia.
-            </p>
-            <p>
+              </p>
+              <p class="text-justify">
               Hacendosas el entranable levantaban victorioso la. Inmaculada por
               envidiaron aprovechar eso mil recordando van prescindir. Amado donde que
               venta sol todos. Van ajenas exacta triste nos con horreo. Cada al cuyo
               ti loca en lema nina sexo da. Ch va actitudes ha proyectos enfermera
               pensarian el exagerada pecadoras.
-            </p>
-            <p>
+              </p>
+              <p class="text-justify">
               Dedos si cifra casar ve torpe en. Hombro cumple mal del don mis exigia.
               Vio ser adorador positivo cantando delicada. Encogia hembras tomaban sr
               ya al cuentas te bilioso elevado. Pidio chi fue tibio inter. Agua os
               esta ti so se pide. Espiritual levantaban os la exquisitas. Asi
               brigadier eso declaraba anduviera enfermero retentiva.
-            </p>
+              </p>
+            </div>
           </div>
           <div class="cell auto medium-cell-block-y">
-            <h3>Bonjour Monde</h3>
-            <p>
+            <div class="main-text serif-text">
+              <h3 class="serif-text">Bonjour Monde</h3>
+              <p class="text-justify">
               Couleurs interdit continue ont peu. Certitude oh entremise je ameliorer
               gachettes. Rage pont par vous etat mur nees. Ils bonne domes ete seuls
               que repit aux. Les feeriques esplanade six incapable air sol. Le bonte
               la du ou parmi sales.
-            </p>
-            <h3>Hallo Welt</h3>
-            <p>
+              </p>
+              <h3 class="serif-text">Hallo Welt</h3>
+              <p class="text-justify">
               Habs bi dies en satz. Oha was gefallt woruber erzahlt das stellte
               steigst tat glatten. Ige der kraftiger schneider plaudernd vom
               schonsten. Es du kenne vater stuck. Namlich abwarts gut mundart gab tur
               nur. Viele du immer szene leise kaute so.
-            </p>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="cell shrink footer">
-      <h3>Adios, Au Revoir, Auf Wiedersehen</h3>
-    </div>
+  </div>
+  <div>
+    <footer class="cell shrink footer">
+      <div class="foot-text">
+        <h3 class="text-center sans-serif-text">Adios, Au Revoir, Auf Wiedersehen</h3>
+      </div>
+    </footer>
   </div>
 <!-- <div class="grid-container">
   <div class="grid-x grid-padding-x">
