@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import Suggestion_Model
+from .forms import Suggestion_Form
+
 # Create your views here.
 def index(request):
     #return HttpResponse("Hello World")
@@ -17,3 +20,23 @@ def index(request):
         'example_list2':example_list2
     }
     return render(request, 'index.html', context)
+
+def suggestion_view(request):
+    message = 'Hello World'
+    if request.method == 'POST':
+        form = Suggestion_Form(request.POST)
+        if form.is_valid():
+            suggest = Suggestion_Model(
+                suggestion=form.cleaned_data['suggestion']
+            )
+            suggest.save()
+            form = Suggestion_Form()
+    else:
+        form = Suggestion_Form()
+    suggestion_list = Suggestion_Model.objects.all()
+    context = {
+        'message':message,
+        'suggestion_list':suggestion_list,
+        'form':form
+    }
+    return render(request, 'suggestion.html', context)

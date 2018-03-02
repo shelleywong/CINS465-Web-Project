@@ -58,46 +58,28 @@
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
         <h1 class="text-center sans-serif-text">{{ message }}</h1>
-        <div class="grid-x grid-padding-x">
-          <div class="cell medium-4">
-            <h5 class="text-right sans-serif-text">
-              {% if example_list|length > 1 %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list %} {{ item }} {% endfor %}
-              {% else %}
-                None
-              {% endif %}
-            </h5>
-          </div>
-          <div class="cell medium-4 medium-cell-block">
-            <h5 class="div-text sans-serif-text" style="width: 80vw;">
-              {% if example_list2|length > 1 %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list2 %} {{ item }} {% endfor %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list2 %} {{ item }} {% endfor %}
-                <em>{{ class_num }} {{ message }}</em>
-              {% else %}
-                None
-              {% endif %}
-              {{ task.foo }}
-            </h5>
-          </div>
-          <div class="cell medium-4">
-            <h5 class="text-left sans-serif-text">
-              {% if example_list|length > 1 %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list %} {{ item }} {% endfor %}
-              {% else %}
-                None
-              {% endif %}
-            </h5>
-          </div>
-        </div>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <h3 class="serif-text">Suggestions:</h3>
+              <hr>
+              <form action="/suggestion/" method="post">
+                {% csrf_token %}
+                {{ form.suggestion.errors }}
+                {{ form.suggestion.label_tag }}
+                {{ form.suggestion }}
+                <input type="submit" class="button" value="Submit" />
+              </form>
+              <ul class="text-justify">
+                {% for item in suggestion_list %}
+                  <li>{{ item.id }} : {{ item.suggestion }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <h3 class="serif-text">Hola Mundo</h3>
               <hr>
@@ -111,25 +93,6 @@
               cabrero sarebbe muertas. Oro renovacion terciopelo deliciosos sus
               cualquiera voz secretario constituia.
               </p>
-              <p class="text-justify">
-              Hacendosas el entranable levantaban victorioso la. Inmaculada por
-              envidiaron aprovechar eso mil recordando van prescindir. Amado
-              donde que venta sol todos. Van ajenas exacta triste nos con
-              horreo. Cada al cuyo ti loca en lema nina sexo da. Ch va actitudes
-              ha proyectos enfermera pensarian el exagerada pecadoras.
-              </p>
-              <p class="text-justify">
-              Dedos si cifra casar ve torpe en. Hombro cumple mal del don mis
-              exigia. Vio ser adorador positivo cantando delicada. Encogia
-              hembras tomaban sr ya al cuentas te bilioso elevado. Pidio chi fue
-              tibio inter. Agua os esta ti so se pide. Espiritual levantaban os
-              la exquisitas. Asi brigadier eso declaraba anduviera enfermero
-              retentiva.
-              </p>
-            </div>
-          </div>
-          <div class="cell medium-4 medium-cell-block-y main-text">
-            <div class="main-text serif-text">
               <h3 class="serif-text">Bonjour Monde</h3>
               <hr>
               <p class="text-justify">
