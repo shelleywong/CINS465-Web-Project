@@ -8,9 +8,20 @@ a:hover {
 }
 
 body {
-  background: #DCDCDC;
+  /*background: #DCDCDC;
+  background: linear-gradient(to bottom right, #B0C4DE, #F0F8FF);*/
+  background: linear-gradient(to right, #DCDCDC, #B0C4DE);
   overflow-x: hidden;
 }
+
+.button1 {
+  background-color: #00008B;
+  border-radius: 25px;
+}
+
+/*.grad {
+  background: linear-gradient(to bottom right, red, yellow);
+}*/
 
 /* font style */
 .sans-serif-text {
@@ -24,8 +35,18 @@ body {
 /* navigation bar style */
 .top-bar {
   font-family: "Optima", sans-serif;
-  background: #808080;
+  /*background: #778899;*/
+  background: #708090;
   border-radius: 5px;
+}
+
+.buttonL {
+  color: #00008B;
+  background: #B0C4DE;
+}
+
+.buttonR {
+  background: #00008B;
 }
 
 /* main body style */
@@ -48,9 +69,9 @@ body {
 #foot-body {
   border-style: solid;
   border-width: 10px;
-  border-bottom: 40px solid #808080;
+  border-bottom: 40px solid #708090;
   border-radius: 5px;
-  border-color: #808080;
+  border-color: #708090;
   padding: 20px 0px;
   background: #DCDCDC;
 }

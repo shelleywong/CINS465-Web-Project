@@ -10,3 +10,4 @@ def verifySuggestion(value):
 class Suggestion_Form(forms.Form):
     suggestion = forms.CharField(validators=[verifySuggestion,validate_slug],
         label='Suggestion', max_length=240)
+    author = forms.CharField(label='Author',max_length=240)

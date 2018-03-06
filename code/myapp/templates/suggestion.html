@@ -11,12 +11,13 @@
   <div class="title-bar" data-responsive-toggle="main-menu"
     data-hide-for="medium">
     <button class="menu-icon" type="button" data-toggle="main-menu"></button>
-    <div class="title-bar-title">{{ class_num }}</div>
+    <div class="title-bar-title"><a href='/'>{{ class_num }}</a></div>
   </div>
-  <div class="top-bar">
+  <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
-        <li class="menu-text">{{ class_num }}</li>
+        <!--<li class="menu-text">-->
+        <a class="sans-serif-text" href='/'>{{ class_num }}</a>
         <li class="has-submenu">
           <a href="#">Hola Mundo</a>
           <ul class="submenu menu vertical" data-submenu>
@@ -47,6 +48,7 @@
       <ul class="menu">
         <li><input type="search" placeholder="Search"></li>
         <li><button type="button" class="button">Search</button></li>
+      </ul>
     </div>
   </div>
 {% endblock %}
@@ -58,25 +60,66 @@
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
         <h1 class="text-center sans-serif-text">{{ message }}</h1>
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-4">
+            <h5 class="text-right sans-serif-text">
+              {% if example_list|length > 1 %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list %} {{ item }} {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+            </h5>
+          </div>
+          <div class="cell medium-4 medium-cell-block">
+            <h5 class="div-text sans-serif-text" style="width: 80vw;">
+              {% if example_list2|length > 1 %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list2 %} {{ item }} {% endfor %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list2 %} {{ item }} {% endfor %}
+                <em>{{ class_num }} {{ message }}</em>
+              {% else %}
+                None
+              {% endif %}
+            </h5>
+          </div>
+          <div class="cell medium-4">
+            <h5 class="text-left sans-serif-text">
+              {% if example_list|length > 1 %}
+                <em>{{ class_num }} {{ message }}</em>
+                {% for item in example_list %} {{ item }} {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+            </h5>
+          </div>
+        </div>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <h3 class="serif-text">Suggestions:</h3>
+              <h3 class="serif-text">{{ message }}</h3>
               <hr>
               <form action="/suggestion/" method="post">
                 {% csrf_token %}
+                {{ form.author.errors }}
+                {{ form.author.label_tag }}
+                {{ form.author }}
+                <input type="submit" class="button" value="Author" />
+
                 {{ form.suggestion.errors }}
                 {{ form.suggestion.label_tag }}
                 {{ form.suggestion }}
-                <input type="submit" class="button" value="Submit" />
+                <input type="submit" class="button" value="Submit Suggestion"/>
               </form>
               <ul class="text-justify">
                 {% for item in suggestion_list %}
-                  <li>{{ item.id }} : {{ item.suggestion }}</li>
+                  <li>{{ item.id }} : {{ item.suggestion }}, {{ item.author }}</li>
                 {% endfor %}
               </ul>
+              <hr>
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">

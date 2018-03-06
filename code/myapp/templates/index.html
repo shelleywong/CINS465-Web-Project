@@ -13,10 +13,10 @@
     <button class="menu-icon" type="button" data-toggle="main-menu"></button>
     <div class="title-bar-title">{{ class_num }}</div>
   </div>
-  <div class="top-bar">
+  <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
-        <li class="menu-text">{{ class_num }}</li>
+        <a class="menu-text" href="#">{{ class_num }}</a>
         <li class="has-submenu">
           <a href="#">Hola Mundo</a>
           <ul class="submenu menu vertical" data-submenu>
@@ -45,8 +45,11 @@
     </div>
     <div class="top-bar-right">
       <ul class="menu">
-        <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li>
+        <a href="login/" class="button buttonL">Login</button></a>
+        <a href="login/" class="button buttonR">Register</button></a>
+      <!--  <li><input type="search" placeholder="Search"></li>
+        <li><button type="button" class="button">Search</button></li> -->
+      </ul>
     </div>
   </div>
 {% endblock %}
@@ -80,7 +83,6 @@
               {% else %}
                 None
               {% endif %}
-              {{ task.foo }}
             </h5>
           </div>
           <div class="cell medium-4">
@@ -99,6 +101,13 @@
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
+              <h1 class="serif-text text-center">Make a Suggestion:
+                <a href="suggestion/" class="button large button1">Suggestions</a>
+              </h1>
+            </div>
+          </div>
+          <div class="cell medium-4 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
               <h3 class="serif-text">Hola Mundo</h3>
               <hr>
               <p class="text-justify">
@@ -111,25 +120,6 @@
               cabrero sarebbe muertas. Oro renovacion terciopelo deliciosos sus
               cualquiera voz secretario constituia.
               </p>
-              <p class="text-justify">
-              Hacendosas el entranable levantaban victorioso la. Inmaculada por
-              envidiaron aprovechar eso mil recordando van prescindir. Amado
-              donde que venta sol todos. Van ajenas exacta triste nos con
-              horreo. Cada al cuyo ti loca en lema nina sexo da. Ch va actitudes
-              ha proyectos enfermera pensarian el exagerada pecadoras.
-              </p>
-              <p class="text-justify">
-              Dedos si cifra casar ve torpe en. Hombro cumple mal del don mis
-              exigia. Vio ser adorador positivo cantando delicada. Encogia
-              hembras tomaban sr ya al cuentas te bilioso elevado. Pidio chi fue
-              tibio inter. Agua os esta ti so se pide. Espiritual levantaban os
-              la exquisitas. Asi brigadier eso declaraba anduviera enfermero
-              retentiva.
-              </p>
-            </div>
-          </div>
-          <div class="cell medium-4 medium-cell-block-y main-text">
-            <div class="main-text serif-text">
               <h3 class="serif-text">Bonjour Monde</h3>
               <hr>
               <p class="text-justify">
@@ -162,14 +152,14 @@
       <div id="foot-body">
         <div class="grid-x grid-padding-x foot-text">
           <div class="cell medium-4">
-            <h4 class="text-left sans-serif-text">Adios</h4>
+            <h4 class="text-left sans-serif-text">Contact Info</h4>
             <hr>
             <p class="serif-text">Phone: <a href="#">555-123-4567</a><br>
               Email: <a href="#">CSstudent@mail.csuchico.edu</a><br>
               Address: <a href="#">400 W 1st St, Chico, CA 95929</a></p>
           </div>
           <div class="cell auto">
-            <h4 class="text-left sans-serif-text">Au Revoir</h4>
+            <h4 class="text-left sans-serif-text">Site Map</h4>
             <hr>
             <p class="serif-text"><a href="#">{{ message }}</a><br>
               <a href="#">Hola Mundo</a><br>
@@ -177,7 +167,7 @@
               <a href="#">Hallo Welt</a></p>
           </div>
           <div class="cell auto">
-            <h4 class="text-left sans-serif-text">Auf Wiedersehen</h4>
+            <h4 class="text-left sans-serif-text">Social Media</h4>
             <hr>
             <p class="serif-text"><a href="#">{{ class_num }}</a><br>
               <a href="#">About Us</a><br>
