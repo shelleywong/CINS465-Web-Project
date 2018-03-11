@@ -15,12 +15,14 @@ class Suggestion_Model(models.Model):
 #     lastName = models.CharField(max_length=50)
 #     birthDate = models.DateField()
 
+#Practice model
+#reference: https://www.youtube.com/watch?v=45J88cjmoQI (user: Katie Cunningham)
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    blurb = models.TextField(blank=True)
+    num_pages = models.IntegerField(blank=True)
+    price = models.DecimalField(max_digits=10,decimal_places=2,blank=True)
+    available = models.BooleanField(default=True)
 
-#class Book(models.Model):
-    # title = models.CharField(max_length=255)
-    # blurb = models.TextField(blank=True)
-    # num_pages = models.IntegerField(blank=True)
-    # available = models.BooleanField(default=True)
-    #
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.title

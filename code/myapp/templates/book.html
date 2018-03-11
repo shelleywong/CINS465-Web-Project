@@ -11,7 +11,7 @@
   <div class="title-bar" data-responsive-toggle="main-menu"
     data-hide-for="medium">
     <button class="menu-icon" type="button" data-toggle="main-menu"></button>
-    <a class="title-bar-title" href="#"><b>home</b>room</a>
+    <a class="title-bar-title" href="/"><b>home</b>room</a>
   </div>
   <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
@@ -48,8 +48,8 @@
     </div>
     <div class="top-bar-right">
       <ul class="menu">
-        <a href="login/" class="button buttonL">Login</a>
-        <a href="login/" class="button buttonR">Register</a>
+        <li><input type="search" placeholder="Search"></li>
+        <li><button type="button" class="button">Search</button></li>
       </ul>
     </div>
   </div>
@@ -102,12 +102,38 @@
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <h1 class="serif-text text-center">Make a Suggestion:
-                <a href="suggestion/" class="button large button1">Suggestions</a>
-              </h1>
-              <h1 class="serif-text text-center">Practice Form:
-                <a href="book/" class="button large button1">Enter a Book</a>
-              </h1>
+              <h3 class="serif-text">{{ message }}</h3>
+              <hr>
+              <form action="/book/" method="post">
+                {% csrf_token %}
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}
+                {{ form.title }}
+
+                {{ form.blurb.errors }}
+                {{ form.blurb.label_tag }}
+                {{ form.blurb }}
+
+                {{ form.num_pages.errors }}
+                {{ form.num_pages.label_tag }}
+                {{ form.num_pages }}
+
+                {{ form.price.errors }}
+                {{ form.price.label_tag }}
+                {{ form.price }}
+
+                {{ form.available.errors }}
+                {{ form.available.label_tag }}
+                {{ form.available }}
+                <br>
+                <input type="submit" class="button button1" value="Submit Book"/>
+              </form>
+              <ul class="text-justify">
+                {% for item in suggestion_list %}
+                  <li>{{ item.id }} : {{ item.suggestion }}, {{ item.author }}</li>
+                {% endfor %}
+              </ul>
+              <hr>
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">
@@ -168,7 +194,8 @@
             <p class="serif-text"><a href="#">About Us</a><br>
               <a href="#">Forum</a><br>
               <a href="#">Meet Your Class</a><br>
-              <a href="#">Your Profile</a></p>
+              <a href="#">Your Profile</a>
+            </p>
           </div>
           <div class="cell auto text-right">
             <h1><a class="logo" href="/"><b>home</b>room</a></h1>
