@@ -11,14 +11,14 @@
   <div class="title-bar" data-responsive-toggle="main-menu"
     data-hide-for="medium">
     <button class="menu-icon" type="button" data-toggle="main-menu"></button>
-    <div class="title-bar-title"><a href="/">{{ class_num }}</a></div>
+    <a class="title-bar-title" href="/"><b>home</b>room</a>
   </div>
   <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
-        <a class="sans-serif-text" href='/'>{{ class_num }}</a>
+        <a class="logo" href="/"><b>home</b>room</a>
         <li class="has-submenu">
-          <a href="#">Hola Mundo</a>
+          <a href="#">About</a>
           <ul class="submenu menu vertical" data-submenu>
             <li><a href="#">uno</a></li>
             <li><a href="#">dos</a></li>
@@ -26,7 +26,7 @@
           </ul>
         </li>
         <li class="has-submenu">
-          <a href="#">Bonjour Monde</a>
+          <a href="#">Forum</a>
           <ul class="submenu menu vertical" data-submenu>
             <li><a href="#">un</a></li>
             <li><a href="#">deux</a></li>
@@ -34,12 +34,15 @@
           </ul>
         </li>
         <li class="has-submenu">
-          <a href="#">Hallo Welt</a>
+          <a href="#">Meet</a>
           <ul class="submenu menu vertical" data-submenu>
             <li><a href="#">eins</a></li>
             <li><a href="#">zwei</a></li>
             <li><a href="#">drei</a></li>
           </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="#">Your Profile</a>
         </li>
       </ul>
     </div>
@@ -47,8 +50,6 @@
       <ul class="menu">
         <a href="#" class="button buttonL">Login</button></a>
         <a href="#" class="button buttonR">Register</button></a>
-      <!--  <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li> -->
       </ul>
     </div>
   </div>
@@ -60,7 +61,7 @@
   <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text">Sign in</h1>
+        <h1 class="text-center sans-serif-text">Login</h1>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
@@ -74,7 +75,7 @@
                 <button type="button" class="button expanded buttonL">Sign in</button>
                 <hr>
                 <div class="text-center"> New here?
-                  <a href="suggestion/" class="button expanded button1">Register</button></a>
+                  <a href="suggestion/" class="button expanded button1">Register</a>
                 </div>
               </div>
             </div>
@@ -94,26 +95,22 @@
       <div id="foot-body">
         <div class="grid-x grid-padding-x foot-text">
           <div class="cell medium-4">
-            <h4 class="text-left sans-serif-text">Adios</h4>
+            <h4 class="text-left sans-serif-text">Contact Info</h4>
             <hr>
             <p class="serif-text">Phone: <a href="#">555-123-4567</a><br>
               Email: <a href="#">CSstudent@mail.csuchico.edu</a><br>
               Address: <a href="#">400 W 1st St, Chico, CA 95929</a></p>
           </div>
           <div class="cell auto">
-            <h4 class="text-left sans-serif-text">Au Revoir</h4>
+            <h4 class="text-left sans-serif-text">Site Map</h4>
             <hr>
-            <p class="serif-text"><a href="#">{{ message }}</a><br>
-              <a href="#">Hola Mundo</a><br>
-              <a href="#">Bonjour Monde</a><br>
-              <a href="#">Hallo Welt</a></p>
+            <p class="serif-text"><a href="#">About Us</a><br>
+              <a href="#">Forum</a><br>
+              <a href="#">Meet Your Class</a><br>
+              <a href="#">Your Profile</a></p>
           </div>
-          <div class="cell auto">
-            <h4 class="text-left sans-serif-text">Auf Wiedersehen</h4>
-            <hr>
-            <p class="serif-text"><a href="#">{{ class_num }}</a><br>
-              <a href="#">About Us</a><br>
-              <a href="#">Contact Us</a></p>
+          <div class="cell auto text-right">
+            <h1><a class="logo" href="/"><b>home</b>room</a></h1>
           </div>
         </div>
       </div>

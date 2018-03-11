@@ -40,6 +40,11 @@ body {
   border-radius: 5px;
 }
 
+.logo {
+  font-family: "AmericanTypewriter";
+  color: #00008B;
+}
+
 .buttonL {
   color: #00008B;
   background: #B0C4DE;
