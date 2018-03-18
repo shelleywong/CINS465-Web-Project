@@ -1,10 +1,10 @@
+from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from datetime import datetime
 
-from .models import Suggestion_Model
-from .models import Book
-from .forms import Suggestion_Form
-from .forms import Book_Form
+from .models import *
+from .forms import *
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,8 +12,11 @@ import json
 import sys
 
 # Create your views here.
+# date format adapted from:
+# https://ourcodeworld.com/articles/read/555/how-to-format-datetime-objects-in-the-view-and-template-in-django
 def index(request):
     #return HttpResponse("Hello World")
+    myDate = datetime.now()
     class_num = 'CINS 465'
     message = 'Hello World'
     example_list = ['one','two','three']
@@ -24,7 +27,8 @@ def index(request):
         'class_num':class_num,
         'message':message,
         'example_list':example_list,
-        'example_list2':example_list2
+        'example_list2':example_list2,
+        'date':myDate
     }
     return render(request, 'index.html', context)
 
@@ -75,8 +79,9 @@ def suggestion_api(request):
         json_data = json.loads(request.body)
         try:
             suggest = Suggestion_Model(suggestion=json_data['suggestion'])
-            author = Suggestion_Model(author=json_data['suggestion'])
+            auth = Suggestion_Model(author=json_data['author'])
             suggest.save()
+            auth.save()
             return HttpResponse("hello")
         except:
             return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
@@ -103,10 +108,20 @@ def suggestion_api(request):
         suggestion_dictionary = {}
         suggestion_dictionary["suggestions"] = []
         for suggest in suggestion_list:
+            comment_list = Comment_Model.objects.filter(suggestion=suggest)
+            comment_json = []
+            for comm in comment_list:
+                comment_json += [{
+                    "comment":comm.comment,
+                    "id":comm.id,
+                    "created_on":comm.created_on
+                }]
             suggestion_dictionary["suggestions"] += [{
                 "id":suggest.id,
+                "comments":comment_json,
                 "suggestion":suggest.suggestion,
                 "author":suggest.author,
+                "created_on":suggest.created_on
             }]
         print(suggestion_dictionary)
         return JsonResponse(suggestion_dictionary)

@@ -107,9 +107,11 @@
               <h3 class="serif-text">{{ message }}</h3>
               <div id="app1">
                 {% verbatim %}
-                {{ msg }}
+                <button class="button large button1" v-on:click="greet">Greetings!</button>
+                <!--  <h3 class="serif-text">{{ msg }}</h3> -->
                 {% endverbatim %}
               </div>
+              <h3 class="serif-text">Please give us your suggestions here:</h3>
               <hr>
               <form action="/suggestion/" method="post">
                 {% csrf_token %}
@@ -132,6 +134,12 @@
                   <li v-for = "item in suggestions">
                     {% verbatim %}
                     {{ item.id }}: {{ item.author }}, {{ item.suggestion }}
+                    - Created on: {{ item.created_on }}
+                    <ul>
+                      <li v-for="comm in item.comments">
+                        {{ comm.comment }} - {{ comm.created_on }}
+                      </li>
+                    </ul>
                     {% endverbatim %}
                   </li>
                 </ul>
@@ -140,7 +148,11 @@
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <h3 class="serif-text">Hola Mundo</h3>
+              <div id="app2">
+                <span v-bind:title="hovermessage">
+                  <h3 class="serif-text">Hola Mundo!</h3>
+                </span>
+              </div>
               <hr>
               <p class="text-justify">
               Garita el asusta si ademas ir rincon. Loza una caso del paga pie

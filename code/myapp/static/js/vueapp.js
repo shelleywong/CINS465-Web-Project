@@ -1,7 +1,22 @@
+//adapted from: https://v1.vuejs.org/guide/events.html
 var app1 = new Vue({
   el: '#app1',
   data: {
-    msg: 'Hello Vue!'
+    msg: 'good to see you today!',
+    name: 'World'
+  },
+
+  methods: {
+    greet: function (event) {
+      alert('Welcome ' + this.name + ', ' + this.msg)
+    }
+  }
+})
+
+var app2 = new Vue({
+  el: '#app2',
+  data: {
+    hovermessage: 'You loaded this page on ' + new Date().toLocaleString()
   }
 })
 
@@ -23,7 +38,7 @@ var app_sugg = new Vue({
     fetchSuggestionList: function() {
       $.get('/suggestions/',function(suggest_list) {
         this.suggestions = suggest_list.suggestions;
-        console.log(suggest_list);
+        //console.log(suggest_list);
       }.bind(this));
     },
     cancelAutoUpdate: function() { clearInterval(this.timer)}

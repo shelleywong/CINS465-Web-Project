@@ -108,6 +108,14 @@
               <h1 class="serif-text text-center">Practice Form:
                 <a href="book/" class="button large button1">Enter a Book</a>
               </h1>
+            <!--  {% load tz %} {% get_current_timezone as TIME_ZONE %} -->
+              <h4 class="serif-text text-center">
+                {{date|date:'l'}}
+                {{date|timezone:"America/Los_Angeles"}}
+              </h4>
+              <p class="serif-text text-center">
+                ( {{date|date:'D d M Y g:i A T'}} )
+              </p>
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">
