@@ -8,6 +8,7 @@ class Suggestion_Model(models.Model):
     suggestion = models.CharField(max_length=240)
     author = models.CharField(null=True, blank=True, max_length=240)
     created_on = models.DateTimeField(auto_now_add=True, blank=True)
+    #created_on = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return "Suggestion by" + str(self.author) + ": " + str(self.suggestion)

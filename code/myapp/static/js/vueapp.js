@@ -13,6 +13,7 @@ var app1 = new Vue({
   }
 })
 
+//adapted from: https://vuejs.org/v2/guide/index.html
 var app2 = new Vue({
   el: '#app2',
   data: {

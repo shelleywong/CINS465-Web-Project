@@ -1,12 +1,22 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
+from .forms import Login_Form
+from django.contrib.auth import views as adminviews
 
 urlpatterns = [
     path('',views.index),
     path('suggestion/',views.suggestion_view),
     path('suggestions/', views.suggestion_api),
-    path('login/',views.login_view),
+    path('login/', adminviews.login, {
+        'template_name':'registration/login.html',
+        'authentication_form':Login_Form
+    }, name='login'),
+    path('logout/', adminviews.logout, {
+        'next_page':'/'
+    }),
+    path('register/', views.register),
+
     path('book/',views.book_view),
     #path('page<int:page_num>/',views.page),
 ]

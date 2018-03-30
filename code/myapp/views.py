@@ -1,11 +1,13 @@
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 
 from .models import *
 from .forms import *
 
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 import json
@@ -18,7 +20,7 @@ def index(request):
     #return HttpResponse("Hello World")
     myDate = datetime.now()
     class_num = 'CINS 465'
-    message = 'Hello World'
+    message = 'homeroom'
     example_list = ['one','two','three']
     example_list2 = []
     for i in range(3):
@@ -32,15 +34,33 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def login_view(request):
-    class_num = 'CINS 465'
-    message = 'Hello World'
+def register(request):
+    if request.method == 'POST':
+        form = Registration_Form(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect("/")
+    else:
+        form = Registration_Form()
     context = {
-        'class_num':class_num,
-        'message':message,
-        }
-    return render(request,'login.html', context)
+        "form":form
+    }
+    return render(request,"registration/register.html",context)
 
+# def login(request):
+#     class_num = 'CINS 465'
+#     message = 'Hello World'
+#     context = {
+#         'class_num':class_num,
+#         'message':message,
+#         }
+#     return render(request,'login.html', context)
+
+def logout(request):
+    logout(request)
+    return render(request,"index.html")
+
+@login_required(login_url='/login/')
 def suggestion_view(request):
     class_num = 'CINS 465'
     message = 'Hello World'
@@ -54,12 +74,75 @@ def suggestion_view(request):
         if form.is_valid():
             suggest = Suggestion_Model(
                 suggestion=form.cleaned_data['suggestion'],
-                author=form.cleaned_data['author']
+                author=form.cleaned_data['author'],
             )
             suggest.save()
             form = Suggestion_Form()
     else:
         form = Suggestion_Form()
+
+    if request.method == 'GET':
+        form = Suggestion_Form(request.GET)
+        if form.is_valid():
+            print(request.GET['author'])
+            print(request.POST['author'])
+    else:
+        form = Suggestion_Form()
+
+    #a = Suggestion_Model(suggestion='aSuggestion',author='aAuthor')
+    #a.save()
+
+    #b = Comment_Model(comment='comment_to_a',created_on=datetime.now(),suggestion=a)
+    #a.save()
+
+    # c = Suggestion_Model(suggestion='cSuggestion',author='cAuthor')
+    # c.save()
+    #
+    # c.author = 'CAuthor'
+    # c.save()
+
+    # d = Suggestion_Model(id=22,created_on=datetime.now())
+    # d.author='author22'
+    # d.save()
+    #
+    # e = Suggestion_Model(id=24,created_on=datetime.now())
+    # e.author='author24'
+    # e.suggestion='suggestion24'
+    # e.save()
+    #
+    # Suggestion_Model(id=23).delete()
+    #Suggestion_Model(id=29,suggestion='aSuggestion',author='aAuthor').delete()
+    # for i in range(33,39):
+    #     Suggestion_Model(id=i).delete()
+
+
+    #f = Comment_Model(comment='comment_to_3',created_on=datetime.now(),suggestion=Suggestion_Model(id=3))
+    #f.save()
+
+    # Suggestion_Model(id=22).author = 'author22'
+    # Suggestion_Model(id=22).created_on = datetime.now()
+    # Suggestion_Model(id=22).save()
+
+    #Suggestion_Model.objects.filter(author__contains='author')
+
+
+
+
+    # Suggestion_Model.objects.get(id=1)
+    # Suggestion_Model.objects.get(author__startswith='awesome')
+    # Suggestion_Model.objects.get(author__contains='author')
+
+
+    # if request.method == 'DELETE':
+    #     form = Suggestion_Form(request.POST)
+    #     if form.is_valid():
+    #         instance = Suggestion_Model.objects.get(
+    #             pk=form.cleaned_data['id'],
+    #         )
+    #         instance.delete()
+    #         form = Suggestion_Form()
+    # else:
+    #     form = Suggestion_Form()
 
     suggestion_list = Suggestion_Model.objects.all()
 

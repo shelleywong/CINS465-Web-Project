@@ -14,8 +14,19 @@ body {
   overflow-x: hidden;
 }
 
+.welcome {
+  font-size: 8vw;
+  text-shadow: 3px 2px white;
+}
+
 .button1 {
   background-color: #00008B;
+  border-radius: 25px;
+}
+
+.searchfield {
+  width: 100%;
+  border: 1px solid #c9c9c9;
   border-radius: 25px;
 }
 
@@ -56,7 +67,7 @@ body {
 
 /* main body style */
 #main-body {
-  padding: 80px 30px;
+  padding: 150px 30px;
 }
 
 .div-text {
