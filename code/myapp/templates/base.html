@@ -10,6 +10,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static "/css/foundation.css" %}">
     <link rel="stylesheet" href="{% static "css/app.css" %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
     <!-- Navigation-bar used template from:
@@ -31,6 +32,7 @@
                 <li><a href="#">tres</a></li>
               </ul>
             </li>
+            {% if user.is_authenticated %}
             <li class="has-submenu">
               <a href="#">Forum</a>
               <ul class="submenu menu vertical" data-submenu>
@@ -50,6 +52,7 @@
             <li class="has-submenu">
               <a href="#">Your Profile</a>
             </li>
+            {% endif %}
           </ul>
         </div>
         <div class="top-bar-right">

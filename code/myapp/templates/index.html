@@ -12,8 +12,8 @@
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
         <h1 class="text-center sans-serif-text welcome">Welcome to {{ message }}!</h1>
+        {% if user.is_authenticated %}
         <div class="grid-x grid-padding-x">
-
           <div class="cell large-6 large-offset-2 medium-6">
             <h4 class="text-left sans-serif-text">
               {% load tz %}
@@ -24,13 +24,17 @@
           <div class="cell large-4 medium-6">
             <h4 class="text-right sans-serif-text">
               <ul class="menu">
-                <li><input type="search" class="searchfield" placeholder="Search"></li>
-                <li><button type="button" class="button button1">Search</button></li>
+                <li><input type="search" class="searchfield" style="font-size:18px;" placeholder="Search"></li>
+                <li><button type="button" class="button button1">
+                  <i class="material-icons" style="font-size:18px;">search</i></button>
+                </li>
               </ul>
             </h4>
           </div>
         </div>
+        {% endif %}
       </div>
+      {% if user.is_authenticated %}
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
@@ -85,6 +89,15 @@
           </div>
         </div>
       </div>
+      {% else %}
+      <div class="grid-x grid-padding-x">
+        <div class="cell large-4 large-offset-4 medium-6 medium-offset-3 serif-text">
+            <a href="/login/" class="button large expanded buttonL">Login</a>
+
+            <a href="/register/" class="button large expanded buttonR">Register</a>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
