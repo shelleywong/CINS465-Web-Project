@@ -8,31 +8,9 @@ a:hover {
 }
 
 body {
-  /*background: #DCDCDC;
-  background: linear-gradient(to bottom right, #B0C4DE, #F0F8FF);*/
   background: linear-gradient(to right, #DCDCDC, #B0C4DE);
   overflow-x: hidden;
 }
-
-.welcome {
-  font-size: 8vw;
-  text-shadow: 3px 2px white;
-}
-
-.button1 {
-  background-color: #00008B;
-  border-radius: 25px;
-}
-
-.searchfield {
-  width: 100%;
-  border: 1px solid #c9c9c9;
-  border-radius: 25px;
-}
-
-/*.grad {
-  background: linear-gradient(to bottom right, red, yellow);
-}*/
 
 /* font style */
 .sans-serif-text {
@@ -43,17 +21,19 @@ body {
   font-family: "Garamond", serif;
 }
 
-/* navigation bar style */
-.top-bar {
-  font-family: "Optima", sans-serif;
-  /*background: #778899;*/
-  background: #708090;
-  border-radius: 5px;
+.welcome {
+  font-size: 8vw;
+  text-shadow: 3px 2px #FFFFFF;
 }
 
-.logo {
-  font-family: "AmericanTypewriter";
-  color: #00008B;
+.shadowed {
+  text-shadow: 2px 2px #FFFFFF;
+}
+
+/* button style */
+.button1 {
+  background-color: #00008B;
+  border-radius: 25px;
 }
 
 .buttonL {
@@ -63,6 +43,22 @@ body {
 
 .buttonR {
   background: #00008B;
+}
+
+.rounded {
+  border-radius: 25px;
+}
+
+/* navigation bar style */
+.top-bar {
+  font-family: "Optima", sans-serif;
+  background: #708090;
+  border-radius: 5px;
+}
+
+.logo {
+  font-family: "AmericanTypewriter";
+  color: #00008B;
 }
 
 /* main body style */
@@ -79,6 +75,12 @@ body {
   font-size: 17px;
   padding: 20px 30px;
   background: #F5F5F5;
+}
+
+.searchfield {
+  width: 100%;
+  border: 1px solid #c9c9c9;
+  border-radius: 25px;
 }
 
 /* footer style */

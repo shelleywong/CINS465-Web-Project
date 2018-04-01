@@ -11,14 +11,13 @@
   <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text">Login</h1>
+        <h1 class="text-center sans-serif-text shadowed">Welcome back!</h1>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
           <!--<div class="cell medium-3 medium-cell-block-y"></div> -->
           <div class="cell medium-6 medium-offset-3 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-
               <form action="{% url 'login' %}" class="main-text serif-text" method="post">
                 {% csrf_token %}
                 {{ form.errors }}
@@ -26,13 +25,13 @@
                 {{ form.username }}
                 <label>{{ form.password.label_tag }}</label>
                 {{ form.password }}
-                <input type="submit" class="button expanded buttonL" value="Login" />
+                <input type="submit" class="button expanded rounded buttonL" value="Log in" />
                 <hr>
                 <div class="text-center">
-                  New Here?
+                  <p>New Here? Sign up:</p>
                   <a href="/register/" class="button expanded button1">Register</a>
                   <input type="hidden" name="next" value="/" />
-              </div>
+                </div>
               </form>
             <!--  <div class="main-text serif-text">Username or email:<br>
                 <input type="text" placeholder="username"><br>

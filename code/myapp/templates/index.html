@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  {{ message }}
+  {{ site_name }}
 {% endblock %}
 
 {% block body %}
@@ -11,11 +11,11 @@
   <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text welcome">Welcome to {{ message }}!</h1>
+        <h1 class="text-center sans-serif-text welcome">Welcome to {{ site_name }}!</h1>
         {% if user.is_authenticated %}
         <div class="grid-x grid-padding-x">
-          <div class="cell large-6 large-offset-2 medium-6">
-            <h4 class="text-left sans-serif-text">
+          <div class="cell medium-6 large-offset-1 medium-cell-block">
+            <h4 class="text-left sans-serif-text" style="width: 80vw;">
               {% load tz %}
               {{date|date:'l'}}
               {{date|timezone:"America/Los_Angeles"}}
@@ -32,6 +32,13 @@
             </h4>
           </div>
         </div>
+        {% else %}
+        <h4 class="text-center sans-serif-text">
+          {{ message }}
+        <!--  Simple to use. No cost to you.
+          A safe place to connect with your class and communicate better. -->
+        </h4>
+        <br>
         {% endif %}
       </div>
       {% if user.is_authenticated %}
@@ -92,9 +99,9 @@
       {% else %}
       <div class="grid-x grid-padding-x">
         <div class="cell large-4 large-offset-4 medium-6 medium-offset-3 serif-text">
-            <a href="/login/" class="button large expanded buttonL">Login</a>
+            <a href="/login/" class="button large expanded buttonL rounded">Login</a>
 
-            <a href="/register/" class="button large expanded buttonR">Register</a>
+            <a href="/register/" class="button large expanded buttonR rounded">Register</a>
         </div>
       </div>
       {% endif %}

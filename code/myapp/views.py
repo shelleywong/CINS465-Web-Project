@@ -19,20 +19,24 @@ import sys
 def index(request):
     #return HttpResponse("Hello World")
     myDate = datetime.now()
-    class_num = 'CINS 465'
-    message = 'homeroom'
+    site_name = 'homeroom'
+    message = """Simple to use. No cost to you.
+        A safe place to connect with your class and communicate better."""
     example_list = ['one','two','three']
     example_list2 = []
     for i in range(3):
         example_list2 += [i+1]
     context = {
-        'class_num':class_num,
+        'site_name':site_name,
         'message':message,
         'example_list':example_list,
         'example_list2':example_list2,
         'date':myDate
     }
     return render(request, 'index.html', context)
+
+def about_view(request):
+    return render(request, 'about.html')
 
 def register(request):
     if request.method == 'POST':

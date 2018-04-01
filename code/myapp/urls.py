@@ -5,8 +5,9 @@ from .forms import Login_Form
 from django.contrib.auth import views as adminviews
 
 urlpatterns = [
-    path('',views.index),
-    path('suggestion/',views.suggestion_view),
+    path('', views.index),
+    path('about/', views.about_view),
+    path('suggestion/', views.suggestion_view),
     path('suggestions/', views.suggestion_api),
     path('login/', adminviews.login, {
         'template_name':'registration/login.html',
