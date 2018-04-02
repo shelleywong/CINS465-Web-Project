@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -20,6 +21,19 @@ class Comment_Model(models.Model):
 
     def __str__(self):
         return self.comment + " " + str(self.created_on)
+
+#reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
+#reference: https://stackoverflow.com/questions/6396442/add-image-avatar-field-to-users-in-django?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+class Student_Model(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    interests = models.TextField()
+    #avatar = models.ImageField()
+
+# class Professor_Model(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     interests = models.TextField()
+#     avatar = models.ImageField()
+#     #permission to create group?
 
 # class Student(models.Model):
 #     firstName = models.CharField(max_length=50)

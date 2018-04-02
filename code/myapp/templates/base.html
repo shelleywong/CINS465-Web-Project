@@ -45,7 +45,7 @@
               </ul>
             </li>
             <li class="has-submenu">
-              <a href="#">Your Profile</a>
+              <a href="/profile/">Your Profile</a>
             </li>
             {% endif %}
           </ul>
@@ -86,7 +86,7 @@
                   {% if user.is_authenticated %}
                   <a href="#">Forum</a><br>
                   <a href="#">Meet Your Class</a><br>
-                  <a href="#">Your Profile</a>
+                  <a href="/profile/">{{ user.first_name }} {{ user.last_name }} Profile</a>
                   {%  endif %}
                 </p>
               </div>

@@ -21,9 +21,13 @@
           <div class="cell medium-6 medium-offset-3 medium-cell-block-y main-text">
             <div class="main-text serif-text">
 
-              <form action="registration/register/" class="main-text serif-text" method="post">
+              <form action="/register/" class="main-text serif-text" method="post">
                 {% csrf_token %}
                 {{ form.errors }}
+                {{ form.first_name.label_tag }}
+                {{ form.first_name }}
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
                 {{ form.username.label_tag }}
                 {{ form.username }}
                 {{ form.email.label_tag }}

@@ -8,7 +8,9 @@ a:hover {
 }
 
 body {
-  background: linear-gradient(to right, #DCDCDC, #B0C4DE);
+/*  background: linear-gradient(to right, #DCDCDC, #B0C4DE); */
+  background: linear-gradient(to right, #EDEDED, #C1D5EF);
+
   overflow-x: hidden;
 }
 

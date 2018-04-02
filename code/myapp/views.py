@@ -2,6 +2,9 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from datetime import datetime
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserChangeForm
+
 
 from .models import *
 from .forms import *
@@ -42,7 +45,10 @@ def register(request):
     if request.method == 'POST':
         form = Registration_Form(request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            user = form.save(commit=True)
+            # user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
             return redirect("/")
     else:
         form = Registration_Form()
@@ -63,6 +69,23 @@ def register(request):
 def logout(request):
     logout(request)
     return render(request,"index.html")
+
+@login_required(login_url='/login/')
+def profile_view(request):
+    return render(request,"profile.html")
+
+# adapted from: https://www.youtube.com/watch?v=JmaxoPBvp1M
+@login_required(login_url='/login/')
+def edit_profile_view(request):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/')
+    else:
+        form = UserChangeForm(instance=request.user)
+        context = { "form":form }
+        return render(request,"edit_profile.html",context)
 
 @login_required(login_url='/login/')
 def suggestion_view(request):

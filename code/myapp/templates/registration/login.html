@@ -15,16 +15,20 @@
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
-          <!--<div class="cell medium-3 medium-cell-block-y"></div> -->
           <div class="cell medium-6 medium-offset-3 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <form action="{% url 'login' %}" class="main-text serif-text" method="post">
                 {% csrf_token %}
+                {% if form.errors %}
+                <p>Your username and/or password didn't match. <br>
+                  Please try again.</p>
+                {% endif %}
                 {{ form.errors }}
                 <label>{{ form.username.label_tag }}</label>
                 {{ form.username }}
                 <label>{{ form.password.label_tag }}</label>
                 {{ form.password }}
+
                 <input type="submit" class="button expanded rounded buttonL" value="Log in" />
                 <hr>
                 <div class="text-center">

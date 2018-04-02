@@ -30,6 +30,16 @@ class Login_Form(AuthenticationForm):
     )
 
 class Registration_Form(UserCreationForm):
+    first_name = forms.CharField(
+        label = "First Name",
+        max_length = 32,
+        required = True
+    )
+    last_name = forms.CharField(
+        label = "Last Name",
+        max_length = 32,
+        required = True
+    )
     email = forms.EmailField(
         label = "Email",
         required = True
@@ -37,10 +47,12 @@ class Registration_Form(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ("first_name", "last_name", "username", "email", "password1", "password2")
 
     def save(self, commit=True):
-        user = super(registration_form,self).save(commit=False)
+        user = super(Registration_Form,self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
