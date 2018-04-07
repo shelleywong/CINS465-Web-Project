@@ -29,15 +29,10 @@
             </li>
             {% if user.is_authenticated %}
             <li class="has-submenu">
-              <a href="#">Forum</a>
-              <ul class="submenu menu vertical" data-submenu>
-                <li><a href="#">un</a></li>
-                <li><a href="#">deux</a></li>
-                <li><a href="#">trois</a></li>
-              </ul>
+              <a href="/forum/">Forum</a>
             </li>
             <li class="has-submenu">
-              <a href="#">Meet</a>
+              <a href="#">Meet Your Group</a>
               <ul class="submenu menu vertical" data-submenu>
                 <li><a href="#">eins</a></li>
                 <li><a href="#">zwei</a></li>
@@ -84,7 +79,7 @@
                 <p class="serif-text">
                   <a href="/about/">About Us</a><br>
                   {% if user.is_authenticated %}
-                  <a href="#">Forum</a><br>
+                  <a href="/forum/">Forum</a><br>
                   <a href="#">Meet Your Class</a><br>
                   <a href="/profile/">{{ user.first_name }} {{ user.last_name }} Profile</a>
                   {%  endif %}

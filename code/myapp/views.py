@@ -52,6 +52,7 @@ def register(request):
             return redirect("/")
     else:
         form = Registration_Form()
+
     context = {
         "form":form
     }
@@ -72,20 +73,52 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def profile_view(request):
+    # u = User.objects.get(id=8)
+    # s = Student_Model(id=8, user=u)
+    # s.interests = "biking, bow hunting, bobsledding"
+    # s.save()
     return render(request,"profile.html")
 
 # adapted from: https://www.youtube.com/watch?v=JmaxoPBvp1M
 @login_required(login_url='/login/')
 def edit_profile_view(request):
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
+        form = Edit_Profile_Form(request.POST, instance=request.user)
+        #form2 = Edit_Profile2(request.POST)
+        if form.is_valid(): # or form2.is_valid():
             form.save()
+            #form2.save()
             return redirect('/profile/')
     else:
-        form = UserChangeForm(instance=request.user)
-        context = { "form":form }
+        form = Edit_Profile_Form(instance=request.user)
+        #form2 = Edit_Profile2(request.POST)
+
+        context = {
+            "form":form
+        #    "form2":form2
+        }
         return render(request,"edit_profile.html",context)
+
+@login_required(login_url='/login/')
+def forum_view(request):
+    if request.method == 'POST':
+        form = Post_Form(request.POST)
+        if form.is_valid():
+            forum_post = Post_Model(
+                subject=form.cleaned_data['subject'],
+                details=form.cleaned_data['details']
+            )
+            forum_post.save()
+            form = Post_Form()
+    else:
+        form = Post_Form()
+
+    post_list = Post_Model.objects.all()
+    context = {
+        'post_list':post_list,
+        'form':form
+    }
+    return render(request, 'forum.html', context)
 
 @login_required(login_url='/login/')
 def suggestion_view(request):
@@ -100,21 +133,21 @@ def suggestion_view(request):
         form = Suggestion_Form(request.POST)
         if form.is_valid():
             suggest = Suggestion_Model(
-                suggestion=form.cleaned_data['suggestion'],
-                author=form.cleaned_data['author'],
+                suggestion=form.cleaned_data['suggestion']
+                #author=request.user
             )
             suggest.save()
             form = Suggestion_Form()
     else:
         form = Suggestion_Form()
 
-    if request.method == 'GET':
-        form = Suggestion_Form(request.GET)
-        if form.is_valid():
-            print(request.GET['author'])
-            print(request.POST['author'])
-    else:
-        form = Suggestion_Form()
+    # if request.method == 'GET':
+    #     form = Suggestion_Form(request.GET)
+    #     if form.is_valid():
+    #         print(request.GET['author'])
+    #         print(request.POST['author'])
+    # else:
+    #     form = Suggestion_Form()
 
     #a = Suggestion_Model(suggestion='aSuggestion',author='aAuthor')
     #a.save()
@@ -189,9 +222,7 @@ def suggestion_api(request):
         json_data = json.loads(request.body)
         try:
             suggest = Suggestion_Model(suggestion=json_data['suggestion'])
-            auth = Suggestion_Model(author=json_data['author'])
             suggest.save()
-            auth.save()
             return HttpResponse("hello")
         except:
             return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
@@ -200,7 +231,6 @@ def suggestion_api(request):
         try:
             suggest = Suggestion_Model.objects.get(pk=json_data['id'])
             suggest.suggestion = json_data['suggestion']
-            suggest.author = json_data['author']
             suggest.save()
             return HttpResponse("hello")
         except:
@@ -223,15 +253,14 @@ def suggestion_api(request):
             for comm in comment_list:
                 comment_json += [{
                     "comment":comm.comment,
-                    "id":comm.id,
-                    "created_on":comm.created_on
+                    "id":comm.id
+                    # "created_on":comm.created_on
                 }]
             suggestion_dictionary["suggestions"] += [{
                 "id":suggest.id,
                 "comments":comment_json,
-                "suggestion":suggest.suggestion,
-                "author":suggest.author,
-                "created_on":suggest.created_on
+                "suggestion":suggest.suggestion
+                # "created_on":suggest.created_on.strftime('%m/%d/%Y %H:%M')
             }]
         print(suggestion_dictionary)
         return JsonResponse(suggestion_dictionary)

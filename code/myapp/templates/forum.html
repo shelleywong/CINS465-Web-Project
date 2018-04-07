@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block title %}
-  {{ message }}
+  Forum
 {% endblock %}
 
 {% block body %}
@@ -13,40 +13,24 @@
   <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text">{{ message }}</h1>
+        <h1 class="text-center sans-serif-text">Forum</h1>
         <div class="grid-x grid-padding-x">
-          <div class="cell medium-4">
-            <h5 class="text-right sans-serif-text">
-              {% if example_list|length > 1 %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list %} {{ item }} {% endfor %}
-              {% else %}
-                None
-              {% endif %}
-            </h5>
+          <div class="cell medium-6 large-offset-1 medium-cell-block">
+            <h4 class="text-left sans-serif-text" style="width: 80vw;">
+              {% load tz %}
+              {{date|date:'l'}}
+              {{date|timezone:"America/Los_Angeles"}}
+            </h4>
           </div>
-          <div class="cell medium-4 medium-cell-block">
-            <h5 class="div-text sans-serif-text" style="width: 80vw;">
-              {% if example_list2|length > 1 %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list2 %} {{ item }} {% endfor %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list2 %} {{ item }} {% endfor %}
-                <em>{{ class_num }} {{ message }}</em>
-              {% else %}
-                None
-              {% endif %}
-            </h5>
-          </div>
-          <div class="cell medium-4">
-            <h5 class="text-left sans-serif-text">
-              {% if example_list|length > 1 %}
-                <em>{{ class_num }} {{ message }}</em>
-                {% for item in example_list %} {{ item }} {% endfor %}
-              {% else %}
-                None
-              {% endif %}
-            </h5>
+          <div class="cell large-4 medium-6">
+            <h4 class="text-right sans-serif-text">
+              <ul class="menu">
+                <li><input type="search" class="searchfield" style="font-size:18px;" placeholder="Search"></li>
+                <li><button type="button" class="button button1">
+                  <i class="material-icons" style="font-size:18px;">search</i></button>
+                </li>
+              </ul>
+            </h4>
           </div>
         </div>
       </div>
@@ -54,46 +38,48 @@
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <h3 class="serif-text">{{ message }}</h3>
+              <h3 class="serif-text">Forum</h3>
               <div id="app1">
                 {% verbatim %}
                 <button class="button large button1" v-on:click="greet">Greetings!</button>
                 <!--  <h3 class="serif-text">{{ msg }}</h3> -->
                 {% endverbatim %}
               </div>
-              <h3 class="serif-text">Please give us your suggestions here:</h3>
+              <h3 class="serif-text">Make a Post:</h3>
               <hr>
-              <form action="/suggestion/" method="post">
+              <form action="/forum/" method="post">
                 {% csrf_token %}
-                {{ form.suggestion.errors }}
-                {{ form.suggestion.label_tag }}
-                {{ form.suggestion }}
-                <input type="submit" class="button button1" value="Submit Suggestion"/>
+                {{ form.errors }}
+                {{ form.subject.label_tag }}
+                {{ form.subject }}
+                {{ form.details.label_tag }}
+                {{ form.details }}
+                <input type="submit" class="button button1" value="Submit Post"/>
               </form>
-              <h3 class="serif-text">Suggestions</h3>
+              <h3 class="serif-text">Current Postings</h3>
               <hr>
               <div id="app-suggestion">
                 <ul class="text-justify">
-                <!-- {% for item in suggestion_list %}
-                  <li>{{ item.id }} : {{ item.suggestion }}</li>
-                {% endfor %} -->
-                  <li v-for = "item in suggestions">
+                {% for item in post_list %}
+                  <li>{{ item.id }} : {{ item.subject }} - {{ item.created_on }}</li>
+                {% endfor %}
+                  <!-- <li v-for = "item in suggestions">
                     {% verbatim %}
                     {{ item.id }}: {{ item.suggestion }} - Created on: {{ item.created_on }} UTC
 
-                  <!--  <input type="submit" class="button button1" value="Add Comment"/> -->
+                   <input type="submit" class="button button1" value="Add Comment"/> -->
 
                 <!--    <form action="/suggestion/" method="delete">
                       <input type="submit" class="button button1" value="Delete Suggestion"/>
                     </form> -->
 
-                    <ul>
+                    <!-- <ul>
                       <li v-for="comm in item.comments">
-                        {{ comm.comment }}  <!-- - {{ comm.created_on }} -->
+                        {{ comm.comment }} - {{ comm.created_on }}
                       </li>
                     </ul>
                     {% endverbatim %}
-                  </li>
+                  </li> -->
                 </ul>
               </div>
             </div>

@@ -3,19 +3,43 @@ from django.forms import DateTimeField
 from django.core.validators import validate_email, validate_slug
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
+from .models import *
 
 def verifySuggestion(value):
-    if len(value) < 10:
+    if len(value) < 1:
         raise forms.ValidationError("Not long enough")
     # return the verified data (cleaned or not)
     return value
 
+class Post_Form(forms.Form):
+    subject = forms.CharField(
+        validators=[verifySuggestion],
+        label='Subject',
+        max_length=240)
+    details = forms.CharField(widget=forms.Textarea,label='Post')
+
 class Suggestion_Form(forms.Form):
-    suggestion = forms.CharField(validators=[verifySuggestion,validate_slug],
+    suggestion = forms.CharField(validators=[verifySuggestion],
         label='Suggestion', max_length=240)
-    author = forms.CharField(label='Author',max_length=240)
-    #created_on = forms.DateTimeField(input_formats=['%m/%d/%Y %H:%M:%S'])
+    #author = forms.CharField(label='Author',max_length=240)
+
+class Comment_Form(forms.Form):
+    comment = forms.CharField(
+        label='Comment',
+        max_length=240
+    )
+    def save(self,sugg_id,req_user,commit=True):
+        sugg = Suggestion_Model.objects.get(pk=sugg_id)
+        comm = Comment_Model(
+            comment = self.cleaned_data['comment'],
+            suggestion = sugg
+            #author = req_user
+        )
+        if commit:
+            comm.save()
+        return comm
 
 class Login_Form(AuthenticationForm):
     username = forms.CharField(
@@ -44,16 +68,61 @@ class Registration_Form(UserCreationForm):
         label = "Email",
         required = True
     )
+    interests = forms.CharField(
+        widget=forms.Textarea,
+        label='Your Interests',
+        required = False
+    )
 
     class Meta:
         model = User
         fields = ("first_name", "last_name", "username", "email", "password1", "password2")
+        #model = Student_Model
+        #fields = ("interests",)
 
     def save(self, commit=True):
         user = super(Registration_Form,self).save(commit=False)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data["email"]
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            student = Student_Model(user=user)
+            student.interests=self.cleaned_data['interests']
+            student.save()
+        return user,student
+
+class Edit_Profile_Form(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'password'
+        )
+    def save(self, commit=True):
+        user = super(Edit_Profile_Form,self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+            student = Student_Model(user=user)
+            student.interests = self.cleaned_data['interests']
+        return user,student
+
+class Edit_Profile2(forms.Form):
+
+    class Meta:
+        model = Student_Model
+        fields = (
+            'interests',
+        )
+    def save(self,commit=True):
+        user = super(Registration_Form,self).save(commit=False)
+        user.interests = self.cleaned_data['interests']
         if commit:
             user.save()
         return user
