@@ -8,7 +8,7 @@ var app1 = new Vue({
 
   methods: {
     greet: function (event) {
-      alert('Welcome ' + this.name + ', ' + this.msg)
+      alert('Welcome ' + this.name + '! ' + this.msg)
     }
   }
 })
@@ -17,7 +17,7 @@ var app1 = new Vue({
 var app2 = new Vue({
   el: '#app2',
   data: {
-    hovermessage: 'You loaded this page on ' + new Date().toLocaleString()
+    hovermessage: 'Thanks for visiting on ' + new Date().toLocaleString()
   }
 })
 

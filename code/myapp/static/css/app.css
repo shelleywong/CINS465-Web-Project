@@ -24,7 +24,7 @@ body {
 }
 
 .welcome {
-  font-size: 8vw;
+  font-size: 7vw;
   text-shadow: 3px 2px #FFFFFF;
 }
 
@@ -65,7 +65,7 @@ body {
 
 /* main body style */
 #main-body {
-  padding: 150px 30px;
+  padding: 80px 30px;
 }
 
 .div-text {
@@ -83,6 +83,10 @@ body {
   width: 100%;
   border: 1px solid #c9c9c9;
   border-radius: 25px;
+}
+
+.nobullet {
+  list-style-type: none;
 }
 
 /* footer style */

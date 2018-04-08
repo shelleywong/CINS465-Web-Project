@@ -25,15 +25,11 @@ def index(request):
     site_name = 'homeroom'
     message = """Simple to use. No cost to you.
         A safe place to connect with your class and communicate better."""
-    example_list = ['one','two','three']
-    example_list2 = []
-    for i in range(3):
-        example_list2 += [i+1]
+    post_list = Post_Model.objects.all()
     context = {
         'site_name':site_name,
         'message':message,
-        'example_list':example_list,
-        'example_list2':example_list2,
+        'post_list':post_list,
         'date':myDate
     }
     return render(request, 'index.html', context)
@@ -101,12 +97,14 @@ def edit_profile_view(request):
 
 @login_required(login_url='/login/')
 def forum_view(request):
+    myDate = datetime.now()
     if request.method == 'POST':
         form = Post_Form(request.POST)
         if form.is_valid():
             forum_post = Post_Model(
                 subject=form.cleaned_data['subject'],
-                details=form.cleaned_data['details']
+                details=form.cleaned_data['details'],
+                author=request.user
             )
             forum_post.save()
             form = Post_Form()
@@ -116,7 +114,8 @@ def forum_view(request):
     post_list = Post_Model.objects.all()
     context = {
         'post_list':post_list,
-        'form':form
+        'form':form,
+        'date':myDate
     }
     return render(request, 'forum.html', context)
 

@@ -1,5 +1,6 @@
 <!-- Author: Shelley Wong -->
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   {{ site_name }}
@@ -11,28 +12,16 @@
   <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text welcome">Welcome to {{ site_name }}!</h1>
         {% if user.is_authenticated %}
-        <div class="grid-x grid-padding-x">
-          <div class="cell medium-6 large-offset-1 medium-cell-block">
-            <h4 class="text-left sans-serif-text" style="width: 80vw;">
-              {% load tz %}
-              {{date|date:'l'}}
-              {{date|timezone:"America/Los_Angeles"}}
-            </h4>
-          </div>
-          <div class="cell large-4 medium-6">
-            <h4 class="text-right sans-serif-text">
-              <ul class="menu">
-                <li><input type="search" class="searchfield" style="font-size:18px;" placeholder="Search"></li>
-                <li><button type="button" class="button button1">
-                  <i class="material-icons" style="font-size:18px;">search</i></button>
-                </li>
-              </ul>
-            </h4>
-          </div>
+        <div id="app2">
+          <span v-bind:title="hovermessage">
+            <h1 class="text-center sans-serif-text welcome">
+              Welcome to {{ site_name }}!
+            </h1>
+          </span>
         </div>
         {% else %}
+        <h1 class="text-center sans-serif-text welcome">Welcome to {{ site_name }}!</h1>
         <h4 class="text-center sans-serif-text">
           {{ message }}
         <!--  Simple to use. No cost to you.
@@ -46,52 +35,46 @@
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <h1 class="serif-text text-center">Make a Suggestion:
-                <a href="suggestion/" class="button large button1">Suggestions</a>
-              </h1>
-              <h1 class="serif-text text-center">Practice Form:
-                <a href="book/" class="button large button1">Enter a Book</a>
-              </h1>
-            <!--  {% load tz %} {% get_current_timezone as TIME_ZONE %} -->
-              <h4 class="serif-text text-center">
-                {{date|date:'l'}}
-                {{date|timezone:"America/Los_Angeles"}}
-              </h4>
-              <p class="serif-text text-center">
-                ( {{date|date:'D d M Y g:i A T'}} )
-              </p>
+              <h1 class="serif-text text-center">Forum</h1>
+              <hr>
+              <div class="text-justify" id="app-suggestion">
+                {% for item in post_list %}
+                  <h3 class="serif-text">{{ item.subject }}<h3>
+                  <h6 class="sans-serif-text">{{ item.details }}</h6>
+                  <h6 class="sans-serif-text subheader">
+                    Posted by {{ item.author}} on {{ item.created_on }} UTC
+                  </h6>
+                  <hr>
+                {% endfor %}
+              </div>
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <h3 class="serif-text">Hola Mundo</h3>
+              <!-- Adapted from: https://foundation.zurb.com/sites/docs/forms.html -->
+              <div class="serif-text input-group">
+                <input class="input-group-field searchfield" type="search"
+                  style="font-size:18px;" placeholder="Search">
+                <button class="input-group-button button buttonL">
+                  <i class="material-icons" style="font-size:18px;">search</i>
+                </button>
+              </div>
+              <div class="serif-text text-center">
+                <hr>
+                <a href="forum/" class="button button1">
+                  <h5 class="serif-text">Add to the Conversation</h5>
+                  <i class="material-icons" style="font-size:24px;">message</i>
+                </a>
+              </div>
               <hr>
-              <p class="text-justify">
-              Garita el asusta si ademas ir rincon. Loza una caso del paga pie
-              asi. Venir la panza ha notar da atado gacha te teson. Cuore son
-              habil rapaz del oro tabla tener mas detto. Aparejada izquierdo
-              elegantes ahi etc. Criadas parecer van don mejores pasable del.
-              Habas ahi feo trapo negra heroe nasal. Corria en cuerda ch me
-              rumiar volvia mundos la. Se ti logrono la lateral rapidos tu
-              cabrero sarebbe muertas. Oro renovacion terciopelo deliciosos sus
-              cualquiera voz secretario constituia.
-              </p>
-              <h3 class="serif-text">Bonjour Monde</h3>
-              <hr>
-              <p class="text-justify">
-              Couleurs interdit continue ont peu. Certitude oh entremise je
-              ameliorer gachettes. Rage pont par vous etat mur nees. Ils bonne
-              domes ete seuls que repit aux. Les feeriques esplanade six
-              incapable air sol. Le bonte la du ou parmi sales.
-              </p>
-              <h3 class="serif-text">Hallo Welt</h3>
-              <hr>
-              <p class="text-justify">
-              Habs bi dies en satz. Oha was gefallt woruber erzahlt das stellte
-              steigst tat glatten. Ige der kraftiger schneider plaudernd vom
-              schonsten. Es du kenne vater stuck. Namlich abwarts gut mundart
-              gab tur nur. Viele du immer szene leise kaute so.
-              </p>
+              <h3 class="serif-text text-center">Recent Posts:</h3>
+              <div class="text-center" id="app-suggestion">
+                <ul class="text-center nobullet">
+                  {% for item in post_list %}
+                  <li><a href="#">{{ item.subject }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -107,4 +90,8 @@
       {% endif %}
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "js/vueapp.js" %}"></script>
 {% endblock %}
