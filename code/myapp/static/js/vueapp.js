@@ -21,6 +21,36 @@ var app2 = new Vue({
   }
 })
 
+var app_post = new Vue({
+  el: '#app-post',
+
+  data: {
+    posts: []
+  },
+
+  //Adapted from:
+  //https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
+  created: function() {
+    this.fetchPostList();
+    this.timer = setInterval(this.fetchPostList, 3000);
+  },
+
+  methods: {
+    fetchPostList: function() {
+      $.get('/forum_posts/',function(post_list) {
+        this.posts = post_list.posts;
+        console.log(post_list);
+      }.bind(this));
+    },
+    cancelAutoUpdate: function() { clearInterval(this.timer)}
+  },
+
+  beforeDestroy() {
+    clearInterval(this.timer)
+  }
+
+})
+
 var app_sugg = new Vue({
   el: '#app-suggestion',
 

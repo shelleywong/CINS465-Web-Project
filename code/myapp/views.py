@@ -107,7 +107,8 @@ def forum_view(request):
                 author=request.user
             )
             forum_post.save()
-            form = Post_Form()
+            return redirect("/")
+            #form = Post_Form()
     else:
         form = Post_Form()
 
@@ -118,6 +119,75 @@ def forum_view(request):
         'date':myDate
     }
     return render(request, 'forum.html', context)
+
+@csrf_exempt
+def forum_api(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        try:
+            a_post = Post_Model(subject=json_data['subject'],details=json_data['details'])
+            a_post.save()
+            return HttpResponse("hello")
+        except:
+            return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
+    if request.method == 'PUT':
+        json_data = json.loads(request.body)
+        try:
+            a_post = Post_Model.objects.get(pk=json_data['id'])
+            a_post.subject = json_data['subject']
+            a_post.details = json_data['details']
+            a_post.save()
+            return HttpResponse("hello")
+        except:
+            return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
+    if request.method == 'DELETE':
+        json_data = json.loads(request.body)
+        try:
+            a_post = Post_Model.objects.get(pk=json_data['id'])
+            a_post.delete()
+            return HttpResponse("hello")
+        except:
+            return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
+    if request.method == 'GET':
+        post_list = Post_Model.objects.all()
+        post_dictionary = {}
+        post_dictionary["posts"] = []
+        for post_item in post_list:
+            comment_list = Post_Comment_Model.objects.filter(post_topic_id=post_item)
+            comment_json = []
+            for comm in comment_list:
+                comment_json += [{
+                    "comment":comm.comment,
+                    "id":comm.id,
+                    "author":comm.author.username,
+                    "created_on":comm.created_on.strftime('%m/%d/%Y %H:%M')
+                }]
+            post_dictionary["posts"] += [{
+                "id":post_item.id,
+                "subject":post_item.subject,
+                "details":post_item.details,
+                "comments":comment_json,
+                "author":post_item.author.username,
+                "created_on":post_item.created_on.strftime('%m/%d/%Y %H:%M')
+            }]
+        print(post_dictionary)
+        return JsonResponse(post_dictionary)
+
+@login_required(login_url='/login/')
+def comment_view(request,post_topic_id):
+    if request.method == 'POST':
+        post_comm = Post_Comment_Form(request.POST)
+        if post_comm.is_valid():
+            post_comm.save(post_topic_id, request.user)
+            return redirect("/")
+    else:
+        post_comm = Post_Comment_Form
+    context={
+        "post_comm":post_comm,
+        "post_topic_id":post_topic_id
+    }
+    return render(request,'comment.html',context)
+
 
 @login_required(login_url='/login/')
 def suggestion_view(request):

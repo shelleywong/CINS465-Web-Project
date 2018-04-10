@@ -20,6 +20,20 @@ class Post_Form(forms.Form):
         max_length=240)
     details = forms.CharField(widget=forms.Textarea,label='Post')
 
+class Post_Comment_Form(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea,label='Comment')
+
+    def save(self,post_id,req_user,commit=True):
+        original_post = Post_Model.objects.get(pk=post_id)
+        comm = Post_Comment_Model(
+            comment=self.cleaned_data["comment"],
+            post_topic = original_post,
+            author=req_user
+        )
+        if commit:
+            comm.save()
+        return comm
+
 class Suggestion_Form(forms.Form):
     suggestion = forms.CharField(validators=[verifySuggestion],
         label='Suggestion', max_length=240)

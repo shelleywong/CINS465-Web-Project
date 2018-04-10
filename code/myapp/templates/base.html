@@ -29,7 +29,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="has-submenu">
-              <a href="/forum/">Forum</a>
+              <a href="/forum/">Make a New Post</a>
             </li>
             <li class="has-submenu">
               <a href="#">Meet Your Group</a>
@@ -79,7 +79,7 @@
                 <p class="serif-text">
                   <a href="/about/">About Us</a><br>
                   {% if user.is_authenticated %}
-                  <a href="/forum/">Forum</a><br>
+                  <a href="/forum/">Post to the Forum</a><br>
                   <a href="#">Meet Your Class</a><br>
                   <a href="/profile/">{{ user.first_name }} {{ user.last_name }} Profile</a>
                   {%  endif %}

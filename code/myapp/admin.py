@@ -22,6 +22,7 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
 admin.site.register(models.Post_Model)
+admin.site.register(models.Post_Comment_Model)
 admin.site.register(models.Suggestion_Model)
 admin.site.register(models.Comment_Model)
 admin.site.register(models.Book)

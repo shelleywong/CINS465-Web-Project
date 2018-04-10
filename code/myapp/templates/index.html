@@ -37,16 +37,49 @@
             <div class="main-text serif-text">
               <h1 class="serif-text text-center">Forum</h1>
               <hr>
-              <div class="text-justify" id="app-suggestion">
+
+              <!-- <div class="text-justify">
                 {% for item in post_list %}
                   <h3 class="serif-text">{{ item.subject }}<h3>
                   <h6 class="sans-serif-text">{{ item.details }}</h6>
                   <h6 class="sans-serif-text subheader">
-                    Posted by {{ item.author}} on {{ item.created_on }} UTC
+                    Posted by {{ item.author }} on {{ item.created_on }} UTC
                   </h6>
+                  <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a>
                   <hr>
                 {% endfor %}
+              </div> -->
+
+              <div id="app-post">
+                <ul class="text-justify">
+                  <li v-for = "item in posts">
+                    {% verbatim %}
+                    <h3 class="serif-text">{{ item.subject }}<h3>
+                    <h6 class="sans-serif-text">{{ item.details }}</h6>
+                    <h6 class="sans-serif-text subheader">
+                      Posted by {{ item.author }} on {{ item.created_on }} UTC
+                    </h6>
+                    <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a>
+                    <!-- {{ item.id }}: {{ item.subject }} - {{ item.details }} -->
+
+                  <!--  <input type="submit" class="button button1" value="Add Comment"/> -->
+
+                <!--    <form action="/suggestion/" method="delete">
+                      <input type="submit" class="button button1" value="Delete Suggestion"/>
+                    </form> -->
+
+                    <ul>
+                      <li class="sans-serif-text" v-for="comm in item.comments">
+                        {{ comm.comment }} - {{ comm.created_on }}
+                      </li>
+                    </ul>
+                    <hr>
+
+                    {% endverbatim %}
+                  </li>
+                </ul>
               </div>
+
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">

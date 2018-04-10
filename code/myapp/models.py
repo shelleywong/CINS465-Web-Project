@@ -19,6 +19,18 @@ class Post_Model(models.Model):
     def __str__(self):
         return self.subject
 
+class Post_Comment_Model(models.Model):
+    comment = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True, blank=True)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    post_topic = models.ForeignKey(Post_Model, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.comment
+
 class Suggestion_Model(models.Model):
     suggestion = models.CharField(max_length=240)
     #author = models.CharField(null=True, blank=True, max_length=240)
