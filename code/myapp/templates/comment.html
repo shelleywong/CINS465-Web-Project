@@ -52,38 +52,51 @@
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <div id="app2">
-                <span v-bind:title="hovermessage">
-                  <h3 class="serif-text">Hola Mundo!</h3>
-                </span>
+              <h3 class="serif-text">Current Post:</h3>
+              <hr>
+              <div class="text-justify">
+                {% for item in post_list %}
+                  {% if post_topic_id == item.id %}
+                    <h3 class="serif-text">{{ item.subject }}<h3>
+                    <h6 class="sans-serif-text">{{ item.details }}</h6>
+                    <h6 class="sans-serif-text subheader">
+                      Posted by {{ item.author }} on {{ item.created_on }} UTC
+                    </h6>
+                    <!-- {% for comm in item.comment_list %}
+                      <ul>
+                        <li class="sans-serif-text">
+                          {{ comm.comment }} - {{ comm.created_on }}
+                        </li>
+                      </ul>
+                    {% endfor %} -->
+                  {% endif %}
+                {% endfor %}
               </div>
-              <hr>
-              <p class="text-justify">
-              Garita el asusta si ademas ir rincon. Loza una caso del paga pie
-              asi. Venir la panza ha notar da atado gacha te teson. Cuore son
-              habil rapaz del oro tabla tener mas detto. Aparejada izquierdo
-              elegantes ahi etc. Criadas parecer van don mejores pasable del.
-              Habas ahi feo trapo negra heroe nasal. Corria en cuerda ch me
-              rumiar volvia mundos la. Se ti logrono la lateral rapidos tu
-              cabrero sarebbe muertas. Oro renovacion terciopelo deliciosos sus
-              cualquiera voz secretario constituia.
-              </p>
-              <h3 class="serif-text">Bonjour Monde</h3>
-              <hr>
-              <p class="text-justify">
-              Couleurs interdit continue ont peu. Certitude oh entremise je
-              ameliorer gachettes. Rage pont par vous etat mur nees. Ils bonne
-              domes ete seuls que repit aux. Les feeriques esplanade six
-              incapable air sol. Le bonte la du ou parmi sales.
-              </p>
-              <h3 class="serif-text">Hallo Welt</h3>
-              <hr>
-              <p class="text-justify">
-              Habs bi dies en satz. Oha was gefallt woruber erzahlt das stellte
-              steigst tat glatten. Ige der kraftiger schneider plaudernd vom
-              schonsten. Es du kenne vater stuck. Namlich abwarts gut mundart
-              gab tur nur. Viele du immer szene leise kaute so.
-              </p>
+              <!-- <div id="app-post">
+                <ul class="text-justify">
+                  <li v-for = "item in post_list">
+                    {% verbatim %}
+                    <div v-if="{{ post_topic_id }} == item.id">
+                      <h3 class="serif-text">{{ item.subject }}<h3>
+                      <h6 class="sans-serif-text">{{ item.details }}</h6>
+                      <h6 class="sans-serif-text subheader">
+                        Posted by {{ item.author }} on {{ item.created_on }} UTC
+                      </h6>
+                      <ul>
+                        <li class="sans-serif-text" v-for="comm in item.comments">
+                          {{ comm.comment }} - {{ comm.created_on }}
+                        </li>
+                      </ul>
+                    </div>
+                    <div v-else>
+                      Nope
+                    </div>
+                    {% endverbatim %}
+                  </li>
+                </ul>
+              </div> -->
+
+
             </div>
           </div>
         </div>

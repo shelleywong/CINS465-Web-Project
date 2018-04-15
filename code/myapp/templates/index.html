@@ -36,8 +36,16 @@
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <h1 class="serif-text text-center">Forum</h1>
+              {% for student in student_list %}
+                ID: {{ student.id }}
+                User: {{ student.user }}
+                About: {{ student.about }}
+                Image: {{student.image_description }}
+                <img src="/media/uploads/2018/04/15/Snuffles-helmet.jpg" width="42">
+                <img v-bind:src="'/media/' + student.image"
+                  v-bind:alt="student.image_description" width="42">
+              {% endfor %}
               <hr>
-
               <!-- <div class="text-justify">
                 {% for item in post_list %}
                   <h3 class="serif-text">{{ item.subject }}<h3>
@@ -60,21 +68,12 @@
                       Posted by {{ item.author }} on {{ item.created_on }} UTC
                     </h6>
                     <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a>
-                    <!-- {{ item.id }}: {{ item.subject }} - {{ item.details }} -->
-
-                  <!--  <input type="submit" class="button button1" value="Add Comment"/> -->
-
-                <!--    <form action="/suggestion/" method="delete">
-                      <input type="submit" class="button button1" value="Delete Suggestion"/>
-                    </form> -->
-
                     <ul>
                       <li class="sans-serif-text" v-for="comm in item.comments">
                         {{ comm.comment }} - {{ comm.created_on }}
                       </li>
                     </ul>
                     <hr>
-
                     {% endverbatim %}
                   </li>
                 </ul>

@@ -21,25 +21,16 @@
           <div class="cell medium-6 medium-offset-3 medium-cell-block-y main-text">
             <div class="main-text serif-text">
 
-              <form action="/register/" class="main-text serif-text" method="post">
+              <form action="/register/" class="main-text serif-text" method="post"
+                enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.errors }}
-                {{ form.first_name.label_tag }}
-                {{ form.first_name }}
-                {{ form.last_name.label_tag }}
-                {{ form.last_name }}
-                {{ form.username.label_tag }}
-                {{ form.username }}
-                {{ form.email.label_tag }}
-                {{ form.email }}
-                {{ form.password1.label_tag }}
-                {{ form.password1 }}
-                {{ form.password2.label_tag }}
-                {{ form.password2 }}
-                {{ form.interests.label_tag }}
-                {{ form.interests }}
+                {{ user_form.as_p }}
+                {{ student_form.as_p }}
                 <input type="submit" class="button expanded button1" value="Register"/>
               </form>
+              <!-- {% for student in student_list %}
+                {{ student.id }}, {{ student.about }}
+              {% endfor %} -->
             <!--  <div class="main-text serif-text">Username or email:<br>
                 <input type="text" placeholder="username"><br>
                 Password:<br>

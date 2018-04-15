@@ -31,15 +31,32 @@ class Post_Comment_Model(models.Model):
     def __str__(self):
         return self.comment
 
+#reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
+class Student_Model(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    about = models.TextField(blank=True)
+    image = models.ImageField(
+        max_length=144,
+        upload_to='uploads/%Y/%m/%d'
+    )
+    image_description = models.CharField(max_length=240)
+# 
+# @receiver(post_save, sender=User)
+# def Create_Student_Model(sender, instance, created, **kwargs):
+#     if created:
+#         Student_Model.objects.create(user=instance)
+#
+# @receiver(post_save, sender=User)
+# def Save_Student_Model(sender, instance, **kwargs):
+#     instance.profile.save()
+
 class Suggestion_Model(models.Model):
     suggestion = models.CharField(max_length=240)
-    #author = models.CharField(null=True, blank=True, max_length=240)
     # author = models.ForeignKey(
     #     User,
     #     on_delete=models.CASCADE
     # )
     #created_on = models.DateTimeField(auto_now_add=True, blank=True)
-    #created_on = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return "Suggestion: " + str(self.suggestion)
@@ -57,11 +74,14 @@ class Comment_Model(models.Model):
         return self.comment
 
 #reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
-#reference: https://stackoverflow.com/questions/6396442/add-image-avatar-field-to-users-in-django?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-class Student_Model(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    interests = models.TextField(blank=True)
-    #avatar = models.ImageField()
+# class Student_Model(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     interests = models.TextField(blank=True)
+#     image = models.ImageField(
+#         max_length=144,
+#         upload_to='uploads/%Y/%m/%d'
+#     )
+#     image_description = models.CharField(max_length=240)
 
 # @receiver(post_save, sender=User)
 # def Create_Student_Model(sender, instance, created, **kwargs):
@@ -70,7 +90,7 @@ class Student_Model(models.Model):
 #
 # @receiver(post_save, sender=User)
 # def Save_Student_Model(sender, instance, **kwargs):
-#     instance.Student_Model.save()
+#     instance.student_model.save()
 
 # class Professor_Model(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)

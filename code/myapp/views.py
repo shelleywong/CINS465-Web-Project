@@ -11,7 +11,7 @@ from .forms import *
 
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 import json
 import sys
@@ -26,10 +26,12 @@ def index(request):
     message = """Simple to use. No cost to you.
         A safe place to connect with your class and communicate better."""
     post_list = Post_Model.objects.all()
+    student_list = Student_Model.objects.all()
     context = {
         'site_name':site_name,
         'message':message,
         'post_list':post_list,
+        'student_list':student_list,
         'date':myDate
     }
     return render(request, 'index.html', context)
@@ -37,20 +39,24 @@ def index(request):
 def about_view(request):
     return render(request, 'about.html')
 
+@csrf_protect
 def register(request):
     if request.method == 'POST':
-        form = Registration_Form(request.POST)
-        if form.is_valid():
-            user = form.save(commit=True)
-            # user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-            return redirect("/")
+        user_form = Registration_Form(request.POST)
+        student_form = Student_Reg_Form(request.POST,request.FILES)
+        if all((user_form.is_valid(), student_form.is_valid())):
+            user_profile = user_form.save()
+            student_profile = student_form.save(commit=False)
+            student_profile.user = user_profile
+            student_profile.save()
+            return redirect('/login/')
     else:
-        form = Registration_Form()
+        user_form = Registration_Form(request.POST)
+        student_form = Student_Reg_Form(request.POST,request.FILES)
 
     context = {
-        "form":form
+        'user_form': user_form,
+        'student_form': student_form
     }
     return render(request,"registration/register.html",context)
 
@@ -69,11 +75,66 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def profile_view(request):
-    # u = User.objects.get(id=8)
-    # s = Student_Model(id=8, user=u)
-    # s.interests = "biking, bow hunting, bobsledding"
-    # s.save()
-    return render(request,"profile.html")
+    logged_in_user = request.user
+    if request.method == 'POST':
+        user_form = Registration_Form(request.POST)
+        student_form = Student_Reg_Form(request.POST,request.FILES)
+        if all((user_form.is_valid(), student_form.is_valid())):
+            student = Student_Model(
+                about=form.cleaned_data['about'],
+                image=form.cleaned_data['image'],
+                image_description=form.cleaned_data['image_description']
+            )
+            student.save()
+            return redirect("/")
+    else:
+        user_form = Registration_Form(request.POST)
+        student_form = Student_Reg_Form(request.POST,request.FILES)
+
+    # users = User.objects.all().select_related('student_model')
+    u = User.objects.get(username=request.user)
+    about_student = u.student_model.about
+    student_image = u.student_model.image
+    img_desc = u.student_model.image_description
+    # student = Student_Model.objects.get(User,pk=logged_in_user.id)
+    # student.interests = 'Going on adventures'
+    # student.save()
+
+    student_list = Student_Model.objects.all()
+    # for student in student_list:
+    #     if student.id == logged_in_user.id:
+    #         current_student = student
+    context = {
+        'student_list':student_list,
+        'user_form':user_form,
+        'student_form':student_form,
+        'about_student':about_student,
+        'student_image':student_image,
+        'img_desc':img_desc
+        # 'users':users,
+        # 'students':students
+    }
+    return render(request, 'profile.html', context)
+    # if request.method == 'POST':
+    #     user_form = Registration_Form(request.POST,request.FILES)
+    #     student_form = Student_Reg_Form(request.POST,request.FILES)
+    #     if user_form.is_valid() and student_form.is_valid():
+    #         user_form.save()
+    #         student_form.save()
+    #         return redirect('profile.html')
+    # else:
+    #     user_form = Registration_Form()
+    #     student_form = Student_Reg_Form()
+    # context = {
+    #     'user_form': user_form,
+    #     'student_form': student_form
+    # }
+    # return render(request,"profile.html",context)
+    # student_list = Student_Model.objects.all()
+    # context = {
+    #     "student_list":student_list
+    # }
+    # return render(request,"profile.html",context)
 
 # adapted from: https://www.youtube.com/watch?v=JmaxoPBvp1M
 @login_required(login_url='/login/')
@@ -182,9 +243,13 @@ def comment_view(request,post_topic_id):
             return redirect("/")
     else:
         post_comm = Post_Comment_Form
+    post_list = Post_Model.objects.all()
+    comment_list = Post_Comment_Model.objects.all()
     context={
         "post_comm":post_comm,
-        "post_topic_id":post_topic_id
+        "post_topic_id":post_topic_id,
+        "post_list":post_list,
+        "comment_list":comment_list
     }
     return render(request,'comment.html',context)
 

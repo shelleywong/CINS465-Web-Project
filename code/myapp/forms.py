@@ -37,7 +37,6 @@ class Post_Comment_Form(forms.Form):
 class Suggestion_Form(forms.Form):
     suggestion = forms.CharField(validators=[verifySuggestion],
         label='Suggestion', max_length=240)
-    #author = forms.CharField(label='Author',max_length=240)
 
 class Comment_Form(forms.Form):
     comment = forms.CharField(
@@ -82,17 +81,10 @@ class Registration_Form(UserCreationForm):
         label = "Email",
         required = True
     )
-    interests = forms.CharField(
-        widget=forms.Textarea,
-        label='Your Interests',
-        required = False
-    )
 
     class Meta:
         model = User
         fields = ("first_name", "last_name", "username", "email", "password1", "password2")
-        #model = Student_Model
-        #fields = ("interests",)
 
     def save(self, commit=True):
         user = super(Registration_Form,self).save(commit=False)
@@ -101,10 +93,45 @@ class Registration_Form(UserCreationForm):
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            student = Student_Model(user=user)
-            student.interests=self.cleaned_data['interests']
-            student.save()
-        return user,student
+        return user
+
+class Student_Reg_Form(forms.ModelForm):
+    # about = forms.CharField(
+    #     widget=forms.Textarea,
+    #     label='About',
+    #     required = False
+    # )
+    # image = forms.ImageField(label="Profile Picture")
+    # image_description = forms.CharField(label="Image Description", max_length=240)
+
+    class Meta:
+        model = Student_Model
+        exclude = ['user']
+        # fields = ("about","image","image_description")
+
+    # def save(self, commit=True):
+    #     original_user = self.request.user
+    #     student = Student_Model(
+    #         interests=self.cleaned_data["interests"],
+    #         image=self.cleaned_data['image'],
+    #         image_description=self.cleaned_data['image_description'],
+    #         user = original_user
+    #     )
+    #     if commit:
+    #         student.save()
+    #     return student
+
+    # def save(self, user_id, req_user, commit=True):
+    #     original_user = User.objects.get(pk=user_id)
+    #     student = Student_Model(
+    #         interests=self.cleaned_data["interests"],
+    #         image=self.cleaned_data['image'],
+    #         image_description=self.cleaned_data['image_description'],
+    #         user = original_user
+    #     )
+    #     if commit:
+    #         student.save()
+    #     return student
 
 class Edit_Profile_Form(UserChangeForm):
 

@@ -1,5 +1,6 @@
 <!-- Author: Shelley Wong -->
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   About Us
@@ -57,4 +58,8 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "js/vueapp.js" %}"></script>
 {% endblock %}

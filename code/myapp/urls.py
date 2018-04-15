@@ -4,6 +4,7 @@ from . import views
 from .forms import Login_Form
 from django.contrib.auth import views as adminviews
 
+
 urlpatterns = [
     path('', views.index),
     path('about/', views.about_view),
@@ -17,12 +18,12 @@ urlpatterns = [
     path('login/', adminviews.login, {
         'template_name':'registration/login.html',
         'authentication_form':Login_Form
-    }, name='login'),
+        }, name='login'
+    ),
     path('logout/', adminviews.logout, {
         'next_page':'/'
     }),
     path('register/', views.register),
-
     path('book/',views.book_view),
     #path('page<int:page_num>/',views.page),
 ]
