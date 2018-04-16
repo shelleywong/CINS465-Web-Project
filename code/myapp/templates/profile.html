@@ -1,5 +1,6 @@
 <!-- Author: Shelley Wong -->
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   Profile Page
@@ -17,32 +18,34 @@
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
-          <div class="cell medium-6 medium-offset-3 medium-cell-block-y main-text">
+          <div class="cell large-6 large-offset-3
+              medium-8 medium-offset-2 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <!-- About: {{ about_student }} -->
-              <ul class="vertical menu">
-                <li><img v-bind:src="'/media/'+ student_image"
-                  v-bind:alt="student.image_description" width="42"></li>
-                <li>ID: {{ user.id }}</li>
-                <li>Username: {{ user.username }} </li>
-                <li>First Name: {{ user.first_name }} </li>
-                <li>Last Name: {{ user.last_name }} </li>
-                <li>Email Address: {{ user.email }} </li>
-                <li>About: {{ about_student }}</li>
-                <li> {{ student_image }}</li>
+              <div class="cell medium-auto medium-cell-block-container">
+                <div class="grid-x grid-padding-x">
+                  <div class="cell medium-4 main-text">
+                    <img src="/media/{{user.student_model.image}}"
+                      alt="{{img_desc}}" width="150">
+                  </div>
+                  <div class="cell medium-8">
+                    <ul class="vertical menu">
+                <!-- <li><img v-bind:src="'/media/'+ student_image"
+                  v-bind:alt="student.image_description" width="42"></li> -->
+                      <li>ID: {{ user.id }}</li>
+                      <li>Username: {{ user.username }} </li>
+                      <li>Full Name: {{ user.first_name }} {{ user.last_name }}</li>
+                      <li>Email Address: {{ user.email }} </li>
+                      <li>About: {{ user.student_model.about }}</li>
+                <!-- <li> {{ student_image }}</li>
                 <li> {{ img_desc }}</li>
-                <li>Profile Picture: <img v-bind:src="'/media/' + student_image" width=42></li>
-              <!--  {% for s in student_list %}
-                  {% if user.username == s.user %}
-                    <li>About: {{ s.about }}</li>
-                    <li>Student ID: {{s.id }}</li>
-                    <li>About: {{ s.about }}</li>
-                    <li>{{ s.image_description }}</li>
-                  {% endif %}
-                {% endfor %} -->
-              </ul>
-              <br>
-              <a href="edit_profile/" class="button expanded button1">Edit Profile</a>
+                <li>Profile Picture: <img v-bind:src="'/media/' + user.student_model.image" width=42></li>
+                <li>Profile Picture: <img src="/media/{{user.student_model.image}}" width=42></li>
+                <li>Profile Picture: <img src="/media/uploads/2018/04/15/Morty.png" width=42></li> -->
+                  </ul>
+                  <br>
+                  <a href="edit_profile/" class="button expanded button1">Edit Profile</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
