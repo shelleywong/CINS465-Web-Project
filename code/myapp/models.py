@@ -37,10 +37,11 @@ class Student_Model(models.Model):
     about = models.TextField(blank=True)
     image = models.ImageField(
         max_length=144,
-        upload_to='uploads/%Y/%m/%d'
+        upload_to='uploads/%Y/%m/%d',
+        blank=True
     )
-    image_description = models.CharField(max_length=240)
-# 
+    image_description = models.CharField(max_length=240, blank=True)
+#
 # @receiver(post_save, sender=User)
 # def Create_Student_Model(sender, instance, created, **kwargs):
 #     if created:

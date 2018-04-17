@@ -140,8 +140,10 @@ class Edit_Profile_Form(UserChangeForm):
         fields = (
             'email',
             'first_name',
-            'last_name'
+            'last_name',
+            'password'
         )
+        # exclude = ['password']
     # def save(self, commit=True):
     #     user = super(Edit_Profile_Form,self).save(commit=False)
     #     user.first_name = self.cleaned_data['first_name']
@@ -158,7 +160,7 @@ class Edit_Profile_Form(UserChangeForm):
 
 # class Password_Change_Form()
 
-class Edit_Profile2(forms.ModelForm):
+class Edit_Student_Profile(forms.ModelForm):
 
     class Meta:
         model = Student_Model

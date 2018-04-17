@@ -80,7 +80,7 @@ var app_sugg = new Vue({
   }
 
 })
-
-getImage(pic) {
-  var images = require.context('/media/',false)
-}
+// 
+// getImage(pic) {
+//   var images = require.context('/media/',false)
+// }

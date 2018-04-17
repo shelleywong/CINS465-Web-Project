@@ -12,6 +12,7 @@ from .forms import *
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.generic.edit import UpdateView
 
 import json
 import sys
@@ -26,12 +27,14 @@ def index(request):
     message = """Simple to use. No cost to you.
         A safe place to connect with your class and communicate better."""
     post_list = Post_Model.objects.all()
+    user_list = User.objects.all()
     student_list = Student_Model.objects.all()
     context = {
         'site_name':site_name,
         'message':message,
         'post_list':post_list,
         'student_list':student_list,
+        'user_list':user_list,
         'date':myDate
     }
     return render(request, 'index.html', context)
@@ -76,6 +79,10 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def profile_view(request):
+    # u = User.objects.get(username="shelleywong")
+    # s = Student_Model(user=u)
+    # s.about = "I like coding, cycling, hiking, cooking, gardening, photography, cake decorating"
+    # s.save()
 
     # u = User.objects.get(username=request.user)
     # about_student = u.student_model.about
@@ -92,38 +99,60 @@ def profile_view(request):
 @login_required(login_url='/login/')
 def edit_profile_view(request):
     if request.method == 'POST':
-        form = Edit_Profile_Form(request.POST, instance = request.user)
-
-        if form.is_valid():
+        form = Edit_Profile_Form(request.POST, instance=request.user)
+        form2 = Edit_Student_Profile(request.POST,request.FILES,instance=request.user)
+        if all((form.is_valid(), form2.is_valid())):
+            # edit_profile = form.save()
+            # edit_student = form2.save(commit=False)
+            # edit_student.user = edit_profile
+            # edit_student.save()
             form.save()
+            form2.save(commit=False)
+            student = Student_Model.objects.get(user=request.user)
+            student.about=form2.cleaned_data['about']
+            student.image=form2.cleaned_data['image']
+            student.image_description=form2.cleaned_data['image_description']
+            student.save()
             return redirect('/profile/')
     else:
         form = Edit_Profile_Form(instance = request.user)
+        form2 = Edit_Student_Profile(instance=request.user)
+
+    # u = User.objects.get(username=request.user)
+    # student_image = u.student_model.image
     context = {
-        "form": form
+        "form": form,
+        "form2":form2
+        # "student_image":student_image
     }
     return render(request,"edit_profile.html",context)
     # if request.method == 'POST':
-    #     form = Edit_Profile_Form(request.POST, instance=request.user)
-    #     form2 = Edit_Profile2(request.POST,request.FILES, instance=request.user)
-    #     if all((form.is_valid(), form2.is_valid())): # or form2.is_valid():
-    #         profile = form.save()
-    #         edit = form2.save(commit=False)
-    #         edit.user = profile
-    #         edit.save()
-    #         # form.save()
-    #         # form2.save()
+    #     form = Edit_Profile_Form(request.POST, instance = request.user)
+    #     if form.is_valid():
+    #         form.save()
     #         return redirect('/profile/')
     # else:
-    #     form = Edit_Profile_Form(request.POST, instance=request.user)
-    #     form2 = Edit_Profile2(request.POST,request.FILES, instance=request.user)
-    #
-    #     context = {
-    #         "form":form,
-    #         "form2":form2
-    #     }
-    #     return render(request,"edit_profile.html",context)
+    #     form = Edit_Profile_Form(instance = request.user)
+    # context = {
+    #     "form": form
+    # }
+    # return render(request,"edit_profile.html",context)
 
+# class ProfileUpdate(UpdateView):
+#     model = Student_Model
+#     fields = ['about','image','image_description']
+#     template_name_suffix = 'edit_profile.html'
+#
+#     def get_object(self, *args, **kwargs):
+#         user = get_object_or_404(User,pk=self.kwargs['pk'])
+#
+#         return self.request.user
+#
+#     def get_success_url(self,*args,**kwargs):
+#         return reverse("some url name")
+
+# adapted from: https://docs.djangoproject.com/en/2.0/topics/auth/default/ and
+# https://www.youtube.com/watch?v=QxGKTvx-Vvg&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&index=20
 @login_required(login_url='/login/')
 def change_password_view(request):
     if request.method == 'POST':
