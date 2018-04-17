@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from datetime import datetime
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 
 
 from .models import *
@@ -39,6 +39,7 @@ def index(request):
 def about_view(request):
     return render(request, 'about.html')
 
+# adapted from: https://stackoverflow.com/questions/27832076/modelform-with-onetoonefield-in-django?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 @csrf_protect
 def register(request):
     if request.method == 'POST':
@@ -75,86 +76,82 @@ def logout(request):
 
 @login_required(login_url='/login/')
 def profile_view(request):
-    logged_in_user = request.user
-    if request.method == 'POST':
-        user_form = Registration_Form(request.POST)
-        student_form = Student_Reg_Form(request.POST,request.FILES)
-        if all((user_form.is_valid(), student_form.is_valid())):
-            student = Student_Model(
-                about=form.cleaned_data['about'],
-                image=form.cleaned_data['image'],
-                image_description=form.cleaned_data['image_description']
-            )
-            student.save()
-            return redirect("/")
-    else:
-        user_form = Registration_Form(request.POST)
-        student_form = Student_Reg_Form(request.POST,request.FILES)
 
-    # users = User.objects.all().select_related('student_model')
-    u = User.objects.get(username=request.user)
-    about_student = u.student_model.about
-    student_image = u.student_model.image
-    img_desc = u.student_model.image_description
-    # student = Student_Model.objects.get(User,pk=logged_in_user.id)
-    # student.interests = 'Going on adventures'
-    # student.save()
+    # u = User.objects.get(username=request.user)
+    # about_student = u.student_model.about
+    # student_image = u.student_model.image
+    # img_desc = u.student_model.image_description
+    # student_list = Student_Model.objects.all()
 
-    student_list = Student_Model.objects.all()
-    # for student in student_list:
-    #     if student.id == logged_in_user.id:
-    #         current_student = student
     context = {
-        'student_list':student_list,
-        'user_form':user_form,
-        'student_form':student_form,
-        'about_student':about_student,
-        'student_image':student_image,
-        'img_desc':img_desc
-        # 'users':users,
-        # 'students':students
+        'user':request.user
     }
     return render(request, 'profile.html', context)
-    # if request.method == 'POST':
-    #     user_form = Registration_Form(request.POST,request.FILES)
-    #     student_form = Student_Reg_Form(request.POST,request.FILES)
-    #     if user_form.is_valid() and student_form.is_valid():
-    #         user_form.save()
-    #         student_form.save()
-    #         return redirect('profile.html')
-    # else:
-    #     user_form = Registration_Form()
-    #     student_form = Student_Reg_Form()
-    # context = {
-    #     'user_form': user_form,
-    #     'student_form': student_form
-    # }
-    # return render(request,"profile.html",context)
-    # student_list = Student_Model.objects.all()
-    # context = {
-    #     "student_list":student_list
-    # }
-    # return render(request,"profile.html",context)
 
 # adapted from: https://www.youtube.com/watch?v=JmaxoPBvp1M
 @login_required(login_url='/login/')
 def edit_profile_view(request):
     if request.method == 'POST':
-        form = Edit_Profile_Form(request.POST, instance=request.user)
-        #form2 = Edit_Profile2(request.POST)
-        if form.is_valid(): # or form2.is_valid():
+        form = Edit_Profile_Form(request.POST, instance = request.user)
+
+        if form.is_valid():
             form.save()
-            #form2.save()
             return redirect('/profile/')
     else:
-        form = Edit_Profile_Form(instance=request.user)
-        #form2 = Edit_Profile2(request.POST)
+        form = Edit_Profile_Form(instance = request.user)
+    context = {
+        "form": form
+    }
+    return render(request,"edit_profile.html",context)
+    # if request.method == 'POST':
+    #     form = Edit_Profile_Form(request.POST, instance=request.user)
+    #     form2 = Edit_Profile2(request.POST,request.FILES, instance=request.user)
+    #     if all((form.is_valid(), form2.is_valid())): # or form2.is_valid():
+    #         profile = form.save()
+    #         edit = form2.save(commit=False)
+    #         edit.user = profile
+    #         edit.save()
+    #         # form.save()
+    #         # form2.save()
+    #         return redirect('/profile/')
+    # else:
+    #     form = Edit_Profile_Form(request.POST, instance=request.user)
+    #     form2 = Edit_Profile2(request.POST,request.FILES, instance=request.user)
+    #
+    #     context = {
+    #         "form":form,
+    #         "form2":form2
+    #     }
+    #     return render(request,"edit_profile.html",context)
 
-        context = {
-            "form":form
-        #    "form2":form2
-        }
-        return render(request,"edit_profile.html",context)
+@login_required(login_url='/login/')
+def change_password_view(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('/profile/')
+        else:
+            return redirect('/password/')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    context = {
+        'form':form
+    }
+    return render(request,"password.html",context)
+    # adapted from: https://docs.djangoproject.com/en/2.0/topics/auth/default/
+    # if request.method == 'POST':
+    #     form = PasswordChangeForm(user=request.user, data=request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         update_session_auth_hash(request, form.user)
+    # else:
+    #     form = PasswordChangeForm(user=request.user)
+    # context = {
+    #     'form':form
+    # }
+    # return render(request,"change_password.html",context)
 
 @login_required(login_url='/login/')
 def forum_view(request):

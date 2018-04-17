@@ -10,6 +10,7 @@ urlpatterns = [
     path('about/', views.about_view),
     path('profile/', views.profile_view),
     path('profile/edit_profile/',views.edit_profile_view),
+    path('profile/password/', views.change_password_view),
     path('forum/', views.forum_view),
     path('forum_posts/', views.forum_api),
     path('comment/<int:post_topic_id>/',views.comment_view),

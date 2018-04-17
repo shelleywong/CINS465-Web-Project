@@ -140,33 +140,35 @@ class Edit_Profile_Form(UserChangeForm):
         fields = (
             'email',
             'first_name',
-            'last_name',
-            'password'
+            'last_name'
         )
-    def save(self, commit=True):
-        user = super(Edit_Profile_Form,self).save(commit=False)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-            student = Student_Model(user=user)
-            student.interests = self.cleaned_data['interests']
-        return user,student
+    # def save(self, commit=True):
+    #     user = super(Edit_Profile_Form,self).save(commit=False)
+    #     user.first_name = self.cleaned_data['first_name']
+    #     user.last_name = self.cleaned_data['last_name']
+    #     user.email = self.cleaned_data['email']
+    #     user.password = self.cleaned_data['password']
+    #     if commit:
+    #         user.save()
+    #         # student = Student_Model(user=user)
+    #         # student.about = self.cleaned_data['about']
+    #         # student.image = self.cleaned_data['image']
+    #         # student.image_description = self.cleaned_data['image_description']
+    #     return user #,student
 
-class Edit_Profile2(forms.Form):
+# class Password_Change_Form()
+
+class Edit_Profile2(forms.ModelForm):
 
     class Meta:
         model = Student_Model
-        fields = (
-            'interests',
-        )
-    def save(self,commit=True):
-        user = super(Registration_Form,self).save(commit=False)
-        user.interests = self.cleaned_data['interests']
-        if commit:
-            user.save()
-        return user
+        exclude = ['user']
+    # def save(self,commit=True):
+    #     user = super(Registration_Form,self).save(commit=False)
+    #     user.interests = self.cleaned_data['interests']
+    #     if commit:
+    #         user.save()
+    #     return user
 
 class Book_Form(forms.Form):
     title = forms.CharField(label='Title', max_length=255)
