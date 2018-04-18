@@ -32,11 +32,10 @@
               <a href="/forum/">Make a New Post</a>
             </li>
             <li class="has-submenu">
-              <a href="#">Meet Your Group</a>
+              <a href="/meet/">Meet Your Group</a>
               <ul class="submenu menu vertical" data-submenu>
-                <li><a href="#">eins</a></li>
-                <li><a href="#">zwei</a></li>
-                <li><a href="#">drei</a></li>
+                <li><a href="#">Learn Names and Faces</a></li>
+                <li><a href="/roster/">Team Roster</a></li>
               </ul>
             </li>
             <li class="has-submenu">
@@ -81,7 +80,7 @@
                   <a href="/about/">About Us</a><br>
                   {% if user.is_authenticated %}
                   <a href="/forum/">Post to the Forum</a><br>
-                  <a href="#">Meet Your Class</a><br>
+                  <a href="/meet/">Meet Your Class</a><br>
                   <a href="/profile/">{{ user.first_name }} {{ user.last_name }} Profile</a>
                   {%  endif %}
                 </p>

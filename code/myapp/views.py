@@ -279,6 +279,23 @@ def comment_view(request,post_topic_id):
     }
     return render(request,'comment.html',context)
 
+@login_required(login_url='/login/')
+def meet_view(request):
+    return render(request,'meet.html')
+
+@login_required(login_url='/login/')
+def roster_view(request):
+    # u = User.objects.get(id=1)
+    # s = Student_Model(user=u)
+    # s.image = "/media/uploads/04/15/default_profile_pic.jpg"
+    # s.save()
+    user_list = User.objects.all()
+    student_list = Student_Model.objects.all()
+    context = {
+        'user_list':user_list,
+        'student_list':student_list
+    }
+    return render(request,'roster.html',context)
 
 @login_required(login_url='/login/')
 def suggestion_view(request):

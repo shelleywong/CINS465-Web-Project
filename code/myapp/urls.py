@@ -14,6 +14,8 @@ urlpatterns = [
     path('forum/', views.forum_view),
     path('forum_posts/', views.forum_api),
     path('comment/<int:post_topic_id>/',views.comment_view),
+    path('meet/',views.meet_view),
+    path('roster/',views.roster_view),
     path('suggestion/', views.suggestion_view),
     path('suggestions/', views.suggestion_api),
     path('login/', adminviews.login, {

@@ -36,17 +36,16 @@
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <h1 class="serif-text text-center">Forum</h1>
-              {% for user in user_list %}
+              <!-- {% for user in user_list %}
                   ID: {{ user.id }}
                   Username: {{ user.username }}
                   Name: {{user.first_name}} {{ user.last_name }}
                   About: {{ user.student_model.about }}
                   Image: {{student.image_description }}
-                <!-- <img src="/media/uploads/2018/04/15/Snuffles-helmet.jpg" width="42"> -->
                   <img src="/media/{{user.student_model.image}}"
                     v-bind:alt="student.image_description" width="42">
                     <br>
-              {% endfor %}
+              {% endfor %} -->
               <hr>
               <!-- <div class="text-justify">
                 {% for item in post_list %}
@@ -69,10 +68,17 @@
                     <h6 class="sans-serif-text subheader">
                       Posted by {{ item.author }} on {{ item.created_on }} UTC
                     </h6>
-                    <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a>
+                    <a v-bind:href="'/comment/'+ item.id +'/'" class="button buttonL rounded">
+                      <i class="material-icons" style="font-size:14px;">comment</i>
+                    </a>
+                    <!-- <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a> -->
                     <ul>
-                      <li class="sans-serif-text" v-for="comm in item.comments">
-                        {{ comm.comment }} - {{ comm.created_on }}
+                      <li v-for="comm in item.comments">
+                        <div class="sans-serif-text">{{ comm.comment }}
+                          <div class="sans-serif-text subheader">
+                            Posted by {{ comm.author }} on {{ comm.created_on }} UTC
+                          </div>
+                        </div>
                       </li>
                     </ul>
                     <hr>

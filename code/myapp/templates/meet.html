@@ -1,0 +1,52 @@
+<!-- Author: Shelley Wong -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Meet Your Group
+{% endblock %}
+
+{% block body %}
+<!-- used template from:
+  https://foundation.zurb.com/sites/docs/xy-grid.html -->
+  <div class="grid-container" id="main-body">
+    <div class="grid-y medium-grid-frame">
+      <div class="cell shrink header medium-cell-block-container">
+        <h1 class="text-center sans-serif-text shadowed">
+          Meet Your Group!
+        </h1>
+      </div>
+      <div class="cell medium-auto medium-cell-block-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell large-10 large-offset-1
+              medium-12 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <div class="cell medium-auto medium-cell-block-container">
+                <div class="grid-x grid-padding-x">
+                  <div class="cell medium-4 main-text text-center">
+                    <h3 class="text-center serif-text"><a href="#">Face Flashcards</a></h3>
+                    <a href="#" class="button buttonL rounded">
+                      <i class="material-icons" style="font-size:24px;">mood</i>
+                    </a>
+                  </div>
+                  <div class="cell medium-4 main-text text-center">
+                    <h3 class="text-center serif-text"><a href="#">Roll Call</a></h3>
+                    <a href="#" class="button buttonL rounded">
+                      <i class="material-icons" style="font-size:24px;">format_list_bulleted</i>
+                    </a>
+                  </div>
+                  <div class="cell medium-4 main-text text-center">
+                    <h3 class="text-center serif-text"><a href="/roster/">Team Roster</a></h3>
+                    <a href="/roster/" class="button buttonL rounded">
+                      <i class="material-icons" style="font-size:24px;">group</i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
