@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,3 +126,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR + '/media/'
 
 AUTH_PROFILE_MODULE = 'accounts.Student_Model'
+
+#Channels
+ASGI_APPLICATION = "myproj.routing.application"
+CHANNEL_LAYERS = {
+    'default' : {
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
