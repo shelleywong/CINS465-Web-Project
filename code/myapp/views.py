@@ -13,6 +13,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.generic.edit import UpdateView
+from django.utils.safestring import mark_safe
 
 import json
 import sys
@@ -476,3 +477,12 @@ def book_view(request):
         'form':form
     }
     return render(request, 'book.html', context)
+
+@login_required(login_url='/login/')
+def room(request,room_name):
+    name = room_name
+    context = {
+        'room_name_json': mark_safe(json.dumps(room_name)),
+        'name':name
+    }
+    return render(request, 'chat/room.html', context)
