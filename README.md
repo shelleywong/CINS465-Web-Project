@@ -7,3 +7,11 @@ References:
     * edit_profile.html
     * views.py
     * urls.py
+    
+2. https://channels.readthedocs.io/en/latest/tutorial/index.html
+  * Django Channels/Websockets tutorial for building a simple chatroom, referenced for the following:
+    * chat app
+    * consumers.py
+    * routing.py
+    * urls.py
+    * views.py
