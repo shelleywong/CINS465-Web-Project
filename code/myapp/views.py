@@ -290,7 +290,7 @@ def roster_view(request):
     # s = Student_Model(user=u)
     # s.image = "/media/uploads/04/15/default_profile_pic.jpg"
     # s.save()
-    user_list = User.objects.all()
+    user_list = User.objects.all().order_by('last_name')
     student_list = Student_Model.objects.all()
     context = {
         'user_list':user_list,
@@ -477,6 +477,40 @@ def book_view(request):
         'form':form
     }
     return render(request, 'book.html', context)
+
+@login_required(login_url='/login/')
+def chatroom(request):
+    # We want to show the last 10 messages, ordered most-recent-last
+    # chat_queryset = Chat_Model.objects.order_by("-created_on")[:10]
+    # chat_message_count = len(chat_queryset)
+    # if chat_message_count > 0:
+    #     first_message_id = chat_queryset[len(chat_queryset)-1].id
+    # else:
+    #     first_message_id = -1
+    # previous_id = -1
+    # if first_message_id != -1:
+    #     try:
+    #         previous_id = Chat_Model.objects.filter(pk__lt=first_message_id).order_by("-pk")[:1][0].id
+    #     except IndexError:
+    #         previous_id = -1
+    # chat_messages = reversed(chat_queryset)
+    #
+    # context = {
+    #         'chat_messages': chat_messages,
+    #         'first_message_id' : previous_id,
+    # }
+    # u = User.objects.get(username="shelleywong")
+    u = User.objects.get(username=request.user)
+    current_user = u.first_name
+    user_list = User.objects.all()
+    student_list = Student_Model.objects.all()
+    context = {
+        'current_user':mark_safe(json.dumps(current_user)),
+        'user_list':user_list,
+        'student_list':student_list
+    }
+    return render(request, "chat/chatroom.html",context)
+
 
 @login_required(login_url='/login/')
 def room(request,room_name):

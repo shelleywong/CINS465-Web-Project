@@ -1,6 +1,6 @@
 <!-- chat/templates/chat/room.html -->
 <!-- Author: Shelley Wong -->
-<!-- {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
@@ -8,13 +8,13 @@
   Chat Room
 {% endblock %}
 
-{% block body %}  -->
+{% block body %}
 <!-- used template from:
   https://foundation.zurb.com/sites/docs/xy-grid.html -->
-<!--  <div class="grid-container" id="main-body">
+  <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text shadowed">Our Story</h1>
+        <h1 class="text-center sans-serif-text shadowed">{{ name }} chat</h1>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
@@ -29,9 +29,11 @@
       </div>
     </div>
   </div>
-{% endblock %}  -->
+{% endblock %}
 
-<!-- {% block scripts %}
+{% block scripts %}
+<!-- <script src='{% static "js/chat.js" %}'></script> -->
+
 <script>
     var roomName = {{ room_name_json }};
 
@@ -65,5 +67,5 @@
 
         messageInputDom.value = '';
     };
-</script>
-{% endblock %} -->
+  </script>
+{% endblock %}

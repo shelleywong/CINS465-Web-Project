@@ -6,6 +6,17 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
+class Chat_Model(models.Model):
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    message = models.TextField()
+    message_html = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return self.message
 
 class Post_Model(models.Model):
     subject = models.CharField(max_length=240)

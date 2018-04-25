@@ -28,6 +28,9 @@ urlpatterns = [
     }),
     path('register/', views.register),
     path('book/',views.book_view),
-    path('chat/<slug:room_name>/', views.room, name='room'),
+    # path('chat/chatroom/', views.chatroom, name='chatroom'),
+    path('chat/chatroom/', views.chatroom, name='chatroom'),
+
+    # path('chat/<slug:room_name>/', views.room, name='room'),
     #path('page<int:page_num>/',views.page),
 ]
