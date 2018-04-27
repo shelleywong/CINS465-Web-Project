@@ -5,7 +5,6 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 
-
 from .models import *
 from .forms import *
 
@@ -14,6 +13,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.generic.edit import UpdateView
 from django.utils.safestring import mark_safe
+from random import shuffle, sample
+import random
+
 
 import json
 import sys
@@ -282,21 +284,34 @@ def comment_view(request,post_topic_id):
 
 @login_required(login_url='/login/')
 def meet_view(request):
-    return render(request,'meet.html')
+    return render(request,'people/meet.html')
 
 @login_required(login_url='/login/')
 def roster_view(request):
-    # u = User.objects.get(id=1)
-    # s = Student_Model(user=u)
-    # s.image = "/media/uploads/04/15/default_profile_pic.jpg"
-    # s.save()
     user_list = User.objects.all().order_by('last_name')
     student_list = Student_Model.objects.all()
+    # user_list = User.objects.order_by('?')
+
     context = {
         'user_list':user_list,
         'student_list':student_list
     }
-    return render(request,'roster.html',context)
+    return render(request,'people/roster.html',context)
+
+@login_required(login_url='/login/')
+def face_match_view(request):
+    # adapted from: https://stackoverflow.com/questions/976882/shuffling-a-list-of-objects
+    users = User.objects.all()
+    u_list = list(users)
+    n = len(u_list)
+    user_list = random.sample(u_list,n)
+    student_list = Student_Model.objects.all()
+
+    context = {
+        'user_list':user_list,
+        'student_list':student_list
+    }
+    return render(request,'people/face_match.html',context)
 
 @login_required(login_url='/login/')
 def suggestion_view(request):
@@ -481,20 +496,20 @@ def book_view(request):
 @login_required(login_url='/login/')
 def chatroom(request):
     # We want to show the last 10 messages, ordered most-recent-last
-    # chat_queryset = Chat_Model.objects.order_by("-created_on")[:10]
-    # chat_message_count = len(chat_queryset)
-    # if chat_message_count > 0:
-    #     first_message_id = chat_queryset[len(chat_queryset)-1].id
-    # else:
-    #     first_message_id = -1
-    # previous_id = -1
-    # if first_message_id != -1:
-    #     try:
-    #         previous_id = Chat_Model.objects.filter(pk__lt=first_message_id).order_by("-pk")[:1][0].id
-    #     except IndexError:
-    #         previous_id = -1
-    # chat_messages = reversed(chat_queryset)
-    #
+    chat_queryset = Chat_Model.objects.order_by("-created_on")[:25]
+    chat_message_count = len(chat_queryset)
+    if chat_message_count > 0:
+        first_message_id = chat_queryset[len(chat_queryset)-1].id
+    else:
+        first_message_id = -1
+    previous_id = -1
+    if first_message_id != -1:
+        try:
+            previous_id = Chat_Model.objects.filter(pk__lt=first_message_id).order_by("-pk")[:1][0].id
+        except IndexError:
+            previous_id = -1
+    chat_messages = reversed(chat_queryset)
+    most_recent = chat_queryset[0]
     # context = {
     #         'chat_messages': chat_messages,
     #         'first_message_id' : previous_id,
@@ -505,6 +520,9 @@ def chatroom(request):
     user_list = User.objects.all()
     student_list = Student_Model.objects.all()
     context = {
+        'most_recent':most_recent,
+        'chat_messages': chat_messages,
+        'first_message_id' : previous_id,
         'current_user':mark_safe(json.dumps(current_user)),
         'user_list':user_list,
         'student_list':student_list

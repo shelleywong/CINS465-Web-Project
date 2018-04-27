@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.db.models.aggregates import Count
+from random import randint
+
 # Create your models here.
 class Chat_Model(models.Model):
     author = models.ForeignKey(
@@ -42,8 +45,15 @@ class Post_Comment_Model(models.Model):
     def __str__(self):
         return self.comment
 
+# class UsersManager(models.Manager):
+#     def random(self):
+#         count = self.aggregate(count=Count('id'))['count']
+#         random_index = randint(0, count - 1)
+#         return self.all()[random_index]
+
 #reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
 class Student_Model(models.Model):
+    # objects = UsersManager()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField(blank=True)
     image = models.ImageField(

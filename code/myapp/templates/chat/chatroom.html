@@ -15,15 +15,37 @@
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
         <h1 class="text-center sans-serif-text shadowed">Chat Room Forum</h1>
+        <!-- <p id="demo"></p> -->
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
+          <div class="cell medium-4 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+            <!-- <div class="main-text serif-text" id="chat-past" onload="myFunction()"> -->
+              <h5 class="serif-text text-center">Most Recent Messages</h5>
+              <hr>
+              {% for message in chat_messages %}
+                <strong>{{ message.author }} : </strong>
+                {{ message.message_html|safe }}
+                <br>
+              {% endfor %}
+              ~ {{ most_recent.created_on }}
+            </div>
+          </div>
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-                <textarea id="chat-log" cols="100" rows="10"></textarea><br/>
-                <input id="chat-message-input" type="text" size="100"/><br/>
-                <input id="chat-message-submit" type="button" value="Send"/>
-
+              <h5 class="serif-text text-center">Chat Now</h5>
+                <textarea readonly id="chat-log" cols="100" rows="15"></textarea><br/>
+                <!-- Enter message here: -->
+                <!-- <input id="chat-message-input" type="text" size="100"/><br/>
+                <input id="chat-message-submit" class="buttonL rounded" type="button" value="Send"/> -->
+                <div class="serif-text input-group">
+                  <input class="input-group-field searchfield" id="chat-message-input" type="text" size="100"
+                    style="font-size:16px;" placeholder="Enter Message Here">
+                  <button class="input-group-button button buttonL" id="chat-message-submit" value="Send">
+                    <i class="material-icons" style="font-size:16px;">chat</i>
+                  </button>
+                </div>
                 <!-- <form id="chatform" autocomplete="off">
                     {% if user.is_authenticated %}
                     <input id="message" type="text" class="form-control input-lg" placeholder="Type chat message here" required>
@@ -35,33 +57,16 @@
 
             </div>
           </div>
-          <div class="cell medium-4 medium-cell-block-y main-text">
+
+          <!-- <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-
-              <!-- <em><span class="text-success" id="loggedin-users-count">0</span> users online and <span class="text-success" id="lurkers-count">0</span> onlookers</em>
-
-              <ul class="list-group" id="user-list">
-                  <li class="list-group-item">user1</li>
-              </ul>
-              <hr>
-              <div class="hidden" id="last_message_id">{{ first_message_id }}</div>
-                  {% if first_message_id > 0 %}
-                      <div class="text-center"><button id="load_old_messages" class="btn btn-success">Load old messages</button></div>
-                  {% endif %}
-              <ul class="list-group" id="chat">
-
-                  {% for message in chat_messages %}
-                      <li class="list-group-item">
-                      <strong>{{ message.user }} : </strong>
-                      {{ message.message_html|safe }}
-                      </li>
-                  {% empty %}
-                  <div id="no_messages">No messages here</div>
-                  {% endfor %}
-              </ul> -->
-
+              {% for message in chat_messages %}
+                <strong>{{ message.author }} : </strong>
+                {{ message.message_html|safe }}
+                <br>
+              {% endfor %}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -71,7 +76,7 @@
 {% block scripts %}
 
 <!-- <script type="text/javascript" src='{% static "js/realtime.js" %}'></script> -->
-<script type="text/javascript" src='{% static "js/chat.js" %}'>
+<script type="text/javascript" src='{% static "js/chat.js" %}'></script>
   <!-- // var roomName = {{ room_name_json }};
 
   // var chatSocket = new WebSocket(
@@ -106,7 +111,27 @@
   //
   //     messageInputDom.value = '';
   // }; -->
-  </script>
+  <!-- <script>
+    window.onload=toBottom;
+
+    function toBottom()
+    {
+      alert("Scrolling to bottom ...");
+      // window.scrollTo(0, document.body.scrollHeight);
+      window.scrollTo(0,document.querySelector(".scrollingContainer").scrollHeight);
+    }
+  </script> -->
+  <!-- <script>
+    function myFunction() {
+      var container = document.getElementById("chat-past");
+      // var x = elmnt.scrollLeft;
+      // var y = elmnt.scrollTop;
+      // document.getElementById ("demo").innerHTML = "Horizontally: " + x + "px<br>Vertically: " + y + "px";
+      // var container = document.querySelector(".dc-messages-container");
+      container.scrollTop = container.scrollHeight;
+    }
+  </script> -->
+
 <!-- <script type="text/javascript" src='{% static "js/reconnecting-websocket.min.js" %}'></script>
 <script type="text/javascript" src='{% static "js/realtime.js" %}'></script>
 <script type="text/javascript" src='{% static "js/loadhistory.js" %}'></script> -->

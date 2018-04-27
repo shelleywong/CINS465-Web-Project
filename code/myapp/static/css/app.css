@@ -14,6 +14,14 @@ body {
   overflow-x: hidden;
 }
 
+textarea#chat-log {
+  background: #FCFCFC;
+}
+
+/*div#chat-past {
+  overflow: scroll;
+}*/
+
 /* font style */
 .sans-serif-text {
   font-family: "Optima", sans-serif;

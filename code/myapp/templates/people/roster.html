@@ -38,6 +38,10 @@
                     </h6>
                   </div>
                   {% endfor %}
+
+                  {% for student in student_list %}
+                    {{ student.image_description }}
+                  {% endfor %}
                 </div>
               </article>
             </div>

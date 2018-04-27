@@ -6,8 +6,8 @@
     chatSocket.onmessage = function(event) {
     var data = JSON.parse(event.data);
     var message = data['message'];
-    document.querySelector('#chat-log').value += (message + " - Posted by: " +
-      data.username + " on " + data.created_on + ' UTC\n');
+    document.querySelector('#chat-log').value += (data.username + ": " + message +
+      " - " + data.created_on + ' UTC\n');
 
   };
 
