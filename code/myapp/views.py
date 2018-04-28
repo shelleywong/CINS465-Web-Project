@@ -13,9 +13,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.generic.edit import UpdateView
 from django.utils.safestring import mark_safe
+from django.core import serializers
+
 from random import shuffle, sample
 import random
-
 
 import json
 import sys
@@ -29,7 +30,7 @@ def index(request):
     site_name = 'homeroom'
     message = """Simple to use. No cost to you.
         A safe place to connect with your class and communicate better."""
-    post_list = Post_Model.objects.all()
+    post_list = Post_Model.objects.all().order_by("-created_on")
     user_list = User.objects.all()
     student_list = Student_Model.objects.all()
     context = {
@@ -129,30 +130,6 @@ def edit_profile_view(request):
         # "student_image":student_image
     }
     return render(request,"edit_profile.html",context)
-    # if request.method == 'POST':
-    #     form = Edit_Profile_Form(request.POST, instance = request.user)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('/profile/')
-    # else:
-    #     form = Edit_Profile_Form(instance = request.user)
-    # context = {
-    #     "form": form
-    # }
-    # return render(request,"edit_profile.html",context)
-
-# class ProfileUpdate(UpdateView):
-#     model = Student_Model
-#     fields = ['about','image','image_description']
-#     template_name_suffix = 'edit_profile.html'
-#
-#     def get_object(self, *args, **kwargs):
-#         user = get_object_or_404(User,pk=self.kwargs['pk'])
-#
-#         return self.request.user
-#
-#     def get_success_url(self,*args,**kwargs):
-#         return reverse("some url name")
 
 # adapted from: https://docs.djangoproject.com/en/2.0/topics/auth/default/ and
 # https://www.youtube.com/watch?v=QxGKTvx-Vvg&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&index=20
@@ -239,7 +216,7 @@ def forum_api(request):
         except:
             return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
     if request.method == 'GET':
-        post_list = Post_Model.objects.all()
+        post_list = Post_Model.objects.all().order_by("-created_on")
         post_dictionary = {}
         post_dictionary["posts"] = []
         for post_item in post_list:
@@ -302,16 +279,89 @@ def roster_view(request):
 def face_match_view(request):
     # adapted from: https://stackoverflow.com/questions/976882/shuffling-a-list-of-objects
     users = User.objects.all()
+    # students = Student_Model.objects.filter('image')
     u_list = list(users)
     n = len(u_list)
     user_list = random.sample(u_list,n)
-    student_list = Student_Model.objects.all()
+    # user_list = serializers.serialize('json', data)
 
+    student_list = Student_Model.objects.all()
+    # user_a = User.objects.get(username='shelleywong')
+    # user_1 = user_a.first_name
     context = {
-        'user_list':user_list,
+        # 'user_1':mark_safe(json.dumps(user_1)),
+        'user_list': user_list,
         'student_list':student_list
     }
     return render(request,'people/face_match.html',context)
+
+@csrf_exempt
+def students_api(request):
+    # data = serializers.serialize('xml', SomeModel.objects.all(), fields=('name','size'))
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        try:
+            a_user = list(User.objects.all(), fields=('username','first_name','last_name'))
+            a_student = list(Student_Model.objects.all(), fields=('user','image'))
+            a_user.save()
+            a_student.save()
+            # all_students = list(User.objects.all()) + list(Student_Model.objects.all())
+            # data = serializers.serialize('json', all_students)
+            # struct = json.loads(data)
+            # data = json.dumps(struct[0])
+            # data.save()
+            # a_post = Post_Model(subject=json_data['subject'],details=json_data['details'])
+            # a_post.save()
+            return HttpResponse(data, mimetype='application/json')
+        except:
+            return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
+    if request.method == 'GET':
+        users = User.objects.all()
+        u_list = list(users)
+        n = len(u_list)
+        user_queryset = random.sample(u_list,n)
+        # user_queryset = User.objects.all()
+        user_dictionary = {}
+        user_dictionary["users"] = []
+        for user_item in user_queryset:
+            student_item = Student_Model.objects.get(user=user_item)
+            user_dictionary["users"] += [{
+                'username': user_item.username,
+                'first_name': user_item.first_name,
+                'last_name': user_item.last_name,
+                'image':str(student_item.image)
+            }]
+        # print(user_list)
+        # return HttpResponse(json.dumps(user_list))
+        #return JsonResponse(user_list, safe=False)
+
+        return JsonResponse(user_dictionary, safe=False)
+            # post_list = Post_Model.objects.all().order_by("-created_on")
+            # post_dictionary = {}
+            # post_dictionary["posts"] = []
+            # for post_item in post_list:
+            #     comment_list = Post_Comment_Model.objects.filter(post_topic_id=post_item)
+            #     comment_json = []
+            #     for comm in comment_list:
+            #         comment_json += [{
+            #             "comment":comm.comment,
+            #             "id":comm.id,
+            #             "author":comm.author.username,
+            #             "created_on":comm.created_on.strftime('%m/%d/%Y %H:%M')
+            #         }]
+            #     post_dictionary["posts"] += [{
+            #         "id":post_item.id,
+            #         "subject":post_item.subject,
+            #         "details":post_item.details,
+            #         "comments":comment_json,
+            #         "author":post_item.author.username,
+            #         "created_on":post_item.created_on.strftime('%m/%d/%Y %H:%M')
+            #     }]
+            # print(post_dictionary)
+            # return JsonResponse(post_dictionary)
+
+
+
 
 @login_required(login_url='/login/')
 def suggestion_view(request):

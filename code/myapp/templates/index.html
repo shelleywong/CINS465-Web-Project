@@ -43,16 +43,6 @@
                 <hr>
               </div>
               <h1 class="serif-text text-center">Forum</h1>
-              <!-- {% for user in user_list %}
-                  ID: {{ user.id }}
-                  Username: {{ user.username }}
-                  Name: {{user.first_name}} {{ user.last_name }}
-                  About: {{ user.student_model.about }}
-                  Image: {{student.image_description }}
-                  <img src="/media/{{user.student_model.image}}"
-                    v-bind:alt="student.image_description" width="42">
-                    <br>
-              {% endfor %} -->
               <hr>
               <!-- <div class="text-justify">
                 {% for item in post_list %}
@@ -78,7 +68,6 @@
                     <a v-bind:href="'/comment/'+ item.id +'/'" class="button buttonL rounded small">
                       <i class="material-icons" style="font-size:14px;">comment</i>
                     </a>
-                    <!-- <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a> -->
                     <ul>
                       <li v-for="comm in item.comments">
                         <div class="sans-serif-text">{{ comm.comment }}
@@ -115,13 +104,11 @@
               </div>
               <hr>
               <h3 class="serif-text text-center">Recent Posts:</h3>
-              <div class="text-center" id="app-suggestion">
-                <ul class="text-center nobullet">
-                  {% for item in post_list %}
-                  <li><a href="#">{{ item.subject }}</a></li>
-                  {% endfor %}
-                </ul>
-              </div>
+              <ul class="text-center nobullet">
+                {% for item in post_list %}
+                <li><a href="#">{{ item.subject }}</a></li>
+                {% endfor %}
+              </ul>
             </div>
           </div>
         </div>

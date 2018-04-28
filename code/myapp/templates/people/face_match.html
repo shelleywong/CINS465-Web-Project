@@ -24,24 +24,36 @@
             <div class="main-text serif-text">
               <article class="grid-container">
                 <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
-                  {% for user in user_list %}
-                  <div class="cell medium-3">
-                    <a href="/media/{{user.student_model.image}}">
-                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
-                        v-bind:alt="student.image_description" >
-                    </a>
-                    <h6 class="sans-serif-text">
-                      {{user.first_name}} {{ user.last_name }}
-                    </h6>
-                    <h6 class="sans-serif-text subheader">
-                      Username: {{ user.username }}
-                    </h6>
-                  </div>
-                  {% endfor %}
 
-                  {% for student in student_list %}
-                    {{ student.image_description }}
-                  {% endfor %}
+                  <!-- <button class="button button1" onclick="myGame()">Start</button> -->
+                  <!-- <div id="game"></div> -->
+                  <!-- <ul id="game">
+                    <button id="next_button">Next!</button>
+                    {% for user in user_list %}
+                    <li>
+                      <a href="/media/{{user.student_model.image}}">
+                        <img id="profile_image" class="thumbnail" src="/media/{{user.student_model.image}}"
+                          v-bind:alt="student.image_description" >
+                      </a>
+                      <button class="button button1" onclick="showImage()">Show Image</button>
+                    </li>
+                    {% endfor %}
+                  </ul> -->
+
+                  <!-- {{ user.student_model.image }} -->
+
+                    <!-- {{ i.username }}
+                    <button class="button button1" onclick="i++">Start</button> -->
+
+
+                  <div id="app-student">
+                    <div v-for = "item in users">
+                      <a v-bind:href="'/media/' + item.image + '/'">
+                        <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
+                          alt="Student Profile Image" >
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </article>
             </div>
@@ -50,4 +62,44 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "js/people.js" %}"></script>
+<!-- <script src="{% static "js/people.js" %}"></script> -->
+<script>
+  var users = "{{ user_list }}";
+  var students = "{{ student_list }}";
+  // var users = {{ user_list }};
+  // var name = users['first_name'];
+
+  function myGame(){
+    // for(int i = 0; i < len(users); i++)
+    // {
+      // document.getElementById("game").innerHTML = users;
+      $('#game li').on('click', function() {
+          alert('I am the '+$(this).attr('id')+' element');
+      });
+    // }
+  }
+  // // function showImage(){
+  // //   var x = document.getElementById("profile_image").innerHTML;
+  // //   document.getElementById("demo").innerHTML = x;
+  // // }
+  // function showImage(){
+  //   var x = document.getElementById("game");
+  //   if (x.style.display === "block") {
+  //     x.style.display = "none";
+  //   }
+  //   else {
+  //       x.style.display = "block";
+  //   }
+  // }
+
+</script>
+<!-- <script>
+  $('#game li').on('click', function() {
+      alert('I am the '+$(this).attr('id')+' element');
+  });
+</script> -->
 {% endblock %}

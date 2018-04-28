@@ -17,6 +17,7 @@ urlpatterns = [
     path('people/meet/',views.meet_view),
     path('people/roster/',views.roster_view),
     path('people/face_match/', views.face_match_view),
+    path('people/students/', views.students_api),
     path('suggestion/', views.suggestion_view),
     path('suggestions/', views.suggestion_api),
     path('login/', adminviews.login, {
