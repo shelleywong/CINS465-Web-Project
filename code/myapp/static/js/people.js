@@ -13,6 +13,7 @@ var app_student = new Vue({
     users: [],
     curscore: [],
     i: 0,
+    cur_student: {},
   },
 
   //Adapted from:
@@ -30,9 +31,14 @@ var app_student = new Vue({
       }.bind(this));
     },
     playgame: function(){
-      console.log(this.users);
-
+      console.log(this.users[this.i].username);
+      this.cur_student = this.users[this.i].username;
+      console.log(this.cur_student);
     },
+
+    // setCurStudent: function(data){
+    //   this.$set(this.cur_student, data);
+    // },
 
   },
 })

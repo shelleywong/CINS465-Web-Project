@@ -39,7 +39,7 @@
                           alt="Student Profile Image" >
                       </a>
                     </div> -->
-                  <div id="app-student">
+                  <div id="app-student" class="cell medium-4">
                     <div
                       v-for="(item, index) in users" v-if="index == i"
                       v-bind:item="item"
@@ -50,12 +50,17 @@
                         <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
                           alt="Student Profile Image" >
                       </a>
+                      <!-- {{ cur_student }} = {{ item.username }} -->
+                      {% verbatim %}
+                      <p>{{cur_student}}</p>
+                      {% endverbatim %}
                       <!-- <button v-on:click="nextImage()">press</button> -->
                     </div>
-                    <button class="button button1" v-on:click="i += 1">Next Image</button>
+                    <br>
+                    <button class="button button1" v-on:click="i += 1">Next</button>
                   </div>
                   <!-- <div id="next-image">
-                    <button class="button button1" v-on:click="counter += 1">Next</button>
+                    <button class="button button1" v-on:click="counter += 1">Count</button>
                     {% verbatim %}
                     <p>The button above has been clicked {{ counter }} times.</p>
                     {% endverbatim %}
