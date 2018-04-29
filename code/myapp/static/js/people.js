@@ -1,8 +1,18 @@
+var next_image = new Vue({
+  el: '#next-image',
+
+  data: {
+    counter: 0,
+  }
+})
+
 var app_student = new Vue({
   el: '#app-student',
 
   data: {
-    users: []
+    users: [],
+    curscore: [],
+    i: 0,
   },
 
   //Adapted from:
@@ -15,8 +25,14 @@ var app_student = new Vue({
     fetchStudentList: function() {
       $.get('/people/students/',function(user_list) {
         this.users = user_list.users;
-        console.log(user_list);
+        this.playgame();
+        //console.log(user_list);
       }.bind(this));
     },
+    playgame: function(){
+      console.log(this.users);
+
+    },
+
   },
 })

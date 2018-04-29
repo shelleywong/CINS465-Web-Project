@@ -288,8 +288,10 @@ def face_match_view(request):
     student_list = Student_Model.objects.all()
     # user_a = User.objects.get(username='shelleywong')
     # user_1 = user_a.first_name
+    iterator = 0
     context = {
         # 'user_1':mark_safe(json.dumps(user_1)),
+        'iterator': iterator,
         'user_list': user_list,
         'student_list':student_list
     }

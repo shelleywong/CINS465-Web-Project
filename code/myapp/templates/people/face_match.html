@@ -27,33 +27,39 @@
 
                   <!-- <button class="button button1" onclick="myGame()">Start</button> -->
                   <!-- <div id="game"></div> -->
-                  <!-- <ul id="game">
-                    <button id="next_button">Next!</button>
-                    {% for user in user_list %}
-                    <li>
-                      <a href="/media/{{user.student_model.image}}">
-                        <img id="profile_image" class="thumbnail" src="/media/{{user.student_model.image}}"
-                          v-bind:alt="student.image_description" >
-                      </a>
-                      <button class="button button1" onclick="showImage()">Show Image</button>
-                    </li>
-                    {% endfor %}
-                  </ul> -->
 
-                  <!-- {{ user.student_model.image }} -->
-
-                    <!-- {{ i.username }}
-                    <button class="button button1" onclick="i++">Start</button> -->
-
-
-                  <div id="app-student">
+                    <!-- <button id="next_button" class="button button1" onclick="nextItem()">Start</button> -->
+                    <!-- Number: <input type="number" id="output"> -->
+                    <!-- <button onclick="buttonClick()">Click Me</button> -->
+                    <div id="output"></div>
+                  <!-- <div id="app-student">
                     <div v-for = "item in users">
                       <a v-bind:href="'/media/' + item.image + '/'">
                         <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
                           alt="Student Profile Image" >
                       </a>
+                    </div> -->
+                  <div id="app-student">
+                    <div
+                      v-for="(item, index) in users" v-if="index == i"
+                      v-bind:item="item"
+                      v-bind:index="index"
+                      v-bind:key="item.id"
+                      >
+                      <a v-bind:href="'/media/' + item.image + '/'">
+                        <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
+                          alt="Student Profile Image" >
+                      </a>
+                      <!-- <button v-on:click="nextImage()">press</button> -->
                     </div>
+                    <button class="button button1" v-on:click="i += 1">Next Image</button>
                   </div>
+                  <!-- <div id="next-image">
+                    <button class="button button1" v-on:click="counter += 1">Next</button>
+                    {% verbatim %}
+                    <p>The button above has been clicked {{ counter }} times.</p>
+                    {% endverbatim %}
+                  </div> -->
                 </div>
               </article>
             </div>
@@ -66,40 +72,9 @@
 
 {% block scripts %}
 <script src="{% static "js/people.js" %}"></script>
-<!-- <script src="{% static "js/people.js" %}"></script> -->
-<script>
-  var users = "{{ user_list }}";
-  var students = "{{ student_list }}";
-  // var users = {{ user_list }};
-  // var name = users['first_name'];
-
-  function myGame(){
-    // for(int i = 0; i < len(users); i++)
-    // {
-      // document.getElementById("game").innerHTML = users;
-      $('#game li').on('click', function() {
-          alert('I am the '+$(this).attr('id')+' element');
-      });
-    // }
-  }
-  // // function showImage(){
-  // //   var x = document.getElementById("profile_image").innerHTML;
-  // //   document.getElementById("demo").innerHTML = x;
-  // // }
-  // function showImage(){
-  //   var x = document.getElementById("game");
-  //   if (x.style.display === "block") {
-  //     x.style.display = "none";
-  //   }
-  //   else {
-  //       x.style.display = "block";
-  //   }
-  // }
-
+<script type="text/javascript">
+  // var user_dict = JSON.parse("{{ user_list }}");
+  // document.getElementById("output").innerHTML = user_dict;
 </script>
-<!-- <script>
-  $('#game li').on('click', function() {
-      alert('I am the '+$(this).attr('id')+' element');
-  });
-</script> -->
+
 {% endblock %}
