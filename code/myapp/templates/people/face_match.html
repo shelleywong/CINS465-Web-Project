@@ -57,9 +57,9 @@
                     <br>
                     <button class="button button1" v-on:click="nextImage()">Next</button>
                     {% verbatim %}
-                    <div v-for="item in users_except_cur" v-if="item.username != cur_student">
+                    <!-- <div v-for="item in multiple_choice" v-if="item.username != cur_student">
                         {{ item.username }}
-                    </div>
+                    </div> -->
                     <hr>
                     <div v-for="item in multiple_choice">
                         {{ item.username }}
