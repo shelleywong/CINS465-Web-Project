@@ -336,7 +336,6 @@ def students_api(request):
         # print(user_list)
         # return HttpResponse(json.dumps(user_list))
         #return JsonResponse(user_list, safe=False)
-
         return JsonResponse(user_dictionary, safe=False)
             # post_list = Post_Model.objects.all().order_by("-created_on")
             # post_dictionary = {}

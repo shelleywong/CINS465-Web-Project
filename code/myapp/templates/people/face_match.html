@@ -50,15 +50,29 @@
                         <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
                           alt="Student Profile Image" >
                       </a>
-                      <!-- {{ cur_student }} = {{ item.username }} -->
                       {% verbatim %}
                       <p>{{cur_student}}</p>
                       {% endverbatim %}
-                      <!-- <button v-on:click="nextImage()">press</button> -->
                     </div>
                     <br>
-                    <button class="button button1" v-on:click="i += 1">Next</button>
+                    <button class="button button1" v-on:click="nextImage()">Next</button>
+                    {% verbatim %}
+                    <div v-for="item in users_except_cur" v-if="item.username != cur_student">
+                        {{ item.username }}
+                    </div>
+                    <hr>
+                    <div v-for="item in multiple_choice">
+                        {{ item.username }}
+                    </div>
+                    {% endverbatim %}
+
+                    <!-- <button class="button button1" v-on:click="i += 1">Next</button> -->
                   </div>
+                  <!-- <div id="copy-student">
+                    <div v-for="item in users_copy">
+                      {{ item.username }}
+                    </div>
+                  </div> -->
                   <!-- <div id="next-image">
                     <button class="button button1" v-on:click="counter += 1">Count</button>
                     {% verbatim %}

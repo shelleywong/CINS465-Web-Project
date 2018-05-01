@@ -1,11 +1,3 @@
-var next_image = new Vue({
-  el: '#next-image',
-
-  data: {
-    counter: 0,
-  }
-})
-
 var app_student = new Vue({
   el: '#app-student',
 
@@ -14,6 +6,8 @@ var app_student = new Vue({
     curscore: [],
     i: 0,
     cur_student: {},
+    users_except_cur: [],
+    multiple_choice: [],
   },
 
   //Adapted from:
@@ -24,21 +18,101 @@ var app_student = new Vue({
 
   methods: {
     fetchStudentList: function() {
-      $.get('/people/students/',function(user_list) {
-        this.users = user_list.users;
+      $.get('/people/students/',function(user_dictionary) {
+        this.users = user_dictionary.users;
+        this.users_except_cur = this.users.slice();
+        // this.multiple_choice = this.users.slice();
         this.playgame();
-        //console.log(user_list);
+        // console.log(this.multiple_choice);
       }.bind(this));
     },
     playgame: function(){
       console.log(this.users[this.i].username);
       this.cur_student = this.users[this.i].username;
-      console.log(this.cur_student);
+
+      // console.log(this.cur_student);
+
+    },
+    nextImage: function() {
+      this.i += 1;
+      this.cur_student = this.users[this.i].username;
+      this.shuffle(this.users_except_cur);
+      randomIndex1 = Math.floor(Math.random() * this.i);
+      if(this.i < this.users_except_cur.length/2) {
+        this.multiple_choice = this.users_except_cur.slice(this.i,this.i+4);
+      }
+      else {
+        this.multiple_choice = this.users_except_cur.slice(this.i-3,this.i+1);
+      }
+      // this.multiple_choice.push(this.users_except_cur[0]);
+      // this.multiple_choice.push(this.users_except_cur[1]);
+      // this.multiple_choice.push(this.users_except_cur[2]);
+      // this.multiple_choice.push(this.users[this.i]);
+      this.shuffle(this.multiple_choice);
+      // console.log(multiple_choice);
     },
 
-    // setCurStudent: function(data){
-    //   this.$set(this.cur_student, data);
-    // },
+    //adapted from Fisher-Yates (aka Knuth) Shuffle:
+    //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    shuffle: function(array) {
+      var currentIndex = array.length, tempValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        tempValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = tempValue;
+      }
+    },
 
   },
 })
+
+
+// var copy_student = new Vue({
+//   el: '#copy-student',
+//
+//   data: {
+//     users_copy: [],
+//     curscore: [],
+//     i: 0,
+//     cur_student: {},
+//   },
+//
+//   //Adapted from:
+//   //https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
+//   created: function() {
+//     this.fetchStudentCopy();
+//   },
+//
+//   methods: {
+//     fetchStudentCopy: function() {
+//       $.get('/people/students/',function(user_list) {
+//         this.users_copy = user_list.users_copy;
+//         this.playgame();
+//         //console.log(user_list);
+//       }.bind(this));
+//     },
+//     playgame: function(){
+//       console.log(this.users_copy[this.i].username);
+//
+//       this.cur_student = this.users_copy[this.i].username;
+//       // console.log(this.cur_student);
+//
+//     },
+//     nextImage: function() {
+//       this.i += 1;
+//       this.cur_student = this.users_copy[this.i].username;
+//     },
+//     // ready: function() {
+//     //     this.users_except_cur = this.users;
+//     // }
+//
+//   },
+// })
