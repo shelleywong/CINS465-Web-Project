@@ -46,24 +46,41 @@
                         {{ item.username }}
                     </div> -->
                   </div>
-                  <div class="cell medium-6 medium-offset-1">
+                  <div class="cell medium-auto medium-offset-1">
                     <div v-for="item in multiple_choice">
                       <!-- {{ item.username }} -->
-                      <input type="radio" id="item.username" v-bind:value=" item.username " v-model="checked_name">
-                      <label for="item.username">{{ item.first_name }} {{ item.last_name }}</label>
-                    </div>
-                    <br>
-                    <span>Checked name: {{ checked_name }}</span>
-                    <br>
-                    <div v-for="item in checked_names">
-                      {{ item }}
-                    </div>
+                      <input type="radio" id="item.first_name" v-bind:value="item.first_name" v-model="checked_name">
+                      <label style="font-size:18px;" for="item.first_name">{{ item.first_name }} {{ item.last_name }}</label>
 
+                      <!-- <label for="item.first_name">{{ item.first_name }} {{ item.last_name }}</label> -->
+                    </div>
+                    <br>
+                    <!-- <span>Checked name: {{ checked_name }}</span> -->
+                    <br>
+
+                  </div>
+                  <div class="cell auto" v-if="fin == true">
+                    Score: {{ score }}/{{users.length}}
+                    <hr>
+                    <div
+                      v-for="(item, index) in checked_names"
+                      v-bind:item="item"
+                      v-bind:index="index"
+                      v-bind:key="item.id"
+                      >
+                      <div v-if="curscore[index] == 0">
+                        <span style="color: red;">{{ item }}</span>
+                        *Correct: {{ users[index].first_name }} {{ users[index].last_name }}
+                      </div>
+                      <div v-else>
+                        <span style="color: green;">{{ item }}</span>
+                      </div>
+                    </div>
+                  </div>
                     {% endverbatim %}
                     <!-- <p id="demo"></p> -->
 
                     <!-- <button class="button button1" v-on:click="i += 1">Next</button> -->
-                  </div>
                   <!-- <div id="copy-student">
                     <div v-for="item in users_copy">
                       {{ item.username }}
