@@ -23,23 +23,8 @@
               medium-12 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <article class="grid-container">
-                <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
-
-                  <!-- <button class="button button1" onclick="myGame()">Start</button> -->
-                  <!-- <div id="game"></div> -->
-
-                    <!-- <button id="next_button" class="button button1" onclick="nextItem()">Start</button> -->
-                    <!-- Number: <input type="number" id="output"> -->
-                    <!-- <button onclick="buttonClick()">Click Me</button> -->
-                    <div id="output"></div>
-                  <!-- <div id="app-student">
-                    <div v-for = "item in users">
-                      <a v-bind:href="'/media/' + item.image + '/'">
-                        <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
-                          alt="Student Profile Image" >
-                      </a>
-                    </div> -->
-                  <div id="app-student" class="cell medium-4">
+                <div id="app-student" class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+                  <div class="cell medium-4">
                     <div
                       v-for="(item, index) in users" v-if="index == i"
                       v-bind:item="item"
@@ -50,9 +35,9 @@
                         <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
                           alt="Student Profile Image" >
                       </a>
-                      {% verbatim %}
+                      <!-- {% verbatim %}
                       <p>{{cur_student}}</p>
-                      {% endverbatim %}
+                      {% endverbatim %} -->
                     </div>
                     <br>
                     <button class="button button1" v-on:click="nextImage()">Next</button>
@@ -60,11 +45,22 @@
                     <!-- <div v-for="item in multiple_choice" v-if="item.username != cur_student">
                         {{ item.username }}
                     </div> -->
-                    <hr>
+                  </div>
+                  <div class="cell medium-6 medium-offset-1">
                     <div v-for="item in multiple_choice">
-                        {{ item.username }}
+                      <!-- {{ item.username }} -->
+                      <input type="radio" id="item.username" v-bind:value=" item.username " v-model="checked_name">
+                      <label for="item.username">{{ item.first_name }} {{ item.last_name }}</label>
                     </div>
+                    <br>
+                    <span>Checked name: {{ checked_name }}</span>
+                    <br>
+                    <div v-for="item in checked_names">
+                      {{ item }}
+                    </div>
+
                     {% endverbatim %}
+                    <!-- <p id="demo"></p> -->
 
                     <!-- <button class="button button1" v-on:click="i += 1">Next</button> -->
                   </div>

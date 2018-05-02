@@ -172,6 +172,15 @@ class Edit_Student_Profile(forms.ModelForm):
     #         user.save()
     #     return user
 
+# CHOICES = (
+#     ("a","A"),
+#     ("b","B"),
+#     ("c","C"),
+#     ("d","D")
+# )
+# class Game_Form(forms.Form):
+#     display = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+
 class Book_Form(forms.Form):
     title = forms.CharField(label='Title', max_length=255)
     blurb = forms.CharField(widget=forms.Textarea,label='Blurb')

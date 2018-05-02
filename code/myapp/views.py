@@ -248,7 +248,7 @@ def comment_view(request,post_topic_id):
             post_comm.save(post_topic_id, request.user)
             return redirect("/")
     else:
-        post_comm = Post_Comment_Form
+        post_comm = Post_Comment_Form()
     post_list = Post_Model.objects.all()
     comment_list = Post_Comment_Model.objects.all()
     context={
@@ -288,10 +288,11 @@ def face_match_view(request):
     student_list = Student_Model.objects.all()
     # user_a = User.objects.get(username='shelleywong')
     # user_1 = user_a.first_name
-    iterator = 0
+    # iterator = 0
     context = {
         # 'user_1':mark_safe(json.dumps(user_1)),
-        'iterator': iterator,
+        # 'game_form': game_form,
+        # 'iterator': iterator,
         'user_list': user_list,
         'student_list':student_list
     }

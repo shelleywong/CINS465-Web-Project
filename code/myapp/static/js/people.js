@@ -8,6 +8,8 @@ var app_student = new Vue({
     cur_student: {},
     // users_except_cur: [],
     multiple_choice: [],
+    checked_name: "",
+    checked_names: [],
   },
 
   //Adapted from:
@@ -22,6 +24,7 @@ var app_student = new Vue({
         this.users = user_dictionary.users;
         // this.multiple_choice = this.users.slice(0,1);
         this.multiple_choice = this.users.slice();
+        this.checked_names = this.users.slice();
         this.playgame();
         // console.log(this.multiple_choice);
       }.bind(this));
@@ -31,6 +34,7 @@ var app_student = new Vue({
       this.cur_student = this.users[this.i].username;
       var rand = [];
       this.multiple_choice = [];
+      this.checked_names = [];
       rand.push(this.i);
       // this.multiple_choice = this.users.slice(0,1);
       // this.multiple_choice[0] = this.users[this.i];
@@ -42,34 +46,49 @@ var app_student = new Vue({
           this.multiple_choice.push(this.users[randomnumber]);
       }      // console.log(this.cur_student);
       console.log(rand);
+      console.log(this.multiple_choice);
     },
+
     nextImage: function() {
-      this.i += 1;
-      this.cur_student = this.users[this.i].username;
-      this.shuffle(this.multiple_choice);
-      var rand = [];
-      this.multiple_choice = [];
-      rand.push(this.i);
-      this.multiple_choice.push(this.users[this.i]);
-      while(rand.length < 4){
-          var randomnumber = Math.floor(Math.random()*this.users.length);
-          if(rand.indexOf(randomnumber) > -1) continue;
-          rand[rand.length] = randomnumber;
-          this.multiple_choice.push(this.users[randomnumber]);
+
+      if(this.i < this.users.length-1) {
+        this.i += 1;
+        this.cur_student = this.users[this.i].username;
+        this.shuffle(this.multiple_choice);
+        this.checked_names.push(this.checked_name);
+        //adapted from: https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+        var rand = [];
+        this.multiple_choice = [];
+        rand.push(this.i);
+        this.multiple_choice.push(this.users[this.i]);
+        while(rand.length < 4){
+            var randomnumber = Math.floor(Math.random()*this.users.length);
+            if(rand.indexOf(randomnumber) > -1) continue;
+            rand[rand.length] = randomnumber;
+            this.multiple_choice.push(this.users[randomnumber]);
+        }
+        console.log(rand);
+        this.shuffle(this.multiple_choice);
       }
-      console.log(rand);
-      // if(this.i < this.users_except_cur.length/2) {
-      //   this.multiple_choice = this.users_except_cur.slice(this.i-1,this.i+1);
-      // }
-      // else {
-      //   this.multiple_choice = this.users_except_cur.slice(this.i-1,this.i+1);
-      // }
-      // this.multiple_choice.push(this.users_except_cur[0]);
-      // this.multiple_choice.push(this.users_except_cur[1]);
-      // this.multiple_choice.push(this.users_except_cur[2]);
+      else {
+        console.log("finished with array");
+      }
+      // this.i += 1;
+      // this.cur_student = this.users[this.i].username;
+      // this.shuffle(this.multiple_choice);
+      // //adapted from: https://stackoverflow.com/questions/2380019/generate-unique-random-numbers-between-1-and-100?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+      // var rand = [];
+      // this.multiple_choice = [];
+      // rand.push(this.i);
       // this.multiple_choice.push(this.users[this.i]);
-      this.shuffle(this.multiple_choice);
-      // console.log(multiple_choice);
+      // while(rand.length < 4){
+      //     var randomnumber = Math.floor(Math.random()*this.users.length);
+      //     if(rand.indexOf(randomnumber) > -1) continue;
+      //     rand[rand.length] = randomnumber;
+      //     this.multiple_choice.push(this.users[randomnumber]);
+      // }
+      // console.log(rand);
+      // this.shuffle(this.multiple_choice);
     },
 
     // randIndex: function(index) {
@@ -103,6 +122,10 @@ var app_student = new Vue({
         array[randomIndex] = tempValue;
       }
     },
+
+    // saveGuess: function() {
+    //   checked_names.push_back(this.checked_name);
+    // },
 
   },
 })
