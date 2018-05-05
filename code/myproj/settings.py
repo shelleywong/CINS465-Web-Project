@@ -23,14 +23,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qkwz^rbl#jm@d=lwx2+ls$q+volpr96vb44w-l1$e)#brh&%(s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["35.233.169.29"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    # 'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,7 +112,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -119,3 +121,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR + "/static/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR + '/media/'
+
+AUTH_PROFILE_MODULE = 'accounts.Student_Model'
+
+#Channels
+ASGI_APPLICATION = "myproj.routing.application"
+CHANNEL_LAYERS = {
+    'default' : {
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}

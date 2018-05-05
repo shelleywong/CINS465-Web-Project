@@ -7,56 +7,6 @@
   {{ message }}
 {% endblock %}
 
-{% block nav-bar %}
-<!-- used template from:
-  https://foundation.zurb.com/sites/docs/responsive-navigation.html -->
-  <div class="title-bar" data-responsive-toggle="main-menu"
-    data-hide-for="medium">
-    <button class="menu-icon" type="button" data-toggle="main-menu"></button>
-    <a class="title-bar-title" href="/"><b>home</b>room</a>
-  </div>
-  <div class="top-bar" id="main-menu">
-    <div class="top-bar-left">
-      <ul class="dropdown menu" data-dropdown-menu>
-        <a class="logo" href="/"><b>home</b>room</a>
-        <li class="has-submenu">
-          <a href="#">About</a>
-          <ul class="submenu menu vertical" data-submenu>
-            <li><a href="#">uno</a></li>
-            <li><a href="#">dos</a></li>
-            <li><a href="#">tres</a></li>
-          </ul>
-        </li>
-        <li class="has-submenu">
-          <a href="#">Forum</a>
-          <ul class="submenu menu vertical" data-submenu>
-            <li><a href="#">un</a></li>
-            <li><a href="#">deux</a></li>
-            <li><a href="#">trois</a></li>
-          </ul>
-        </li>
-        <li class="has-submenu">
-          <a href="#">Meet</a>
-          <ul class="submenu menu vertical" data-submenu>
-            <li><a href="#">eins</a></li>
-            <li><a href="#">zwei</a></li>
-            <li><a href="#">drei</a></li>
-          </ul>
-        </li>
-        <li class="has-submenu">
-          <a href="#">Your Profile</a>
-        </li>
-      </ul>
-    </div>
-    <div class="top-bar-right">
-      <ul class="menu">
-        <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li>
-      </ul>
-    </div>
-  </div>
-{% endblock %}
-
 {% block body %}
 <!-- used template from:
   https://foundation.zurb.com/sites/docs/xy-grid.html -->
@@ -115,10 +65,6 @@
               <hr>
               <form action="/suggestion/" method="post">
                 {% csrf_token %}
-                {{ form.author.errors }}
-                {{ form.author.label_tag }}
-                {{ form.author }}
-
                 {{ form.suggestion.errors }}
                 {{ form.suggestion.label_tag }}
                 {{ form.suggestion }}
@@ -128,16 +74,22 @@
               <hr>
               <div id="app-suggestion">
                 <ul class="text-justify">
-                <!--{% for item in suggestion_list %}
-                  <li>{{ item.id }} : {{ item.suggestion }}, {{ item.author }}</li>
-                {% endfor %}-->
+                <!-- {% for item in suggestion_list %}
+                  <li>{{ item.id }} : {{ item.suggestion }}</li>
+                {% endfor %} -->
                   <li v-for = "item in suggestions">
                     {% verbatim %}
-                    {{ item.id }}: {{ item.author }}, {{ item.suggestion }}
-                    - Created on: {{ item.created_on }}
+                    {{ item.id }}: {{ item.suggestion }} - Created on: {{ item.created_on }} UTC
+
+                  <!--  <input type="submit" class="button button1" value="Add Comment"/> -->
+
+                <!--    <form action="/suggestion/" method="delete">
+                      <input type="submit" class="button button1" value="Delete Suggestion"/>
+                    </form> -->
+
                     <ul>
                       <li v-for="comm in item.comments">
-                        {{ comm.comment }} - {{ comm.created_on }}
+                        {{ comm.comment }}  <!-- - {{ comm.created_on }} -->
                       </li>
                     </ul>
                     {% endverbatim %}
@@ -185,38 +137,6 @@
         </div>
       </div>
     </div>
-  </div>
-{% endblock %}
-
-{% block footer %}
-<!-- based on tutorial from:
-  https://foundation.zurb.com/learn/building-a-responsive-footer-with-foundation-6-gary-jenning.html -->
-  <div>
-    <footer class="cell shrink footer">
-      <div id="foot-body">
-        <div class="grid-x grid-padding-x foot-text">
-          <div class="cell large-4 medium-6">
-            <h4 class="text-left sans-serif-text">Contact Info</h4>
-            <hr>
-            <p class="serif-text">Phone: <a href="#">555-123-4567</a><br>
-              Email: <a href="#">CSstudent@mail.csuchico.edu</a><br>
-              Address: <a href="#">400 W 1st St, Chico, CA 95929</a></p>
-          </div>
-          <div class="cell large-4 medium-6">
-            <h4 class="text-left sans-serif-text">Site Map</h4>
-            <hr>
-            <p class="serif-text"><a href="#">About Us</a><br>
-              <a href="#">Forum</a><br>
-              <a href="#">Meet Your Class</a><br>
-              <a href="#">Your Profile</a>
-            </p>
-          </div>
-          <div class="cell auto large-text-right">
-            <h1><a class="logo" href="/"><b>home</b>room</a></h1>
-          </div>
-        </div>
-      </div>
-    </footer>
   </div>
 {% endblock %}
 

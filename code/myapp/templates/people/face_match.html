@@ -1,0 +1,114 @@
+<!-- Author: Shelley Wong -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Face Match
+{% endblock %}
+
+{% block body %}
+<!-- adapted templates from:
+  https://foundation.zurb.com/sites/docs/xy-grid.html ,
+  https://foundation.zurb.com/templates-previews-sites-f6-xy-grid/portfolio.html -->
+  <div class="grid-container" id="main-body">
+    <div class="grid-y medium-grid-frame">
+      <div class="cell shrink header medium-cell-block-container">
+        <h1 class="text-center sans-serif-text shadowed">
+          Face Match
+        </h1>
+      </div>
+      <div class="cell medium-auto medium-cell-block-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell large-10 large-offset-1
+              medium-12 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <article class="grid-container">
+                <div id="app-student" class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+                  <div class="large-3 medium-5 small-12">
+                    <div
+                      v-for="(item, index) in users" v-if="index == i"
+                      v-bind:item="item"
+                      v-bind:index="index"
+                      v-bind:key="item.id"
+                      >
+                      <a v-bind:href="'/media/' + item.image + '/'">
+                        <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
+                          alt="Student Profile Image" >
+                      </a>
+                      <!-- {% verbatim %}
+                      <p>{{cur_student}}</p>
+                      {% endverbatim %} -->
+                    </div>
+                    <br>
+                    <button class="button button1" v-on:click="nextImage()">Next</button>
+                    {% verbatim %}
+                    <!-- <div v-for="item in multiple_choice" v-if="item.username != cur_student">
+                        {{ item.username }}
+                    </div> -->
+                  </div>
+                  <div class="medium-auto large-offset-1 small-12">
+                    <!-- adapted from https://vuejs.org/v2/guide/forms.html -->
+                    <div v-for="item in multiple_choice">
+                      <!-- {{ item.username }} -->
+                      <input type="radio" id="item.first_name" v-bind:value="item.first_name" v-model="checked_name">
+                      <label style="font-size:18px;" for="item.first_name">{{ item.first_name }} {{ item.last_name }}</label>
+
+                      <!-- <label for="item.first_name">{{ item.first_name }} {{ item.last_name }}</label> -->
+                    </div>
+                    <br>
+                    <!-- <span>Checked name: {{ checked_name }}</span> -->
+                    <br>
+
+                  </div>
+                  <div class="medium-auto" v-if="fin == true">
+                    Score: {{percent_score}}% <br>
+                    You got {{ score }}/{{users.length}} correct
+                    <hr>
+                    <div
+                      v-for="(item, index) in checked_names"
+                      v-bind:item="item"
+                      v-bind:index="index"
+                      v-bind:key="item.id"
+                      >
+                      <div v-if="curscore[index] == 0">
+                        <span style="color: red;">{{ item }}</span>
+                        *Correct: {{ users[index].first_name }} {{ users[index].last_name }}
+                      </div>
+                      <div v-else>
+                        <span style="color: green;">{{ item }}</span>
+                      </div>
+                    </div>
+                  </div>
+                    {% endverbatim %}
+                    <!-- <p id="demo"></p> -->
+
+                    <!-- <button class="button button1" v-on:click="i += 1">Next</button> -->
+                  <!-- <div id="copy-student">
+                    <div v-for="item in users_copy">
+                      {{ item.username }}
+                    </div>
+                  </div> -->
+                  <!-- <div id="next-image">
+                    <button class="button button1" v-on:click="counter += 1">Count</button>
+                    {% verbatim %}
+                    <p>The button above has been clicked {{ counter }} times.</p>
+                    {% endverbatim %}
+                  </div> -->
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "js/people.js" %}"></script>
+<script type="text/javascript">
+  // var user_dict = JSON.parse("{{ user_list }}");
+  // document.getElementById("output").innerHTML = user_dict;
+</script>
+
+{% endblock %}

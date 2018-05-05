@@ -4,8 +4,30 @@ services:
     build: code
     expose:
       - "8000"
+    links:
+      - redis
+    depends_on:
+      - redis
     ports:
       - "8000:8000"
     volumes:
       - ./code/:/code/
     command: python manage.py runserver 0.0.0.0:8000
+
+  redis:
+    image: redis
+    expose:
+      - "6379"
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+#       - "443:443"
+    volumes:
+       - ./code/static:/static
+    links:
+      - web:web

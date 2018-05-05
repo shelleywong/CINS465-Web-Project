@@ -1,0 +1,110 @@
+<!-- Author: Shelley Wong -->
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Comments
+{% endblock %}
+
+{% block body %}
+<!-- used template from:
+  https://foundation.zurb.com/sites/docs/xy-grid.html -->
+  <div class="grid-container" id="main-body">
+    <div class="grid-y medium-grid-frame">
+      <div class="cell shrink header medium-cell-block-container">
+        <h1 class="text-center sans-serif-text shadowed">Comment on a Post</h1>
+        <div class="grid-x grid-padding-x">
+          <div class="cell large-4 large-offset-8 medium-6 medium-offset-6">
+            <h4 class="text-right sans-serif-text">
+              <ul class="menu">
+                <li><input type="search" class="searchfield" style="font-size:18px;" placeholder="Search"></li>
+                <li><button type="button" class="button button1">
+                  <i class="material-icons" style="font-size:18px;">search</i></button>
+                </li>
+              </ul>
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="cell medium-auto medium-cell-block-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell medium-8 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <!--<h3 class="serif-text shadowed">Post to the Forum</h3>
+              <div id="app1">
+                {% verbatim %}
+                <button class="button large button1" v-on:click="greet">Greetings!</button>
+                {% endverbatim %}
+              </div> -->
+              <h3 class="serif-text">Make a Comment:</h3>
+              <hr>
+              <form action="/comment/{{ post_topic_id }}/" method="POST">
+                {% csrf_token %}
+                {{ post_comm.errors }}
+                {{ post_comm.comment.label_tag }}
+                {{ post_comm.comment }}
+                <input type="submit" class="button button1" value="Submit Comment"/>
+              </form>
+              <hr>
+
+            </div>
+          </div>
+          <div class="cell medium-4 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <h3 class="serif-text">Current Post:</h3>
+              <hr>
+              <div class="text-justify">
+                {% for item in post_list %}
+                  {% if post_topic_id == item.id %}
+                    <h3 class="serif-text">{{ item.subject }}<h3>
+                    <h6 class="sans-serif-text">{{ item.details }}</h6>
+                    <h6 class="sans-serif-text subheader">
+                      Posted by {{ item.author }} on {{ item.created_on }} UTC
+                    </h6>
+                    <!-- {% for comm in item.comment_list %}
+                      <ul>
+                        <li class="sans-serif-text">
+                          {{ comm.comment }} - {{ comm.created_on }}
+                        </li>
+                      </ul>
+                    {% endfor %} -->
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <!-- <div id="app-post">
+                <ul class="text-justify">
+                  <li v-for = "item in post_list">
+                    {% verbatim %}
+                    <div v-if="{{ post_topic_id }} == item.id">
+                      <h3 class="serif-text">{{ item.subject }}<h3>
+                      <h6 class="sans-serif-text">{{ item.details }}</h6>
+                      <h6 class="sans-serif-text subheader">
+                        Posted by {{ item.author }} on {{ item.created_on }} UTC
+                      </h6>
+                      <ul>
+                        <li class="sans-serif-text" v-for="comm in item.comments">
+                          {{ comm.comment }} - {{ comm.created_on }}
+                        </li>
+                      </ul>
+                    </div>
+                    <div v-else>
+                      Nope
+                    </div>
+                    {% endverbatim %}
+                  </li>
+                </ul>
+              </div> -->
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "js/vueapp.js" %}"></script>
+{% endblock %}

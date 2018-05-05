@@ -10,11 +10,92 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static "/css/foundation.css" %}">
     <link rel="stylesheet" href="{% static "css/app.css" %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
-    {% block nav-bar %}{% endblock %}
+    <!-- Navigation-bar used template from:
+      https://foundation.zurb.com/sites/docs/responsive-navigation.html -->
+      <div class="title-bar" data-responsive-toggle="main-menu"
+        data-hide-for="medium">
+        <button class="menu-icon" type="button" data-toggle="main-menu"></button>
+        <a class="title-bar-title" href="#"><b>home</b>room</a>
+      </div>
+      <div class="top-bar" id="main-menu">
+        <div class="top-bar-left">
+          <ul class="vertical medium-horizontal dropdown menu" data-dropdown-menu>
+            <a class="logo" href="/"><b>home</b>room</a>
+            <li class="has-submenu">
+              <a href="/about/">Learn More</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="has-submenu">
+              <a href="/message_board/">Make a New Post</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/chat/chatroom/">Chat Forum</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/people/meet/">Meet Your Group</a>
+              <ul class="submenu menu vertical" data-submenu>
+                <li><a href="/people/face_match/">Learn Names and Faces</a></li>
+                <li><a href="/people/roster/">Team Roster</a></li>
+              </ul>
+            </li>
+            <li class="has-submenu">
+              <!-- <a v-bind:href="'/profile/' + item.id +'/'">Your Profile</a> -->
+              <a href="/profile/">Your Profile</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="vertical medium-horizontal menu">
+            {% if user.is_authenticated %}
+            <li><a href="/logout/" class="button buttonR">Logout</a></li>
+            {% else %}
+            <li><a href="/login/" class="button buttonL">Login</a></li>
+            <li><a href="/register/" class="button buttonR">Register</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
     {% block body %}{% endblock %}
-    {% block footer %}{% endblock %}
+
+    <!-- Footer based on tutorial from:
+      https://foundation.zurb.com/learn/building-a-responsive-footer-with-foundation-6-gary-jenning.html -->
+      <div>
+        <footer class="cell shrink footer">
+          <div id="foot-body">
+            <div class="grid-x grid-padding-x foot-text">
+              <div class="cell large-4 medium-6">
+                <h4 class="text-left sans-serif-text">Contact Us</h4>
+                <hr>
+                <p class="serif-text">Phone: <a href="#">555-123-4567</a><br>
+                  Email: <a href="#">CSstudent@mail.csuchico.edu</a><br>
+                  Address: <a href="#">400 W 1st St, Chico, CA 95929</a>
+                </p>
+              </div>
+              <div class="cell large-4 medium-6">
+                <h4 class="text-left sans-serif-text">Explore</h4>
+                <hr>
+                <p class="serif-text">
+                  <a href="/about/">About Us</a><br>
+                  {% if user.is_authenticated %}
+                  <a href="/message_board/">Post to the Message Board</a><br>
+                  <a href="/chat/chatroom/">Chat Forum</a><br>
+                  <a href="/people/meet/">Meet Your Class</a><br>
+                  <a href="/profile/">{{ user.first_name }} {{ user.last_name }} Profile</a>
+                  {%  endif %}
+                </p>
+              </div>
+              <div class="cell auto large-text-right">
+                <h1><a class="logo" href="/"><b>home</b>room</a></h1>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="{% static "js/vendor/jquery.js" %}"></script>

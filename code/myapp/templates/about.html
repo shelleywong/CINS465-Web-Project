@@ -1,0 +1,65 @@
+<!-- Author: Shelley Wong -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  About Us
+{% endblock %}
+
+{% block body %}
+<!-- used template from:
+  https://foundation.zurb.com/sites/docs/xy-grid.html -->
+  <div class="grid-container" id="main-body">
+    <div class="grid-y medium-grid-frame">
+      <div class="cell shrink header medium-cell-block-container">
+        <h1 class="text-center sans-serif-text shadowed">Our Story</h1>
+      </div>
+      <div class="cell medium-auto medium-cell-block-container">
+        <div class="grid-x grid-padding-x">
+          <!--<div class="cell medium-3 medium-cell-block-y"></div> -->
+          <div class="cell medium-10 medium-offset-1 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <p>
+              The purpose of homeroom is simple: be a safe place for professors,
+              students, tutors and TAs to get to know each other and communicate
+              better outside of the classroom. With ever-increasing class sizes,
+              it can be challenging to make sure everyone is on the same page.
+              Professors have a difficult time getting to know their students.
+              Office hours rarely work for everyone. We need a better way to
+              connect with our classes.
+              </p>
+              <p>
+              Homeroom is a concept used in schools throughout the world. It
+              generally serves as an advisory classroom session, for teachers to
+              record attendance and make announcements. However, homeroom does
+              not exist for everyone, and it is virtually non-existent in the
+              world of post secondary education.
+              </p>
+              <p>
+              Is homeroom necessary? Maybe not. But it is a worthwhile idea to
+              give students a home base, make sure everyone is on the same page
+              and provide a more relaxed environment than in a standard academic
+              lecture. Students and teachers can appreciate having an easy way
+              to hold discussions and get to know each other better. When
+              face-to-face, one-on-one meetings are next to impossible, homeroom
+              is a gathering place, where teachers and students can start
+              building a community where everyone feels supported.
+              </p>
+              <p>
+              So feel free to join us! Set up a group for your class. Start a
+              discussion. Make a last minute announcement. And try to learn all
+              the names of the students who sit in that same room every week.
+              Homeroom is not the solution to every problem in academia. But it
+              is a good start.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "js/vueapp.js" %}"></script>
+{% endblock %}

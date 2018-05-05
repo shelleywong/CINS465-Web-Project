@@ -8,19 +8,18 @@ a:hover {
 }
 
 body {
-  /*background: #DCDCDC;
-  background: linear-gradient(to bottom right, #B0C4DE, #F0F8FF);*/
-  background: linear-gradient(to right, #DCDCDC, #B0C4DE);
+/*  background: linear-gradient(to right, #DCDCDC, #B0C4DE); */
+  background: linear-gradient(to right, #EDEDED, #C1D5EF);
+
   overflow-x: hidden;
 }
 
-.button1 {
-  background-color: #00008B;
-  border-radius: 25px;
+textarea#chat-log {
+  background: #FCFCFC;
 }
 
-/*.grad {
-  background: linear-gradient(to bottom right, red, yellow);
+/*div#chat-past {
+  overflow: scroll;
 }*/
 
 /* font style */
@@ -32,17 +31,19 @@ body {
   font-family: "Garamond", serif;
 }
 
-/* navigation bar style */
-.top-bar {
-  font-family: "Optima", sans-serif;
-  /*background: #778899;*/
-  background: #708090;
-  border-radius: 5px;
+.welcome {
+  font-size: 7vw;
+  text-shadow: 3px 2px #FFFFFF;
 }
 
-.logo {
-  font-family: "AmericanTypewriter";
-  color: #00008B;
+.shadowed {
+  text-shadow: 2px 2px #FFFFFF;
+}
+
+/* button style */
+.button1 {
+  background-color: #00008B;
+  border-radius: 25px;
 }
 
 .buttonL {
@@ -52,6 +53,36 @@ body {
 
 .buttonR {
   background: #00008B;
+}
+
+.rounded {
+  border-radius: 25px;
+}
+
+/*thumbnail image*/
+/* adapted from: https://www.w3schools.com/howto/howto_css_thumbnail.asp */
+.thumbnail {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+    padding: 5px; /* Some padding */
+    width: 150px; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+.thumbnail:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+/* navigation bar style */
+.top-bar {
+  font-family: "Optima", sans-serif;
+  background: #708090;
+  border-radius: 5px;
+}
+
+.logo {
+  font-family: "AmericanTypewriter";
+  color: #00008B;
 }
 
 /* main body style */
@@ -68,6 +99,16 @@ body {
   font-size: 17px;
   padding: 20px 30px;
   background: #F5F5F5;
+}
+
+.searchfield {
+  width: 100%;
+  border: 1px solid #c9c9c9;
+  border-radius: 25px;
+}
+
+.nobullet {
+  list-style-type: none;
 }
 
 /* footer style */
