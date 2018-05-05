@@ -1,0 +1,128 @@
+/* Author: Shelley Wong */
+@import "foundation.css";
+
+a:active,
+a:hover {
+  color: #00008B;
+  outline-width: 0;
+}
+
+body {
+/*  background: linear-gradient(to right, #DCDCDC, #B0C4DE); */
+  background: linear-gradient(to right, #EDEDED, #C1D5EF);
+
+  overflow-x: hidden;
+}
+
+textarea#chat-log {
+  background: #FCFCFC;
+}
+
+/*div#chat-past {
+  overflow: scroll;
+}*/
+
+/* font style */
+.sans-serif-text {
+  font-family: "Optima", sans-serif;
+}
+
+.serif-text {
+  font-family: "Garamond", serif;
+}
+
+.welcome {
+  font-size: 7vw;
+  text-shadow: 3px 2px #FFFFFF;
+}
+
+.shadowed {
+  text-shadow: 2px 2px #FFFFFF;
+}
+
+/* button style */
+.button1 {
+  background-color: #00008B;
+  border-radius: 25px;
+}
+
+.buttonL {
+  color: #00008B;
+  background: #B0C4DE;
+}
+
+.buttonR {
+  background: #00008B;
+}
+
+.rounded {
+  border-radius: 25px;
+}
+
+/*thumbnail image*/
+/* adapted from: https://www.w3schools.com/howto/howto_css_thumbnail.asp */
+.thumbnail {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+    padding: 5px; /* Some padding */
+    width: 150px; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+.thumbnail:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+/* navigation bar style */
+.top-bar {
+  font-family: "Optima", sans-serif;
+  background: #708090;
+  border-radius: 5px;
+}
+
+.logo {
+  font-family: "AmericanTypewriter";
+  color: #00008B;
+}
+
+/* main body style */
+#main-body {
+  padding: 80px 30px;
+}
+
+.div-text {
+  padding: 0px 5px;
+  background: #F5F5F5;
+}
+
+.main-text {
+  font-size: 17px;
+  padding: 20px 30px;
+  background: #F5F5F5;
+}
+
+.searchfield {
+  width: 100%;
+  border: 1px solid #c9c9c9;
+  border-radius: 25px;
+}
+
+.nobullet {
+  list-style-type: none;
+}
+
+/* footer style */
+#foot-body {
+  border-style: solid;
+  border-width: 10px;
+  border-bottom: 40px solid #708090;
+  border-radius: 5px;
+  border-color: #708090;
+  padding: 20px 0px;
+  background: #DCDCDC;
+}
+
+.foot-text {
+  font-size: 15px;
+  padding: 20px 80px;
+}
