@@ -37,7 +37,7 @@ var app_post = new Vue({
 
   methods: {
     fetchPostList: function() {
-      $.get('/forum_posts/',function(post_list) {
+      $.get('/message_board_posts/',function(post_list) {
         this.posts = post_list.posts;
         console.log(post_list);
       }.bind(this));

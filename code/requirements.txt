@@ -5,3 +5,4 @@ channels==2.1.1
 Twisted[tls,http2]
 channels_redis
 asyncio
+daphne

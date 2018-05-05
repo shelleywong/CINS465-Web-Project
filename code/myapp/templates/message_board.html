@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block title %}
-  Forum
+  Message Board
 {% endblock %}
 
 {% block body %}
@@ -13,7 +13,7 @@
   <div class="grid-container" id="main-body">
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
-        <h1 class="text-center sans-serif-text shadowed">Post to the Forum</h1>
+        <h1 class="text-center sans-serif-text shadowed">Post to the Message Board</h1>
         <div class="grid-x grid-padding-x">
           <div class="cell large-8 medium-6 medium-cell-block">
             <h4 class="text-left sans-serif-text" style="width: 80vw;">
@@ -46,7 +46,7 @@
               </div> -->
               <h3 class="serif-text">Make a New Post:</h3>
               <hr>
-              <form action="/forum/" method="post">
+              <form action="/message_board/" method="post">
                 {% csrf_token %}
                 {{ form.errors }}
                 {{ form.subject.label_tag }}

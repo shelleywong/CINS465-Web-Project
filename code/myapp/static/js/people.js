@@ -11,6 +11,7 @@ var app_student = new Vue({
     checked_name: "",
     checked_names: [],
     score: 0,
+    percent_score: 0,
     fin: false,
   },
 
@@ -111,6 +112,7 @@ var app_student = new Vue({
 
     showResults: function() {
       this.fin = true;
+      this.percent_score = (this.score/this.users.length)*100;
     },
 
   },

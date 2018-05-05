@@ -29,7 +29,10 @@
             </li>
             {% if user.is_authenticated %}
             <li class="has-submenu">
-              <a href="/forum/">Make a New Post</a>
+              <a href="/message_board/">Make a New Post</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/chat/chatroom/">Chat Forum</a>
             </li>
             <li class="has-submenu">
               <a href="/people/meet/">Meet Your Group</a>
@@ -79,7 +82,8 @@
                 <p class="serif-text">
                   <a href="/about/">About Us</a><br>
                   {% if user.is_authenticated %}
-                  <a href="/forum/">Post to the Forum</a><br>
+                  <a href="/message_board/">Post to the Message Board</a><br>
+                  <a href="/chat/chatroom/">Chat Forum</a><br>
                   <a href="/people/meet/">Meet Your Class</a><br>
                   <a href="/profile/">{{ user.first_name }} {{ user.last_name }} Profile</a>
                   {%  endif %}

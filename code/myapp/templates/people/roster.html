@@ -24,8 +24,36 @@
             <div class="main-text serif-text">
               <article class="grid-container">
                 <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
-                  {% for user in user_list %}
-                  <div class="cell medium-3">
+                   <!-- id="filter-students" -->
+                  <!-- <select onchange="filterStudents()">
+                    <option value="first_name">First Name
+                    <option value="last_name">Last Name
+                    <option value="username">Username
+                  </select> -->
+                  <!-- <button onclick="filterStudents()">Try it</button> -->
+
+
+                  <!-- <p id="demo"></p> -->
+
+                  <!-- <div id="first"> -->
+                    {% for user in user_list %}
+                    <div class="cell medium-3">
+                      <a href="/media/{{user.student_model.image}}">
+                        <img class="thumbnail" src="/media/{{user.student_model.image}}"
+                          v-bind:alt="student.image_description" >
+                      </a>
+                      <h6 class="sans-serif-text">
+                        {{user.first_name}} {{ user.last_name }}
+                      </h6>
+                      <h6 class="sans-serif-text subheader">
+                        Username: {{ user.username }}
+                      </h6>
+                  </div>
+                  {% endfor %}
+
+                  <!-- {% for user in first_names %}
+                  <div id="last" class="cell medium-3" v-if="selected == 'First Name'">
+
                     <a href="/media/{{user.student_model.image}}">
                       <img class="thumbnail" src="/media/{{user.student_model.image}}"
                         v-bind:alt="student.image_description" >
@@ -37,11 +65,7 @@
                       Username: {{ user.username }}
                     </h6>
                   </div>
-                  {% endfor %}
-
-                  {% for student in student_list %}
-                    {{ student.image_description }}
-                  {% endfor %}
+                  {% endfor %} -->
                 </div>
               </article>
             </div>
@@ -52,6 +76,29 @@
   </div>
 {% endblock %}
 
-<!-- {% block scripts %}
-<script src="{% static "js/people.js" %}"></script>
-{% endblock %} -->
+{% block scripts %}
+<!-- <script src="{% static "js/people.js" %}"></script> -->
+<!-- <script src="{% static "js/roster.js" %}"></script> -->
+<!-- <script>
+  var first = document.getElementById("first");
+  var last = document.getElementById("last");
+  first.style.display = "none";
+  last.style.display = "none";
+
+  function filterStudents() {
+    var selected = document.getElementById("filter-students").value;
+
+    // var user = document.getElementById("user");
+
+
+    // document.getElementById("demo").innerHTML = "You selected: " + x;
+    if(first.style.display === "none")
+    {
+      first.style.display = "block";
+    }
+    else {
+      first.style.display = "none";
+    }
+  }
+</script> -->
+{% endblock %}

@@ -163,7 +163,7 @@ def change_password_view(request):
     # return render(request,"change_password.html",context)
 
 @login_required(login_url='/login/')
-def forum_view(request):
+def message_board_view(request):
     myDate = datetime.now()
     if request.method == 'POST':
         form = Post_Form(request.POST)
@@ -185,10 +185,10 @@ def forum_view(request):
         'form':form,
         'date':myDate
     }
-    return render(request, 'forum.html', context)
+    return render(request, 'message_board.html', context)
 
 @csrf_exempt
-def forum_api(request):
+def message_board_api(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
         try:
@@ -266,11 +266,15 @@ def meet_view(request):
 @login_required(login_url='/login/')
 def roster_view(request):
     user_list = User.objects.all().order_by('last_name')
+    first_names = User.objects.all().order_by('first_name')
+    usernames = User.objects.all().order_by('username')
     student_list = Student_Model.objects.all()
     # user_list = User.objects.order_by('?')
 
     context = {
         'user_list':user_list,
+        'first_names':first_names,
+        'usernames':usernames,
         'student_list':student_list
     }
     return render(request,'people/roster.html',context)
