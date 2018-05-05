@@ -61,7 +61,7 @@
 
                   </div>
                   <div class="medium-auto" v-if="fin == true">
-                    Score: {{percent_score}}% <br>
+                    Score: {{ percent_score.toFixed(2) }}% <br>
                     You got {{ score }}/{{users.length}} correct
                     <hr>
                     <div

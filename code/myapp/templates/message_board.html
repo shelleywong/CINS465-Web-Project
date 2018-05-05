@@ -19,7 +19,8 @@
             <h4 class="text-left sans-serif-text" style="width: 80vw;">
               {% load tz %}
               {{date|date:'l'}} {{date|timezone:"America/Los_Angeles"}}
-              ({{date|date:'D d M Y g:i A T'}})
+              - {{date|date:'D m/d/Y g:i A T'}}
+              <!-- - {{date|date:'D d M Y g:i A T'}} -->
             </h4>
           </div>
           <div class="cell large-4 medium-6">
@@ -55,32 +56,15 @@
                 {{ form.details }}
                 <input type="submit" class="button button1" value="Submit Post"/>
               </form>
-              <h3 class="serif-text">Current Postings</h3>
+              <!-- <h3 class="serif-text">Current Postings</h3>
               <hr>
               <div id="app-suggestion">
                 <ul class="text-justify">
                 {% for item in post_list %}
                   <li>{{ item.id }} : {{ item.subject }} - {{ item.created_on }} UTC</li>
                 {% endfor %}
-                  <!-- <li v-for = "item in suggestions">
-                    {% verbatim %}
-                    {{ item.id }}: {{ item.suggestion }} - Created on: {{ item.created_on }} UTC
-
-                   <input type="submit" class="button button1" value="Add Comment"/> -->
-
-                <!--    <form action="/suggestion/" method="delete">
-                      <input type="submit" class="button button1" value="Delete Suggestion"/>
-                    </form> -->
-
-                    <!-- <ul>
-                      <li v-for="comm in item.comments">
-                        {{ comm.comment }} - {{ comm.created_on }}
-                      </li>
-                    </ul>
-                    {% endverbatim %}
-                  </li> -->
                 </ul>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">

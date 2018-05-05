@@ -178,8 +178,9 @@ def message_board_view(request):
             #form = Post_Form()
     else:
         form = Post_Form()
-
-    post_list = Post_Model.objects.all()
+        
+    post_list = Post_Model.objects.all().order_by("-created_on")
+    # post_list = Post_Model.objects.all()
     context = {
         'post_list':post_list,
         'form':form,

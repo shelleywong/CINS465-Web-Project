@@ -52,6 +52,7 @@ class Post_Comment_Model(models.Model):
 #         return self.all()[random_index]
 
 #reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
+#default image ref: https://stackoverflow.com/questions/13090505/render-default-image-django?rq=1
 class Student_Model(models.Model):
     # objects = UsersManager()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -59,9 +60,15 @@ class Student_Model(models.Model):
     image = models.ImageField(
         max_length=144,
         upload_to='uploads/%Y/%m/%d',
-        blank=True
+        blank=True,
+        default='uploads/2018/04/17/default_profile_pic.jpg',
     )
     image_description = models.CharField(max_length=240, blank=True)
+
+    def profilepic_or_default(self, default_path='uploads/2018/04/17/default_profile_pic.jpg'):
+        if self.image:
+            return self.image
+        return default_path
 #
 # @receiver(post_save, sender=User)
 # def Create_Student_Model(sender, instance, created, **kwargs):
