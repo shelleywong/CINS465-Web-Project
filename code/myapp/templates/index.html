@@ -88,16 +88,47 @@
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <!-- Adapted from: https://foundation.zurb.com/sites/docs/forms.html -->
-              <div class="serif-text input-group">
-                <input class="input-group-field searchfield" type="search"
-                  style="font-size:18px;" placeholder="Search">
+              <!-- <div class="serif-text input-group">
+                <input class="input-group-field searchfield"
+                  type="search" style="font-size:18px;" placeholder="Search">
                 <button class="input-group-button button buttonL">
                   <i class="material-icons" style="font-size:18px;">search</i>
                 </button>
-              </div>
+              </div> -->
+              <!-- adapted from: https://djangobook.com/django-forms/ -->
+              <form action="/search/" method="get">
+                <div class="serif-text input-group">
+                  <input type="text" name="q" class="input-group-field searchfield"
+                    style="font-size:18px;" placeholder="Search">
+                  <button class="input-group-button button buttonL">
+                    <i class="material-icons" style="font-size:18px;">search</i>
+                  </button>
+                </div>
+              </form>
+              {% if search %}
+              <p>You searched for: <strong>{{ query }}</strong></p>
+              {% endif %}
+
+              {% if searched_posts %}
+
+                  <p>Found {{ searched_posts|length }} searched post{{ searched_posts|pluralize }}.</p>
+                  <ul>
+                      {% for item in searched_posts %}
+                      <!-- <a v-bind:href="'/comment/'+ item.id +'/'"
+                        class="button buttonL rounded small">{{ item.subject }}
+                      </a> -->
+                      <li>{{ item.subject }}</li>
+                      {% endfor %}
+                  </ul>
+              {% else %}
+                {% if search %}
+                  <p>No posts matched your search criteria.</p>
+                {% endif %}
+              {% endif %}
+
               <div class="serif-text text-center">
                 <hr>
-                <a href="message_board/" class="button button1">
+                <a href="/message_board/" class="button button1">
                   <h5 class="serif-text">Add to the Conversation</h5>
                   <i class="material-icons" style="font-size:24px;">message</i>
                 </a>

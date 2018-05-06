@@ -14,6 +14,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.views.generic.edit import UpdateView
 from django.utils.safestring import mark_safe
 from django.core import serializers
+from django.db.models import Q
 
 from random import shuffle, sample
 import random
@@ -33,6 +34,7 @@ def index(request):
     post_list = Post_Model.objects.all().order_by("-created_on")
     user_list = User.objects.all()
     student_list = Student_Model.objects.all()
+
     context = {
         'site_name':site_name,
         'message':message,
@@ -42,6 +44,36 @@ def index(request):
         'date':myDate
     }
     return render(request, 'index.html', context)
+
+#adapted from: https://djangobook.com/django-forms/
+def search_view(request):
+    site_name = 'homeroom'
+    post_list = Post_Model.objects.all().order_by("-created_on")
+    error = False
+    search = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            search = True
+            searched_posts = Post_Model.objects.filter(
+                Q(subject__icontains=q) |
+                Q(details__icontains=q)
+                # Q(created_on__icontains=q)
+                # Q(author=q)
+            )
+        # message = 'You searched for: %r' % request.GET['q']
+            context = {
+                'search':search,
+                'site_name':site_name,
+                'post_list':post_list,
+                'searched_posts':searched_posts,
+                'query': q
+            }
+            return render(request, 'index.html', context)
+        # message = 'You submitted an empty form.'
+    return render(request, 'index.html', {'error':error})
 
 def about_view(request):
     return render(request, 'about.html')
@@ -178,7 +210,7 @@ def message_board_view(request):
             #form = Post_Form()
     else:
         form = Post_Form()
-        
+
     post_list = Post_Model.objects.all().order_by("-created_on")
     # post_list = Post_Model.objects.all()
     context = {

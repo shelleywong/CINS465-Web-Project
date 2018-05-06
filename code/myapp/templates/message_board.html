@@ -14,26 +14,12 @@
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
         <h1 class="text-center sans-serif-text shadowed">Post to the Message Board</h1>
-        <div class="grid-x grid-padding-x">
-          <div class="cell large-8 medium-6 medium-cell-block">
-            <h4 class="text-left sans-serif-text" style="width: 80vw;">
-              {% load tz %}
-              {{date|date:'l'}} {{date|timezone:"America/Los_Angeles"}}
-              - {{date|date:'D m/d/Y g:i A T'}}
+        <h4 class="text-center sans-serif-text">
+          {% load tz %}
+          {{date|date:'l'}} {{date|timezone:"America/Los_Angeles"}}
+          - {{date|date:'D m/d/Y g:i A T'}}
               <!-- - {{date|date:'D d M Y g:i A T'}} -->
-            </h4>
-          </div>
-          <div class="cell large-4 medium-6">
-            <h4 class="text-right sans-serif-text">
-              <ul class="menu">
-                <li><input type="search" class="searchfield" style="font-size:18px;" placeholder="Search"></li>
-                <li><button type="button" class="button button1">
-                  <i class="material-icons" style="font-size:18px;">search</i></button>
-                </li>
-              </ul>
-            </h4>
-          </div>
-        </div>
+        </h4>
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
