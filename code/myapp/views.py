@@ -275,6 +275,7 @@ def message_board_api(request):
 
 @login_required(login_url='/login/')
 def comment_view(request,post_topic_id):
+    myDate = datetime.now()
     if request.method == 'POST':
         post_comm = Post_Comment_Form(request.POST)
         if post_comm.is_valid():
@@ -285,6 +286,7 @@ def comment_view(request,post_topic_id):
     post_list = Post_Model.objects.all()
     comment_list = Post_Comment_Model.objects.all()
     context={
+        "date": myDate,
         "post_comm":post_comm,
         "post_topic_id":post_topic_id,
         "post_list":post_list,

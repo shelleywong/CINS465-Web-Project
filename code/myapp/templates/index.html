@@ -72,7 +72,7 @@
                       <li v-for="comm in item.comments">
                         <div class="sans-serif-text">{{ comm.comment }}
                           <div class="sans-serif-text subheader">
-                            Posted by {{ comm.author }} on {{ comm.created_on }} UTC
+                            {{ comm.author }} on {{ comm.created_on }} UTC
                           </div>
                         </div>
                       </li>
@@ -129,7 +129,7 @@
               <div class="serif-text text-center">
                 <hr>
                 <a href="/message_board/" class="button button1">
-                  <h5 class="serif-text">Add to the Conversation</h5>
+                  <h5 class="serif-text">Make a New Post</h5>
                   <i class="material-icons" style="font-size:24px;">message</i>
                 </a>
               </div>
@@ -137,7 +137,7 @@
               <h3 class="serif-text text-center">Recent Posts:</h3>
               <ul class="text-center nobullet">
                 {% for item in post_list %}
-                <li><a href="#">{{ item.subject }}</a></li>
+                <li><a href="/comment/{{item.id}}/">{{ item.subject }}</a></li>
                 {% endfor %}
               </ul>
             </div>

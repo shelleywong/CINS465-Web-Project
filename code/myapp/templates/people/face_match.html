@@ -35,32 +35,38 @@
                         <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
                           alt="Student Profile Image" >
                       </a>
-                      <!-- {% verbatim %}
-                      <p>{{cur_student}}</p>
-                      {% endverbatim %} -->
                     </div>
                     <br>
-                    <button class="button button1" v-on:click="nextImage()">Next</button>
-                    {% verbatim %}
-                    <!-- <div v-for="item in multiple_choice" v-if="item.username != cur_student">
-                        {{ item.username }}
-                    </div> -->
+                    <div v-if="fin == false">
+                      <button class="button button1" v-on:click="nextImage()">
+                        Next &raquo;
+                      </button>
+                    </div>
                   </div>
-                  <div class="medium-auto large-offset-1 small-12">
+                  {% verbatim %}
+                  <div class="medium-auto large-offset-1 small-12"
+                    v-if="fin == false">
                     <!-- adapted from https://vuejs.org/v2/guide/forms.html -->
                     <div v-for="item in multiple_choice">
-                      <!-- {{ item.username }} -->
-                      <input type="radio" id="item.first_name" v-bind:value="item.first_name" v-model="checked_name">
-                      <label style="font-size:18px;" for="item.first_name">{{ item.first_name }} {{ item.last_name }}</label>
-
-                      <!-- <label for="item.first_name">{{ item.first_name }} {{ item.last_name }}</label> -->
+                      <input type="radio" id="item.first_name"
+                        v-bind:value="item.first_name" v-model="checked_name">
+                      <label style="font-size:18px;" for="item.first_name">
+                        {{ item.first_name }} {{ item.last_name }}
+                      </label>
                     </div>
-                    <br>
-                    <!-- <span>Checked name: {{ checked_name }}</span> -->
-                    <br>
-
                   </div>
-                  <div class="medium-auto" v-if="fin == true">
+                  <div class="medium-auto large-offset-1 small-12"
+                    v-if="fin == true" style="align-items: center;">
+                    <button class="button buttonL rounded expanded"
+                      onClick="window.location.reload()">
+                      Play Again
+                    </button> <br>
+                    <button class="button buttonR rounded expanded"
+                      onClick="window.location.href='/people/roster/'">
+                      I Need More Review
+                    </button>
+                  </div>
+                  <div class="medium-auto large-offset-1" v-if="fin == true">
                     Score: {{ percent_score.toFixed(2) }}% <br>
                     You got {{ score }}/{{users.length}} correct
                     <hr>
@@ -72,28 +78,15 @@
                       >
                       <div v-if="curscore[index] == 0">
                         <span style="color: red;">{{ item }}</span>
-                        *Correct: {{ users[index].first_name }} {{ users[index].last_name }}
+                        *Correct:
+                        {{ users[index].first_name }} {{ users[index].last_name }}
                       </div>
                       <div v-else>
                         <span style="color: green;">{{ item }}</span>
                       </div>
                     </div>
                   </div>
-                    {% endverbatim %}
-                    <!-- <p id="demo"></p> -->
-
-                    <!-- <button class="button button1" v-on:click="i += 1">Next</button> -->
-                  <!-- <div id="copy-student">
-                    <div v-for="item in users_copy">
-                      {{ item.username }}
-                    </div>
-                  </div> -->
-                  <!-- <div id="next-image">
-                    <button class="button button1" v-on:click="counter += 1">Count</button>
-                    {% verbatim %}
-                    <p>The button above has been clicked {{ counter }} times.</p>
-                    {% endverbatim %}
-                  </div> -->
+                  {% endverbatim %}
                 </div>
               </article>
             </div>
@@ -106,9 +99,4 @@
 
 {% block scripts %}
 <script src="{% static "js/people.js" %}"></script>
-<script type="text/javascript">
-  // var user_dict = JSON.parse("{{ user_list }}");
-  // document.getElementById("output").innerHTML = user_dict;
-</script>
-
 {% endblock %}

@@ -17,7 +17,7 @@
         <h4 class="text-center sans-serif-text">
           {% load tz %}
           {{date|date:'l'}} {{date|timezone:"America/Los_Angeles"}}
-          - {{date|date:'D m/d/Y g:i A T'}}
+          - {{date|date:'m/d/Y g:i A T'}}
               <!-- - {{date|date:'D d M Y g:i A T'}} -->
         </h4>
       </div>
@@ -56,7 +56,7 @@
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <h3 class="serif-text text-center">Recent Posts:</h3>
-              <div class="text-center" id="app-suggestion">
+              <div class="text-center">
                 <ul class="text-center nobullet">
                   {% for item in post_list %}
                   <li><a href="#">{{ item.subject }}</a></li>
