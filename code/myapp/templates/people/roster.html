@@ -21,31 +21,31 @@
         <div class="grid-x grid-padding-x">
           <div class="cell large-10 large-offset-1
               medium-12 medium-cell-block-y main-text">
-            <div class="main-text serif-text">
-              <!-- id="app-roster" -->
+            <div class="main-text serif-text" id="app-roster">
               <article class="grid-container">
                 <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
-                  <!-- <input type="radio" id="item.first_name"
-                    v-bind:value="item.first_name" v-model="checked_name"> -->
-                  <!-- <select v-model="selected">
-                    <option disabled value="">Please select one</option>
-                    <option v-bind:value="A">A</option>
-                    <option v-bind:value="B">B</option>
-                    <option v-bind:value="C">C</option>
+                  <!-- adapted from: https://vuejs.org/v2/guide/forms.html#Select -->
+                  {% verbatim %}
+                  <select v-model="selected" class="sans-serif-text">
+                    <option disabled value="">Filter By:</option>
+                    <option>First Name</option>
+                    <option>Last Name</option>
+                    <option>Username</option>
                   </select>
-                  <span>Selected: {{ selected }}</span> -->
+                   <!-- Selected: {{ selected }} -->
+                  {% endverbatim %}
 
                   <!-- Adapted from:
                     https://vuejs.org/v2/guide/list.html#v-for-with-v-if -->
-                  <!-- <div class="cell medium-3" v-if="load == true"
-                    v-for="(item, index) in users"
+                  <div class="cell medium-3"
+                    v-for="(item, index) in orderedUsers"
                     v-bind:item="item"
                     v-bind:index="index"
                     v-bind:key="item.id"
                     >
                     <a v-bind:href="'/media/' + item.image + '/'">
-                      <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
-                        alt="Student Profile Image" >
+                      <img v-bind:src="'/media/' + item.image + '/'"
+                        alt="Student Profile Image" class="thumbnail">
                     </a>
                     {% verbatim %}
                     <h6 class="sans-serif-text">
@@ -55,54 +55,7 @@
                       Username: {{ item.username }}
                     </h6>
                     {% endverbatim %}
-                  </div> -->
-
-                  {% for user in last_names %}
-                  <div v-if="last==true" class="cell medium-3" v-if="l == true">
-                    <a href="/media/{{user.student_model.image}}">
-                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
-                        v-bind:alt="student.image_description" >
-                    </a>
-                    <h6 class="sans-serif-text">
-                      {{user.first_name}} {{ user.last_name }}
-                    </h6>
-                    <h6 class="sans-serif-text subheader">
-                      Username: {{ user.username }}
-                    </h6>
                   </div>
-                  {% endfor %}
-
-                  <!-- {% for user in first_names %}
-                  <div v-if="first==true" class="cell medium-3" v-if="l == true">
-                    <a href="/media/{{user.student_model.image}}">
-                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
-                        v-bind:alt="student.image_description" >
-                    </a>
-                    <h6 class="sans-serif-text">
-                      {{user.first_name}} {{ user.last_name }}
-                    </h6>
-                    <h6 class="sans-serif-text subheader">
-                      Username: {{ user.username }}
-                    </h6>
-                  </div>
-                  {% endfor %} -->
-
-                  <!-- {% for user in usernames %}
-                  <div v-if="username==true" class="cell medium-3" v-if="l == true">
-                    <a href="/media/{{user.student_model.image}}">
-                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
-                        v-bind:alt="student.image_description" >
-                    </a>
-                    <h6 class="sans-serif-text">
-                      {{user.first_name}} {{ user.last_name }}
-                    </h6>
-                    <h6 class="sans-serif-text subheader">
-                      Username: {{ user.username }}
-                    </h6>
-                  </div>
-                  {% endfor %} -->
-
-
                 </div>
               </article>
             </div>
@@ -114,31 +67,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static "js/roster.js" %}"></script>
-<!-- <script type=text/javascript>
-  var f = false;
-  var l = true;
-  var u = false;
-  function myFunction() {
-    var x = document.getElementById("select-filter").value;
-    if(x == "first"){
-      f = true;
-      l = false;
-      u = false;
-      // document.getElementById("demo").innerHTML = x;
-    }
-    else if(x == "last"){
-      f = false;
-      l = true;
-      u = false;
-      // document.getElementById("demo").innerHTML = x;
-    }
-    else{
-      f = false;
-      l = false;
-      u = true;
-      // document.getElementById("demo").innerHTML = x;
-    }
-  }
-</script> -->
+<script type="text/javascript" src="{% static "js/roster.js" %}"></script>
 {% endblock %}
