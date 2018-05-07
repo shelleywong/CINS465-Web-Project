@@ -21,7 +21,8 @@
         <div class="grid-x grid-padding-x">
           <div class="cell large-10 large-offset-1
               medium-12 medium-cell-block-y main-text">
-            <div class="main-text serif-text" id="app-roster">
+            <div class="main-text serif-text">
+              <!-- id="app-roster" -->
               <article class="grid-container">
                 <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
                   <!-- <input type="radio" id="item.first_name"
@@ -36,7 +37,7 @@
 
                   <!-- Adapted from:
                     https://vuejs.org/v2/guide/list.html#v-for-with-v-if -->
-                  <div class="cell medium-3" v-if="load == true"
+                  <!-- <div class="cell medium-3" v-if="load == true"
                     v-for="(item, index) in users"
                     v-bind:item="item"
                     v-bind:index="index"
@@ -54,7 +55,7 @@
                       Username: {{ item.username }}
                     </h6>
                     {% endverbatim %}
-                  </div>
+                  </div> -->
 
                   {% for user in last_names %}
                   <div v-if="last==true" class="cell medium-3" v-if="l == true">
@@ -71,7 +72,7 @@
                   </div>
                   {% endfor %}
 
-                  {% for user in first_names %}
+                  <!-- {% for user in first_names %}
                   <div v-if="first==true" class="cell medium-3" v-if="l == true">
                     <a href="/media/{{user.student_model.image}}">
                       <img class="thumbnail" src="/media/{{user.student_model.image}}"
@@ -84,9 +85,9 @@
                       Username: {{ user.username }}
                     </h6>
                   </div>
-                  {% endfor %}
+                  {% endfor %} -->
 
-                  {% for user in usernames %}
+                  <!-- {% for user in usernames %}
                   <div v-if="username==true" class="cell medium-3" v-if="l == true">
                     <a href="/media/{{user.student_model.image}}">
                       <img class="thumbnail" src="/media/{{user.student_model.image}}"
@@ -99,7 +100,7 @@
                       Username: {{ user.username }}
                     </h6>
                   </div>
-                  {% endfor %}
+                  {% endfor %} -->
 
 
                 </div>
