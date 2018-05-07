@@ -18,31 +18,12 @@
           {% load tz %}
           {{date|date:'l'}} {{date|timezone:"America/Los_Angeles"}}
           - {{date|date:'m/d/Y g:i A T'}}
-              <!-- - {{date|date:'D d M Y g:i A T'}} -->
         </h4>
-        <!-- <div class="grid-x grid-padding-x">
-          <div class="cell large-4 large-offset-8 medium-6 medium-offset-6">
-            <h4 class="text-right sans-serif-text">
-              <ul class="menu">
-                <li><input type="search" class="searchfield" style="font-size:18px;" placeholder="Search"></li>
-                <li><button type="button" class="button button1">
-                  <i class="material-icons" style="font-size:18px;">search</i></button>
-                </li>
-              </ul>
-            </h4>
-          </div>
-        </div> -->
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <!--<h3 class="serif-text shadowed">Post to the Forum</h3>
-              <div id="app1">
-                {% verbatim %}
-                <button class="button large button1" v-on:click="greet">Greetings!</button>
-                {% endverbatim %}
-              </div> -->
               <h3 class="serif-text">Make a Comment:</h3>
               <hr>
               <form action="/comment/{{ post_topic_id }}/" method="POST">
@@ -53,7 +34,6 @@
                 <input type="submit" class="button button1" value="Submit Comment"/>
               </form>
               <hr>
-
             </div>
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">

@@ -26,7 +26,6 @@ import sys
 # date format adapted from:
 # https://ourcodeworld.com/articles/read/555/how-to-format-datetime-objects-in-the-view-and-template-in-django
 def index(request):
-    #return HttpResponse("Hello World")
     myDate = datetime.now()
     site_name = 'homeroom'
     message = """Simple to use. No cost to you.
@@ -60,10 +59,7 @@ def search_view(request):
             searched_posts = Post_Model.objects.filter(
                 Q(subject__icontains=q) |
                 Q(details__icontains=q)
-                # Q(created_on__icontains=q)
-                # Q(author=q)
             )
-        # message = 'You searched for: %r' % request.GET['q']
             context = {
                 'search':search,
                 'site_name':site_name,
@@ -72,7 +68,6 @@ def search_view(request):
                 'query': q
             }
             return render(request, 'index.html', context)
-        # message = 'You submitted an empty form.'
     return render(request, 'index.html', {'error':error})
 
 def about_view(request):
@@ -100,48 +95,24 @@ def register(request):
     }
     return render(request,"registration/register.html",context)
 
-# def login(request):
-#     class_num = 'CINS 465'
-#     message = 'Hello World'
-#     context = {
-#         'class_num':class_num,
-#         'message':message,
-#         }
-#     return render(request,'login.html', context)
-
 def logout(request):
     logout(request)
     return render(request,"index.html")
 
 @login_required(login_url='/login/')
 def profile_view(request):
-    # u = User.objects.get(username="shelleywong")
-    # s = Student_Model(user=u)
-    # s.about = "I like coding, cycling, hiking, cooking, gardening, photography, cake decorating"
-    # s.save()
-
-    # u = User.objects.get(username=request.user)
-    # about_student = u.student_model.about
-    # student_image = u.student_model.image
-    # img_desc = u.student_model.image_description
-    # student_list = Student_Model.objects.all()
-
     context = {
         'user':request.user
     }
     return render(request, 'profile.html', context)
 
-# adapted from: https://www.youtube.com/watch?v=JmaxoPBvp1M
+#Reference: 1 (see: CINS465-Shelley-Wong, README.md)
 @login_required(login_url='/login/')
 def edit_profile_view(request):
     if request.method == 'POST':
         form = Edit_Profile_Form(request.POST, instance=request.user)
         form2 = Edit_Student_Profile(request.POST,request.FILES,instance=request.user)
         if all((form.is_valid(), form2.is_valid())):
-            # edit_profile = form.save()
-            # edit_student = form2.save(commit=False)
-            # edit_student.user = edit_profile
-            # edit_student.save()
             form.save()
             form2.save(commit=False)
             student = Student_Model.objects.get(user=request.user)
@@ -154,12 +125,9 @@ def edit_profile_view(request):
         form = Edit_Profile_Form(instance = request.user)
         form2 = Edit_Student_Profile(instance=request.user)
 
-    # u = User.objects.get(username=request.user)
-    # student_image = u.student_model.image
     context = {
         "form": form,
         "form2":form2
-        # "student_image":student_image
     }
     return render(request,"edit_profile.html",context)
 
@@ -181,18 +149,6 @@ def change_password_view(request):
         'form':form
     }
     return render(request,"password.html",context)
-    # adapted from: https://docs.djangoproject.com/en/2.0/topics/auth/default/
-    # if request.method == 'POST':
-    #     form = PasswordChangeForm(user=request.user, data=request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         update_session_auth_hash(request, form.user)
-    # else:
-    #     form = PasswordChangeForm(user=request.user)
-    # context = {
-    #     'form':form
-    # }
-    # return render(request,"change_password.html",context)
 
 @login_required(login_url='/login/')
 def message_board_view(request):
@@ -207,12 +163,10 @@ def message_board_view(request):
             )
             forum_post.save()
             return redirect("/")
-            #form = Post_Form()
     else:
         form = Post_Form()
 
     post_list = Post_Model.objects.all().order_by("-created_on")
-    # post_list = Post_Model.objects.all()
     context = {
         'post_list':post_list,
         'form':form,
@@ -300,14 +254,13 @@ def meet_view(request):
 
 @login_required(login_url='/login/')
 def roster_view(request):
-    user_list = User.objects.all().order_by('last_name')
+    last_names = User.objects.all().order_by('last_name')
     first_names = User.objects.all().order_by('first_name')
     usernames = User.objects.all().order_by('username')
     student_list = Student_Model.objects.all()
-    # user_list = User.objects.order_by('?')
 
     context = {
-        'user_list':user_list,
+        'last_names':last_names,
         'first_names':first_names,
         'usernames':usernames,
         'student_list':student_list
@@ -318,20 +271,11 @@ def roster_view(request):
 def face_match_view(request):
     # adapted from: https://stackoverflow.com/questions/976882/shuffling-a-list-of-objects
     users = User.objects.all()
-    # students = Student_Model.objects.filter('image')
     u_list = list(users)
     n = len(u_list)
     user_list = random.sample(u_list,n)
-    # user_list = serializers.serialize('json', data)
-
     student_list = Student_Model.objects.all()
-    # user_a = User.objects.get(username='shelleywong')
-    # user_1 = user_a.first_name
-    # iterator = 0
     context = {
-        # 'user_1':mark_safe(json.dumps(user_1)),
-        # 'game_form': game_form,
-        # 'iterator': iterator,
         'user_list': user_list,
         'student_list':student_list
     }
@@ -339,7 +283,6 @@ def face_match_view(request):
 
 @csrf_exempt
 def students_api(request):
-    # data = serializers.serialize('xml', SomeModel.objects.all(), fields=('name','size'))
     if request.method == 'POST':
         json_data = json.loads(request.body)
         try:
@@ -347,13 +290,6 @@ def students_api(request):
             a_student = list(Student_Model.objects.all(), fields=('user','image'))
             a_user.save()
             a_student.save()
-            # all_students = list(User.objects.all()) + list(Student_Model.objects.all())
-            # data = serializers.serialize('json', all_students)
-            # struct = json.loads(data)
-            # data = json.dumps(struct[0])
-            # data.save()
-            # a_post = Post_Model(subject=json_data['subject'],details=json_data['details'])
-            # a_post.save()
             return HttpResponse(data, mimetype='application/json')
         except:
             return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
@@ -362,7 +298,6 @@ def students_api(request):
         u_list = list(users)
         n = len(u_list)
         user_queryset = random.sample(u_list,n)
-        # user_queryset = User.objects.all()
         user_dictionary = {}
         user_dictionary["users"] = []
         for user_item in user_queryset:
@@ -373,37 +308,42 @@ def students_api(request):
                 'last_name': user_item.last_name,
                 'image':str(student_item.image)
             }]
-        # print(user_list)
-        # return HttpResponse(json.dumps(user_list))
-        #return JsonResponse(user_list, safe=False)
         return JsonResponse(user_dictionary, safe=False)
-            # post_list = Post_Model.objects.all().order_by("-created_on")
-            # post_dictionary = {}
-            # post_dictionary["posts"] = []
-            # for post_item in post_list:
-            #     comment_list = Post_Comment_Model.objects.filter(post_topic_id=post_item)
-            #     comment_json = []
-            #     for comm in comment_list:
-            #         comment_json += [{
-            #             "comment":comm.comment,
-            #             "id":comm.id,
-            #             "author":comm.author.username,
-            #             "created_on":comm.created_on.strftime('%m/%d/%Y %H:%M')
-            #         }]
-            #     post_dictionary["posts"] += [{
-            #         "id":post_item.id,
-            #         "subject":post_item.subject,
-            #         "details":post_item.details,
-            #         "comments":comment_json,
-            #         "author":post_item.author.username,
-            #         "created_on":post_item.created_on.strftime('%m/%d/%Y %H:%M')
-            #     }]
-            # print(post_dictionary)
-            # return JsonResponse(post_dictionary)
 
+# Reference: 2 (see: CINS465-Shelley-Wong, README.md)
+# Reference: 3 (see: CINS465-Shelley-Wong, README.md)
+@login_required(login_url='/login/')
+def chatroom(request):
+    # We want to show the last 10 messages, ordered most-recent-last
+    chat_queryset = Chat_Model.objects.order_by("-created_on")[:25]
+    chat_message_count = len(chat_queryset)
+    if chat_message_count > 0:
+        first_message_id = chat_queryset[len(chat_queryset)-1].id
+    else:
+        first_message_id = -1
+    previous_id = -1
+    if first_message_id != -1:
+        try:
+            previous_id = Chat_Model.objects.filter(pk__lt=first_message_id).order_by("-pk")[:1][0].id
+        except IndexError:
+            previous_id = -1
+    chat_messages = reversed(chat_queryset)
+    most_recent = chat_queryset[0]
+    u = User.objects.get(username=request.user)
+    current_user = u.first_name
+    user_list = User.objects.all()
+    student_list = Student_Model.objects.all()
+    context = {
+        'most_recent':most_recent,
+        'chat_messages': chat_messages,
+        'first_message_id' : previous_id,
+        'current_user':mark_safe(json.dumps(current_user)),
+        'user_list':user_list,
+        'student_list':student_list
+    }
+    return render(request, "chat/chatroom.html",context)
 
-
-
+# in-class practice view
 @login_required(login_url='/login/')
 def suggestion_view(request):
     class_num = 'CINS 465'
@@ -418,75 +358,11 @@ def suggestion_view(request):
         if form.is_valid():
             suggest = Suggestion_Model(
                 suggestion=form.cleaned_data['suggestion']
-                #author=request.user
             )
             suggest.save()
             form = Suggestion_Form()
     else:
         form = Suggestion_Form()
-
-    # if request.method == 'GET':
-    #     form = Suggestion_Form(request.GET)
-    #     if form.is_valid():
-    #         print(request.GET['author'])
-    #         print(request.POST['author'])
-    # else:
-    #     form = Suggestion_Form()
-
-    #a = Suggestion_Model(suggestion='aSuggestion',author='aAuthor')
-    #a.save()
-
-    #b = Comment_Model(comment='comment_to_a',created_on=datetime.now(),suggestion=a)
-    #a.save()
-
-    # c = Suggestion_Model(suggestion='cSuggestion',author='cAuthor')
-    # c.save()
-    #
-    # c.author = 'CAuthor'
-    # c.save()
-
-    # d = Suggestion_Model(id=22,created_on=datetime.now())
-    # d.author='author22'
-    # d.save()
-    #
-    # e = Suggestion_Model(id=24,created_on=datetime.now())
-    # e.author='author24'
-    # e.suggestion='suggestion24'
-    # e.save()
-    #
-    # Suggestion_Model(id=23).delete()
-    #Suggestion_Model(id=29,suggestion='aSuggestion',author='aAuthor').delete()
-    # for i in range(33,39):
-    #     Suggestion_Model(id=i).delete()
-
-
-    #f = Comment_Model(comment='comment_to_3',created_on=datetime.now(),suggestion=Suggestion_Model(id=3))
-    #f.save()
-
-    # Suggestion_Model(id=22).author = 'author22'
-    # Suggestion_Model(id=22).created_on = datetime.now()
-    # Suggestion_Model(id=22).save()
-
-    #Suggestion_Model.objects.filter(author__contains='author')
-
-
-
-
-    # Suggestion_Model.objects.get(id=1)
-    # Suggestion_Model.objects.get(author__startswith='awesome')
-    # Suggestion_Model.objects.get(author__contains='author')
-
-
-    # if request.method == 'DELETE':
-    #     form = Suggestion_Form(request.POST)
-    #     if form.is_valid():
-    #         instance = Suggestion_Model.objects.get(
-    #             pk=form.cleaned_data['id'],
-    #         )
-    #         instance.delete()
-    #         form = Suggestion_Form()
-    # else:
-    #     form = Suggestion_Form()
 
     suggestion_list = Suggestion_Model.objects.all()
 
@@ -500,6 +376,7 @@ def suggestion_view(request):
     }
     return render(request, 'suggestion.html', context)
 
+# in-class practice view
 @csrf_exempt
 def suggestion_api(request):
     if request.method == 'POST':
@@ -538,17 +415,16 @@ def suggestion_api(request):
                 comment_json += [{
                     "comment":comm.comment,
                     "id":comm.id
-                    # "created_on":comm.created_on
                 }]
             suggestion_dictionary["suggestions"] += [{
                 "id":suggest.id,
                 "comments":comment_json,
                 "suggestion":suggest.suggestion
-                # "created_on":suggest.created_on.strftime('%m/%d/%Y %H:%M')
             }]
         print(suggestion_dictionary)
         return JsonResponse(suggestion_dictionary)
 
+#practice view
 def book_view(request):
     class_num = 'CINS 465'
     message = 'Hello World'
@@ -584,43 +460,7 @@ def book_view(request):
     }
     return render(request, 'book.html', context)
 
-@login_required(login_url='/login/')
-def chatroom(request):
-    # We want to show the last 10 messages, ordered most-recent-last
-    chat_queryset = Chat_Model.objects.order_by("-created_on")[:25]
-    chat_message_count = len(chat_queryset)
-    if chat_message_count > 0:
-        first_message_id = chat_queryset[len(chat_queryset)-1].id
-    else:
-        first_message_id = -1
-    previous_id = -1
-    if first_message_id != -1:
-        try:
-            previous_id = Chat_Model.objects.filter(pk__lt=first_message_id).order_by("-pk")[:1][0].id
-        except IndexError:
-            previous_id = -1
-    chat_messages = reversed(chat_queryset)
-    most_recent = chat_queryset[0]
-    # context = {
-    #         'chat_messages': chat_messages,
-    #         'first_message_id' : previous_id,
-    # }
-    # u = User.objects.get(username="shelleywong")
-    u = User.objects.get(username=request.user)
-    current_user = u.first_name
-    user_list = User.objects.all()
-    student_list = Student_Model.objects.all()
-    context = {
-        'most_recent':most_recent,
-        'chat_messages': chat_messages,
-        'first_message_id' : previous_id,
-        'current_user':mark_safe(json.dumps(current_user)),
-        'user_list':user_list,
-        'student_list':student_list
-    }
-    return render(request, "chat/chatroom.html",context)
-
-
+# Reference: 2 (see: CINS465-Shelley-Wong, README.md) - Practice Chat Room
 @login_required(login_url='/login/')
 def room(request,room_name):
     name = room_name

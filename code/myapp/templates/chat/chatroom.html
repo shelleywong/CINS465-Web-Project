@@ -1,5 +1,6 @@
 <!-- chat/templates/chat/chatroom.html -->
 <!-- Author: Shelley Wong -->
+<!-- Reference: 2 (see: CINS465-Shelley-Wong, README.md) -->
 {% extends "base.html" %}
 
 {% load static %}
@@ -15,13 +16,11 @@
     <div class="grid-y medium-grid-frame">
       <div class="cell shrink header medium-cell-block-container">
         <h1 class="text-center sans-serif-text shadowed">Chat Room Forum</h1>
-        <!-- <p id="demo"></p> -->
       </div>
       <div class="cell medium-auto medium-cell-block-container">
         <div class="grid-x grid-padding-x">
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-            <!-- <div class="main-text serif-text" id="chat-past" onload="myFunction()"> -->
               <h5 class="serif-text text-center">Most Recent Messages</h5>
               <hr>
               {% for message in chat_messages %}
@@ -35,38 +34,19 @@
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
               <h5 class="serif-text text-center">Chat Now</h5>
-                <textarea readonly id="chat-log" cols="100" rows="15"></textarea><br/>
-                <!-- Enter message here: -->
-                <!-- <input id="chat-message-input" type="text" size="100"/><br/>
-                <input id="chat-message-submit" class="buttonL rounded" type="button" value="Send"/> -->
+                <textarea readonly id="chat-log" cols="100" rows="15"></textarea>
+                <br>
                 <div class="serif-text input-group">
-                  <input class="input-group-field searchfield" id="chat-message-input" type="text" size="100"
+                  <input id="chat-message-input" type="text" size="100"
+                    class="input-group-field searchfield"
                     style="font-size:16px;" placeholder="Enter Message Here">
-                  <button class="input-group-button button buttonL" id="chat-message-submit" value="Send">
+                  <button id="chat-message-submit"
+                    class="input-group-button button buttonL" value="Send">
                     <i class="material-icons" style="font-size:16px;">send</i>
                   </button>
                 </div>
-                <!-- <form id="chatform" autocomplete="off">
-                    {% if user.is_authenticated %}
-                    <input id="message" type="text" class="form-control input-lg" placeholder="Type chat message here" required>
-                    {% else %}
-                    <input class="form-control  input-lg" id="disabledInput" type="text" placeholder="Please login to chat" disabled>
-                    {% endif %}
-                    <button id="go" type="submit" class="btn btn-primary input-lg">Submit</button>
-                </form> -->
-
             </div>
           </div>
-
-          <!-- <div class="cell medium-4 medium-cell-block-y main-text">
-            <div class="main-text serif-text">
-              {% for message in chat_messages %}
-                <strong>{{ message.author }} : </strong>
-                {{ message.message_html|safe }}
-                <br>
-              {% endfor %}
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -74,64 +54,5 @@
 {% endblock %}
 
 {% block scripts %}
-
 <script type="text/javascript" src='{% static "js/chat.js" %}'></script>
-  <!-- // var roomName = {{ room_name_json }};
-
-  // var chatSocket = new WebSocket(
-  //   'ws://' + window.location.host +
-  //   '/ws/chat/chatroom/');
-  //
-  //   chatSocket.onmessage = function(event) {
-  //   var data = JSON.parse(event.data);
-  //   var message = data['message'];
-  //   document.querySelector('#chat-log').value += (message + " - Posted by: " +
-  //     data.username + " on " + data.created_on + ' UTC\n');
-  //
-  // };
-  //
-  // chatSocket.onclose = function(e) {
-  //   console.error('Chat socket closed unexpectedly');
-  // };
-  //
-  // document.querySelector('#chat-message-input').focus();
-  // document.querySelector('#chat-message-input').onkeyup = function(e) {
-  //   if (e.keyCode === 13) {  // enter, return
-  //       document.querySelector('#chat-message-submit').click();
-  //   }
-  // };
-  //
-  // document.querySelector('#chat-message-submit').onclick = function(e) {
-  //     var messageInputDom = document.querySelector('#chat-message-input');
-  //     var message = messageInputDom.value;
-  //     chatSocket.send(JSON.stringify({
-  //         'message': message
-  //     }));
-  //
-  //     messageInputDom.value = '';
-  // }; -->
-  <!-- <script>
-    window.onload=toBottom;
-
-    function toBottom()
-    {
-      alert("Scrolling to bottom ...");
-      // window.scrollTo(0, document.body.scrollHeight);
-      window.scrollTo(0,document.querySelector(".scrollingContainer").scrollHeight);
-    }
-  </script> -->
-  <!-- <script>
-    function myFunction() {
-      var container = document.getElementById("chat-past");
-      // var x = elmnt.scrollLeft;
-      // var y = elmnt.scrollTop;
-      // document.getElementById ("demo").innerHTML = "Horizontally: " + x + "px<br>Vertically: " + y + "px";
-      // var container = document.querySelector(".dc-messages-container");
-      container.scrollTop = container.scrollHeight;
-    }
-  </script> -->
-
-<!-- <script type="text/javascript" src='{% static "js/reconnecting-websocket.min.js" %}'></script>
-<script type="text/javascript" src='{% static "js/realtime.js" %}'></script>
-<script type="text/javascript" src='{% static "js/loadhistory.js" %}'></script> -->
 {% endblock %}

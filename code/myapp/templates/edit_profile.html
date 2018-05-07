@@ -1,4 +1,5 @@
 <!-- Author: Shelley Wong -->
+<!-- Reference: 1 (see: CINS465-Shelley-Wong, README.md)-->
 {% extends "base.html" %}
 
 {% block title %}
@@ -23,7 +24,8 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 {{ form2.as_p }}
-                <input type="submit" class="button expanded button1" value="Submit Edit"/>
+                <input type="submit" class="button expanded button1"
+                  value="Submit Edit"/>
               </form>
             </div>
           </div>

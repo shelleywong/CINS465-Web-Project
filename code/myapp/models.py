@@ -9,6 +9,7 @@ from django.db.models.aggregates import Count
 from random import randint
 
 # Create your models here.
+# Reference: 3 (see: CINS465-Shelley-Wong, README.md)
 class Chat_Model(models.Model):
     author = models.ForeignKey(
         User,
@@ -45,16 +46,9 @@ class Post_Comment_Model(models.Model):
     def __str__(self):
         return self.comment
 
-# class UsersManager(models.Manager):
-#     def random(self):
-#         count = self.aggregate(count=Count('id'))['count']
-#         random_index = randint(0, count - 1)
-#         return self.all()[random_index]
-
 #reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
 #default image ref: https://stackoverflow.com/questions/13090505/render-default-image-django?rq=1
 class Student_Model(models.Model):
-    # objects = UsersManager()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about = models.TextField(blank=True)
     image = models.ImageField(
@@ -69,68 +63,21 @@ class Student_Model(models.Model):
         if self.image:
             return self.image
         return default_path
-#
-# @receiver(post_save, sender=User)
-# def Create_Student_Model(sender, instance, created, **kwargs):
-#     if created:
-#         Student_Model.objects.create(user=instance)
-#
-# @receiver(post_save, sender=User)
-# def Save_Student_Model(sender, instance, **kwargs):
-#     instance.profile.save()
 
+#in-class practice model
 class Suggestion_Model(models.Model):
     suggestion = models.CharField(max_length=240)
-    # author = models.ForeignKey(
-    #     User,
-    #     on_delete=models.CASCADE
-    # )
-    #created_on = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return "Suggestion: " + str(self.suggestion)
 
+#in-class practice model
 class Comment_Model(models.Model):
     comment = models.CharField(max_length=240)
-    # author = models.ForeignKey(
-    #     User,
-    #     on_delete=models.CASCADE
-    # )
-    #created_on = models.DateTimeField(auto_now_add=True, blank=True)
     suggestion = models.ForeignKey(Suggestion_Model, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comment
-
-#reference: https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
-# class Student_Model(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     interests = models.TextField(blank=True)
-#     image = models.ImageField(
-#         max_length=144,
-#         upload_to='uploads/%Y/%m/%d'
-#     )
-#     image_description = models.CharField(max_length=240)
-
-# @receiver(post_save, sender=User)
-# def Create_Student_Model(sender, instance, created, **kwargs):
-#     if created:
-#         Student_Model.objects.create(user=instance)
-#
-# @receiver(post_save, sender=User)
-# def Save_Student_Model(sender, instance, **kwargs):
-#     instance.student_model.save()
-
-# class Professor_Model(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     interests = models.TextField()
-#     avatar = models.ImageField()
-#     #permission to create group?
-
-# class Student(models.Model):
-#     firstName = models.CharField(max_length=50)
-#     lastName = models.CharField(max_length=50)
-#     birthDate = models.DateField()
 
 #Practice model
 #reference: https://www.youtube.com/watch?v=45J88cjmoQI (user: Katie Cunningham)

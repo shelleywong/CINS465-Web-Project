@@ -21,39 +21,43 @@
         <div class="grid-x grid-padding-x">
           <div class="cell large-10 large-offset-1
               medium-12 medium-cell-block-y main-text">
-            <div class="main-text serif-text">
+            <div class="main-text serif-text" id="app-roster">
               <article class="grid-container">
                 <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
-                   <!-- id="filter-students" -->
-                  <!-- <select onchange="filterStudents()">
-                    <option value="first_name">First Name
-                    <option value="last_name">Last Name
-                    <option value="username">Username
-                  </select> -->
-                  <!-- <button onclick="filterStudents()">Try it</button> -->
+                  <!-- <input type="radio" id="item.first_name"
+                    v-bind:value="item.first_name" v-model="checked_name"> -->
+                  <!-- <select v-model="selected">
+                    <option disabled value="">Please select one</option>
+                    <option v-bind:value="A">A</option>
+                    <option v-bind:value="B">B</option>
+                    <option v-bind:value="C">C</option>
+                  </select>
+                  <span>Selected: {{ selected }}</span> -->
 
-
-                  <!-- <p id="demo"></p> -->
-
-                  <!-- <div id="first"> -->
-                    {% for user in user_list %}
-                    <div class="cell medium-3">
-                      <a href="/media/{{user.student_model.image}}">
-                        <img class="thumbnail" src="/media/{{user.student_model.image}}"
-                          v-bind:alt="student.image_description" >
-                      </a>
-                      <h6 class="sans-serif-text">
-                        {{user.first_name}} {{ user.last_name }}
-                      </h6>
-                      <h6 class="sans-serif-text subheader">
-                        Username: {{ user.username }}
-                      </h6>
+                  <!-- Adapted from:
+                    https://vuejs.org/v2/guide/list.html#v-for-with-v-if -->
+                  <div class="cell medium-3" v-if="load == true"
+                    v-for="(item, index) in users"
+                    v-bind:item="item"
+                    v-bind:index="index"
+                    v-bind:key="item.id"
+                    >
+                    <a v-bind:href="'/media/' + item.image + '/'">
+                      <img class="thumbnail" v-bind:src="'/media/' + item.image + '/'"
+                        alt="Student Profile Image" >
+                    </a>
+                    {% verbatim %}
+                    <h6 class="sans-serif-text">
+                      {{item.first_name}} {{ item.last_name }}
+                    </h6>
+                    <h6 class="sans-serif-text subheader">
+                      Username: {{ item.username }}
+                    </h6>
+                    {% endverbatim %}
                   </div>
-                  {% endfor %}
 
-                  <!-- {% for user in first_names %}
-                  <div id="last" class="cell medium-3" v-if="selected == 'First Name'">
-
+                  {% for user in last_names %}
+                  <div v-if="last==true" class="cell medium-3" v-if="l == true">
                     <a href="/media/{{user.student_model.image}}">
                       <img class="thumbnail" src="/media/{{user.student_model.image}}"
                         v-bind:alt="student.image_description" >
@@ -65,7 +69,39 @@
                       Username: {{ user.username }}
                     </h6>
                   </div>
-                  {% endfor %} -->
+                  {% endfor %}
+
+                  {% for user in first_names %}
+                  <div v-if="first==true" class="cell medium-3" v-if="l == true">
+                    <a href="/media/{{user.student_model.image}}">
+                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
+                        v-bind:alt="student.image_description" >
+                    </a>
+                    <h6 class="sans-serif-text">
+                      {{user.first_name}} {{ user.last_name }}
+                    </h6>
+                    <h6 class="sans-serif-text subheader">
+                      Username: {{ user.username }}
+                    </h6>
+                  </div>
+                  {% endfor %}
+
+                  {% for user in usernames %}
+                  <div v-if="username==true" class="cell medium-3" v-if="l == true">
+                    <a href="/media/{{user.student_model.image}}">
+                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
+                        v-bind:alt="student.image_description" >
+                    </a>
+                    <h6 class="sans-serif-text">
+                      {{user.first_name}} {{ user.last_name }}
+                    </h6>
+                    <h6 class="sans-serif-text subheader">
+                      Username: {{ user.username }}
+                    </h6>
+                  </div>
+                  {% endfor %}
+
+
                 </div>
               </article>
             </div>
@@ -77,27 +113,30 @@
 {% endblock %}
 
 {% block scripts %}
-<!-- <script src="{% static "js/people.js" %}"></script> -->
-<!-- <script src="{% static "js/roster.js" %}"></script> -->
-<!-- <script>
-  var first = document.getElementById("first");
-  var last = document.getElementById("last");
-  first.style.display = "none";
-  last.style.display = "none";
-
-  function filterStudents() {
-    var selected = document.getElementById("filter-students").value;
-
-    // var user = document.getElementById("user");
-
-
-    // document.getElementById("demo").innerHTML = "You selected: " + x;
-    if(first.style.display === "none")
-    {
-      first.style.display = "block";
+<script src="{% static "js/roster.js" %}"></script>
+<!-- <script type=text/javascript>
+  var f = false;
+  var l = true;
+  var u = false;
+  function myFunction() {
+    var x = document.getElementById("select-filter").value;
+    if(x == "first"){
+      f = true;
+      l = false;
+      u = false;
+      // document.getElementById("demo").innerHTML = x;
     }
-    else {
-      first.style.display = "none";
+    else if(x == "last"){
+      f = false;
+      l = true;
+      u = false;
+      // document.getElementById("demo").innerHTML = x;
+    }
+    else{
+      f = false;
+      l = false;
+      u = true;
+      // document.getElementById("demo").innerHTML = x;
     }
   }
 </script> -->

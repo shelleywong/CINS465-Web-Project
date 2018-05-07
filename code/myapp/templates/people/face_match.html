@@ -25,6 +25,8 @@
               <article class="grid-container">
                 <div id="app-student" class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
                   <div class="large-3 medium-5 small-12">
+                    <!-- Adapted from:
+                      https://vuejs.org/v2/guide/list.html#v-for-with-v-if -->
                     <div
                       v-for="(item, index) in users" v-if="index == i"
                       v-bind:item="item"
@@ -37,11 +39,6 @@
                       </a>
                     </div>
                     <br>
-                    <div v-if="fin == false">
-                      <button class="button button1" v-on:click="nextImage()">
-                        Next &raquo;
-                      </button>
-                    </div>
                   </div>
                   {% verbatim %}
                   <div class="medium-auto large-offset-1 small-12"
@@ -54,22 +51,32 @@
                         {{ item.first_name }} {{ item.last_name }}
                       </label>
                     </div>
+                    <br>
+                    <button class="button button1" v-on:click="nextImage()">
+                      Next &raquo;
+                    </button>
                   </div>
                   <div class="medium-auto large-offset-1 small-12"
                     v-if="fin == true" style="align-items: center;">
                     <button class="button buttonL rounded expanded"
-                      onClick="window.location.reload()">
+                      onClick="window.location.reload()" style="font-size:18px;">
+                      <i class="material-icons" style="font-size:18px;">autorenew</i>
                       Play Again
+                      <i class="material-icons" style="font-size:18px;">autorenew</i>
                     </button> <br>
-                    <button class="button buttonR rounded expanded"
+                    <button class="button button1 expanded" style="font-size:18px;"
                       onClick="window.location.href='/people/roster/'">
+                      <i class="material-icons" style="font-size:18px;">people</i>
                       I Need More Review
+                      <i class="material-icons" style="font-size:18px;">people</i>
                     </button>
                   </div>
                   <div class="medium-auto large-offset-1" v-if="fin == true">
                     Score: {{ percent_score.toFixed(2) }}% <br>
                     You got {{ score }}/{{users.length}} correct
                     <hr>
+                    <!-- Adapted from:
+                      https://vuejs.org/v2/guide/list.html#v-for-with-a-Component -->
                     <div
                       v-for="(item, index) in checked_names"
                       v-bind:item="item"

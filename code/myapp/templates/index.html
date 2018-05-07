@@ -21,12 +21,10 @@
           </span>
         </div>
         {% else %}
-        <h1 class="text-center sans-serif-text welcome">Welcome to {{ site_name }}!</h1>
-        <h4 class="text-center sans-serif-text">
-          {{ message }}
-        <!--  Simple to use. No cost to you.
-          A safe place to connect with your class and communicate better. -->
-        </h4>
+        <h1 class="text-center sans-serif-text welcome">
+          Welcome to {{ site_name }}!
+        </h1>
+        <h4 class="text-center sans-serif-text">{{ message }}</h4>
         <br>
         {% endif %}
       </div>
@@ -35,27 +33,8 @@
         <div class="grid-x grid-padding-x">
           <div class="cell medium-8 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <!-- <div class="serif-text text-center">
-                <a href="/chat/chatroom/" class="button buttonL rounded expanded">
-                  <h5 class="serif-text">Let's Chat</h5>
-                  <i class="material-icons" style="font-size:24px;">message</i>
-                </a>
-                <hr>
-              </div> -->
               <h1 class="serif-text text-center">Message Board</h1>
               <hr>
-              <!-- <div class="text-justify">
-                {% for item in post_list %}
-                  <h3 class="serif-text">{{ item.subject }}<h3>
-                  <h6 class="sans-serif-text">{{ item.details }}</h6>
-                  <h6 class="sans-serif-text subheader">
-                    Posted by {{ item.author }} on {{ item.created_on }} UTC
-                  </h6>
-                  <a class="button button1" v-bind:href="'/comment/'+ item.id +'/'">Comment</a>
-                  <hr>
-                {% endfor %}
-              </div> -->
-
               <div id="app-post">
                 <ul class="text-justify">
                   <li v-for = "item in posts">
@@ -87,15 +66,8 @@
           </div>
           <div class="cell medium-4 medium-cell-block-y main-text">
             <div class="main-text serif-text">
-              <!-- Adapted from: https://foundation.zurb.com/sites/docs/forms.html -->
-              <!-- <div class="serif-text input-group">
-                <input class="input-group-field searchfield"
-                  type="search" style="font-size:18px;" placeholder="Search">
-                <button class="input-group-button button buttonL">
-                  <i class="material-icons" style="font-size:18px;">search</i>
-                </button>
-              </div> -->
-              <!-- adapted from: https://djangobook.com/django-forms/ -->
+              <!-- Style adapted from: https://foundation.zurb.com/sites/docs/forms.html -->
+              <!-- Search adapted from: https://djangobook.com/django-forms/ -->
               <form action="/search/" method="get">
                 <div class="serif-text input-group">
                   <input type="text" name="q" class="input-group-field searchfield"
@@ -106,20 +78,18 @@
                 </div>
               </form>
               {% if search %}
-              <p>You searched for: <strong>{{ query }}</strong></p>
+                <p>You searched for: <strong>{{ query }}</strong></p>
               {% endif %}
 
               {% if searched_posts %}
-
-                  <p>Found {{ searched_posts|length }} searched post{{ searched_posts|pluralize }}.</p>
-                  <ul>
-                      {% for item in searched_posts %}
-                      <!-- <a v-bind:href="'/comment/'+ item.id +'/'"
-                        class="button buttonL rounded small">{{ item.subject }}
-                      </a> -->
-                      <li>{{ item.subject }}</li>
-                      {% endfor %}
-                  </ul>
+                <p>Found {{ searched_posts|length }}
+                  searched post{{ searched_posts|pluralize }}.
+                </p>
+                <ul>
+                  {% for item in searched_posts %}
+                    <li>{{ item.subject }}</li>
+                  {% endfor %}
+                </ul>
               {% else %}
                 {% if search %}
                   <p>No posts matched your search criteria.</p>
@@ -147,9 +117,12 @@
       {% else %}
       <div class="grid-x grid-padding-x">
         <div class="cell large-4 large-offset-4 medium-6 medium-offset-3 serif-text">
-            <a href="/login/" class="button large expanded buttonL rounded">Login</a>
-
-            <a href="/register/" class="button large expanded buttonR rounded">Register</a>
+            <a href="/login/" class="button large expanded buttonL rounded">
+              Login
+            </a>
+            <a href="/register/" class="button large expanded buttonR rounded">
+              Register
+            </a>
         </div>
       </div>
       {% endif %}

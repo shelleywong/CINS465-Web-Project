@@ -4,7 +4,6 @@ from . import views
 from .forms import Login_Form
 from django.contrib.auth import views as adminviews
 
-
 urlpatterns = [
     path('', views.index),
     path('search/', views.search_view),
@@ -19,8 +18,7 @@ urlpatterns = [
     path('people/roster/',views.roster_view),
     path('people/face_match/', views.face_match_view),
     path('people/students/', views.students_api),
-    path('suggestion/', views.suggestion_view),
-    path('suggestions/', views.suggestion_api),
+    path('chat/chatroom/', views.chatroom, name='chatroom'),
     path('login/', adminviews.login, {
         'template_name':'registration/login.html',
         'authentication_form':Login_Form
@@ -30,10 +28,11 @@ urlpatterns = [
         'next_page':'/'
     }),
     path('register/', views.register),
-    path('book/',views.book_view),
-    # path('chat/chatroom/', views.chatroom, name='chatroom'),
-    path('chat/chatroom/', views.chatroom, name='chatroom'),
 
+    # path('suggestion/', views.suggestion_view),
+    # path('suggestions/', views.suggestion_api),
+    # path('book/',views.book_view),
+    # path('chat/chatroom/', views.chatroom, name='chatroom'),
     # path('chat/<slug:room_name>/', views.room, name='room'),
     #path('page<int:page_num>/',views.page),
 ]

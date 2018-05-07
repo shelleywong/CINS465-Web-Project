@@ -1,4 +1,5 @@
 # chat/routing.py
+# Reference: 2 (see: CINS465-Shelley-Wong, README.md)
 from django.conf.urls import url
 
 from . import consumers

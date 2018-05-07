@@ -7,10 +7,10 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from .models import *
 
+#in-class practice forms
 def verifySuggestion(value):
     if len(value) < 1:
         raise forms.ValidationError("Not long enough")
-    # return the verified data (cleaned or not)
     return value
 
 class Post_Form(forms.Form):
@@ -29,26 +29,6 @@ class Post_Comment_Form(forms.Form):
             comment=self.cleaned_data["comment"],
             post_topic = original_post,
             author=req_user
-        )
-        if commit:
-            comm.save()
-        return comm
-
-class Suggestion_Form(forms.Form):
-    suggestion = forms.CharField(validators=[verifySuggestion],
-        label='Suggestion', max_length=240)
-
-class Comment_Form(forms.Form):
-    comment = forms.CharField(
-        label='Comment',
-        max_length=240
-    )
-    def save(self,sugg_id,req_user,commit=True):
-        sugg = Suggestion_Model.objects.get(pk=sugg_id)
-        comm = Comment_Model(
-            comment = self.cleaned_data['comment'],
-            suggestion = sugg
-            #author = req_user
         )
         if commit:
             comm.save()
@@ -96,45 +76,11 @@ class Registration_Form(UserCreationForm):
         return user
 
 class Student_Reg_Form(forms.ModelForm):
-    # about = forms.CharField(
-    #     widget=forms.Textarea,
-    #     label='About',
-    #     required = False
-    # )
-    # image = forms.ImageField(label="Profile Picture")
-    # image_description = forms.CharField(label="Image Description", max_length=240)
-
     class Meta:
         model = Student_Model
         exclude = ['user']
-        # fields = ("about","image","image_description")
-
-    # def save(self, commit=True):
-    #     original_user = self.request.user
-    #     student = Student_Model(
-    #         interests=self.cleaned_data["interests"],
-    #         image=self.cleaned_data['image'],
-    #         image_description=self.cleaned_data['image_description'],
-    #         user = original_user
-    #     )
-    #     if commit:
-    #         student.save()
-    #     return student
-
-    # def save(self, user_id, req_user, commit=True):
-    #     original_user = User.objects.get(pk=user_id)
-    #     student = Student_Model(
-    #         interests=self.cleaned_data["interests"],
-    #         image=self.cleaned_data['image'],
-    #         image_description=self.cleaned_data['image_description'],
-    #         user = original_user
-    #     )
-    #     if commit:
-    #         student.save()
-    #     return student
 
 class Edit_Profile_Form(UserChangeForm):
-
     class Meta:
         model = User
         fields = (
@@ -143,44 +89,33 @@ class Edit_Profile_Form(UserChangeForm):
             'last_name',
             'password'
         )
-        # exclude = ['password']
-    # def save(self, commit=True):
-    #     user = super(Edit_Profile_Form,self).save(commit=False)
-    #     user.first_name = self.cleaned_data['first_name']
-    #     user.last_name = self.cleaned_data['last_name']
-    #     user.email = self.cleaned_data['email']
-    #     user.password = self.cleaned_data['password']
-    #     if commit:
-    #         user.save()
-    #         # student = Student_Model(user=user)
-    #         # student.about = self.cleaned_data['about']
-    #         # student.image = self.cleaned_data['image']
-    #         # student.image_description = self.cleaned_data['image_description']
-    #     return user #,student
-
-# class Password_Change_Form()
 
 class Edit_Student_Profile(forms.ModelForm):
-
     class Meta:
         model = Student_Model
         exclude = ['user']
-    # def save(self,commit=True):
-    #     user = super(Registration_Form,self).save(commit=False)
-    #     user.interests = self.cleaned_data['interests']
-    #     if commit:
-    #         user.save()
-    #     return user
 
-# CHOICES = (
-#     ("a","A"),
-#     ("b","B"),
-#     ("c","C"),
-#     ("d","D")
-# )
-# class Game_Form(forms.Form):
-#     display = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+#in-class practice forms
+class Suggestion_Form(forms.Form):
+    suggestion = forms.CharField(validators=[verifySuggestion],
+        label='Suggestion', max_length=240)
 
+class Comment_Form(forms.Form):
+    comment = forms.CharField(
+        label='Comment',
+        max_length=240
+    )
+    def save(self,sugg_id,req_user,commit=True):
+        sugg = Suggestion_Model.objects.get(pk=sugg_id)
+        comm = Comment_Model(
+            comment = self.cleaned_data['comment'],
+            suggestion = sugg
+        )
+        if commit:
+            comm.save()
+        return comm
+
+#practice form
 class Book_Form(forms.Form):
     title = forms.CharField(label='Title', max_length=255)
     blurb = forms.CharField(widget=forms.Textarea,label='Blurb')
