@@ -1,14 +1,9 @@
-
 var app_roster = new Vue({
   el: '#app-roster',
 
   data: {
     users: [],
-    load: true,
-    first: false,
-    last: false,
-    username: false,
-    selected: 'A',
+    selected: '',
   },
 
   //Adapted from:
@@ -21,21 +16,27 @@ var app_roster = new Vue({
     fetchStudentList: function() {
       $.get('/people/students/',function(user_list) {
         this.users = user_list.users;
-        // this.orderedUsers =_.orderBy(this.users, 'last_name')
-        // this.users = this.users.orderBy(this.users,'last_name')
         console.log(this.selected);
       }.bind(this));
     },
   },
 
-
-  // computed: {
-  //   orderedUsers: function () {
-  //     return _.orderBy(this.users, 'last_name')
-  //   }
-    // orderedUsers() {
-    //   var self = this;
-    //   return self.orderBy(this.users,'last_name');
-    // }
-  // },
+  // adapted from:
+  //https://stackoverflow.com/questions/42883835/sort-an-array-in-vue-js?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+  computed: {
+    orderedUsers: function () {
+      if(this.selected == "First Name"){
+        return this.users.sort((a, b) => a.first_name > b.first_name);
+      }
+      else if(this.selected == "Last Name"){
+        return this.users.sort((a, b) => a.last_name > b.last_name);
+      }
+      else if(this.selected == "Username"){
+        return this.users.sort((a, b) => a.username > b.username);
+      }
+      else{
+        return this.users;
+      }
+    }
+  },
 })
