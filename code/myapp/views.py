@@ -33,8 +33,13 @@ def index(request):
     post_list = Post_Model.objects.all().order_by("-created_on")
     user_list = User.objects.all()
     student_list = Student_Model.objects.all()
+    # group_exists = request.user.groups.filter(name="cins465students").exists()
+    # my_groups = request.user.groups.values_list('name',flat=True)
+    # profs = User.objects.filter(groups__name='cins465students')
 
     context = {
+        # 'profs':profs,
+        # 'group_exists':group_exists,
         'site_name':site_name,
         'message':message,
         'post_list':post_list,
@@ -258,8 +263,9 @@ def roster_view(request):
     first_names = User.objects.all().order_by('first_name')
     usernames = User.objects.all().order_by('username')
     student_list = Student_Model.objects.all()
-
+    profs = User.objects.filter(groups__name='professors')
     context = {
+        'profs':profs,
         'last_names':last_names,
         'first_names':first_names,
         'usernames':usernames,
@@ -271,11 +277,14 @@ def roster_view(request):
 def face_match_view(request):
     # adapted from: https://stackoverflow.com/questions/976882/shuffling-a-list-of-objects
     users = User.objects.all()
+    # users = User.objects.filter(groups__name='cins465students')
     u_list = list(users)
     n = len(u_list)
     user_list = random.sample(u_list,n)
     student_list = Student_Model.objects.all()
     context = {
+        # 'users':users,
+        # 'n':n,
         'user_list': user_list,
         'student_list':student_list
     }
@@ -294,7 +303,8 @@ def students_api(request):
         except:
             return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
     if request.method == 'GET':
-        users = User.objects.all()
+        # users = User.objects.all()
+        users = User.objects.filter(groups__name='cins465students').exclude(groups__name='professors')
         u_list = list(users)
         n = len(u_list)
         user_queryset = random.sample(u_list,n)

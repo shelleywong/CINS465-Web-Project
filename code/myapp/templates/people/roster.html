@@ -21,9 +21,10 @@
         <div class="grid-x grid-padding-x">
           <div class="cell large-10 large-offset-1
               medium-12 medium-cell-block-y main-text">
-            <div class="main-text serif-text" id="app-roster">
+            <div class="main-text serif-text">
               <article class="grid-container">
-                <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+                <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4"
+                  id="app-roster">
                   <!-- adapted from: https://vuejs.org/v2/guide/forms.html#Select -->
                   {% verbatim %}
                   <select v-model="selected" class="sans-serif-text">
@@ -56,6 +57,26 @@
                     </h6>
                     {% endverbatim %}
                   </div>
+                </div>
+                <hr>
+                <div class="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+                  <h4 class="sans-serif-text">
+                    Your professors:
+                  </h4>
+                  {% for user in profs %}
+                  <div class="cell medium-3">
+                    <a href="/media/{{user.student_model.image}}">
+                      <img class="thumbnail" src="/media/{{user.student_model.image}}"
+                        v-bind:alt="user.student_model.image_description" >
+                    </a>
+                    <h6 class="sans-serif-text">
+                      {{user.first_name}} {{ user.last_name }}
+                    </h6>
+                    <h6 class="sans-serif-text subheader">
+                      Username: {{ user.username }}
+                    </h6>
+                  </div>
+                  {% endfor %}
                 </div>
               </article>
             </div>
