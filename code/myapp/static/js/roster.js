@@ -31,7 +31,7 @@ var app_roster = new Vue({
       else if(this.selected == "Last Name"){
         return this.users.sort((a, b) => a.last_name > b.last_name);
       }
-      else if(this.selected == "Username"){
+      {
         return this.users.sort((a, b) => a.username > b.username);
       }
       else{
