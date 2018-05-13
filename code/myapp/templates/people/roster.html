@@ -29,9 +29,13 @@
                   {% verbatim %}
                   <select v-model="selected" class="sans-serif-text">
                     <option disabled value="">Filter By:</option>
-                    <option>First Name</option>
-                    <option>Last Name</option>
-                    <option>Username</option>
+                    <option>First Names A-M</option>
+                    <option>First Names N-Z</option>
+                    <option>Last Names A-M</option>
+                    <option>Last Names N-Z</option>
+                    <option>Usernames A-M</option>
+                    <option>Usernames N-Z</option>
+                    <option>Show All</option>
                   </select>
                    <!-- Selected: {{ selected }} -->
                   {% endverbatim %}
@@ -89,4 +93,6 @@
 
 {% block scripts %}
 <script type="text/javascript" src="{% static "js/roster.js" %}"></script>
+<script src="{% static "js/lodash.js" %}"></script>
+<!-- <script src="https://raw.githubusercontent.com/lodash/lodash/4.17.10-npm/core.min.js"></script> -->
 {% endblock %}
