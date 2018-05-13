@@ -52,14 +52,19 @@
                       <img v-bind:src="'/media/' + item.image + '/'"
                         alt="Student Profile Image" class="thumbnail">
                     </a>
-                    {% verbatim %}
                     <h6 class="sans-serif-text">
+                      {% verbatim %}
                       {{item.first_name}} {{ item.last_name }}
+                      {% endverbatim %}
                     </h6>
                     <h6 class="sans-serif-text subheader">
-                      Username: {{ item.username }}
+                      Username:
+                      <a v-bind:href="'/group/' + item.username + '/'">
+                        {% verbatim %}
+                        {{ item.username }}
+                        {% endverbatim %}
+                      </a>
                     </h6>
-                    {% endverbatim %}
                   </div>
                 </div>
                 <hr>
@@ -77,7 +82,8 @@
                       {{user.first_name}} {{ user.last_name }}
                     </h6>
                     <h6 class="sans-serif-text subheader">
-                      Username: {{ user.username }}
+                      Username:
+                      <a href="/group/{{user.username}}/">{{ user.username }}</a>
                     </h6>
                   </div>
                   {% endfor %}
@@ -93,6 +99,6 @@
 
 {% block scripts %}
 <script type="text/javascript" src="{% static "js/roster.js" %}"></script>
-<script src="{% static "js/lodash.js" %}"></script>
+<!-- <script src="{% static "js/lodash.js" %}"></script> -->
 <!-- <script src="https://raw.githubusercontent.com/lodash/lodash/4.17.10-npm/core.min.js"></script> -->
 {% endblock %}

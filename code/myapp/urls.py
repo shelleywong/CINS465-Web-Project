@@ -18,6 +18,7 @@ urlpatterns = [
     path('people/roster/',views.roster_view),
     path('people/face_match/', views.face_match_view),
     path('people/students/', views.students_api),
+    path('group/<slug:this_user>/',views.person_view, name='person'),
     path('chat/chatroom/', views.chatroom, name='chatroom'),
     path('login/', adminviews.login, {
         'template_name':'registration/login.html',

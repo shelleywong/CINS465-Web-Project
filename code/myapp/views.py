@@ -274,6 +274,15 @@ def roster_view(request):
     return render(request,'people/roster.html',context)
 
 @login_required(login_url='/login/')
+def person_view(request,this_user):
+    current_user = User.objects.get(username = this_user)
+    context = {
+        # 'room_name_json': mark_safe(json.dumps(room_name)),
+        'current_user':current_user
+    }
+    return render(request, 'group/person.html', context)
+
+@login_required(login_url='/login/')
 def face_match_view(request):
     # adapted from: https://stackoverflow.com/questions/976882/shuffling-a-list-of-objects
     users = User.objects.all()

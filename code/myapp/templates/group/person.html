@@ -1,0 +1,51 @@
+<!-- Author: Shelley Wong -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Profile Page
+{% endblock %}
+
+{% block body %}
+<!-- used template from:
+  https://foundation.zurb.com/sites/docs/xy-grid.html -->
+  <div class="grid-container" id="main-body">
+    <div class="grid-y medium-grid-frame">
+      <div class="cell shrink header medium-cell-block-container">
+        <h1 class="text-center sans-serif-text shadowed">
+          {{ current_user.first_name }} {{ current_user.last_name }}'s Profile
+        </h1>
+      </div>
+      <div class="cell medium-auto medium-cell-block-container">
+        <div class="grid-x grid-padding-x">
+          <div class="cell large-6 large-offset-3
+              medium-8 medium-offset-2 medium-cell-block-y main-text">
+            <div class="main-text serif-text">
+              <div class="cell medium-auto medium-cell-block-container">
+                <div class="grid-x grid-padding-x">
+                  <div class="cell medium-4 main-text">
+                    <img src="/media/{{current_user.student_model.image}}"
+                      alt="{{user.student_model.image_description}}" width="150">
+                  </div>
+                  <div class="cell medium-8">
+                    <ul class="vertical menu">
+                      <!-- <li>ID: {{ current_user.id }}</li> -->
+                      <li>Username: {{ current_user.username }} </li>
+                      <li>Full Name: {{ current_user.first_name }} {{ current_user.last_name }}</li>
+                      <li>Email Address: {{ current_user.email }} </li>
+                      <li>About: {{ current_user.student_model.about }}</li>
+                    </ul>
+                    <!-- <br>
+                    <a href="edit_profile/" class="button expanded button1">
+                      Update Your Information
+                    </a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
