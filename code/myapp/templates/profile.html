@@ -50,13 +50,18 @@
                       Update Your Information
                     </a>
                     {% if error %}
-                    {{ message }} <br>
+                    {{ message }} <br><hr>
                     {% endif %}
-                    Enter Group Name to Join:
+                    <strong>
+                      <i class="material-icons" style="font-size:16px;">add</i>
+                      Join Your Group Here
+                    </strong>
                     <form action="/profile/" method="post">
                       {% csrf_token %}
                       {{ form.as_p }}
-                      <input type="submit" class="button button1" value="Submit"/>
+                      <input type="submit" class="button expanded button1"
+                        value="Join"/>
+
                     </form>
                   </div>
                 </div>

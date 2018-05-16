@@ -14,7 +14,7 @@ def verifySuggestion(value):
     return value
 
 class Join_Group_Form(forms.Form):
-    group = forms.CharField(label="Group",max_length=240)
+    group = forms.CharField(label="Enter Group Name",max_length=240)
 
 class Post_Form(forms.Form):
     subject = forms.CharField(

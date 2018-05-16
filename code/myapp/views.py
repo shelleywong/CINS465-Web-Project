@@ -34,13 +34,8 @@ def index(request):
     post_list = Post_Model.objects.all().order_by("-created_on")
     user_list = User.objects.all()
     student_list = Student_Model.objects.all()
-    # group_exists = request.user.groups.filter(name="cins465students").exists()
-    # my_groups = request.user.groups.values_list('name',flat=True)
-    # profs = User.objects.filter(groups__name='cins465students')
 
     context = {
-        # 'profs':profs,
-        # 'group_exists':group_exists,
         'site_name':site_name,
         'message':message,
         'post_list':post_list,
@@ -119,7 +114,7 @@ def profile_view(request):
             grp = form.cleaned_data['group']
             group_list = Group.objects.all()
             for g in group_list:
-                if g.name == grp:
+                if grp == g.name and grp != 'professors':
                     current_user = User.objects.get(username = request.user)
                     # my_group = Group.objects.get(name='cins465students')
                     my_group = Group.objects.get(name=grp)
@@ -128,12 +123,16 @@ def profile_view(request):
                     return redirect('/')
                 else:
                     error = True
-                    message = "The group '" + grp + "' does not currently exist."
+                    message = ("The group '" + grp +
+                                "' does not currently exist or "
+                                "you do not have permission to join."
+                                )
     else:
         form = Join_Group_Form()
 
     student = False
     professor = False
+    # group_exists = request.user.groups.filter(name="cins465students").exists()
     if request.user.groups.filter(name="cins465students").exists():
         student = True
     if request.user.groups.filter(name="professors").exists():
@@ -141,7 +140,7 @@ def profile_view(request):
     # my_groups = request.user.groups.values_list('name',flat=True)
     student_grp = Group.objects.get(name='cins465students')
     prof_grp = Group.objects.get(name='professors')
-
+    # profs = User.objects.filter(groups__name='cins465students')
     context = {
         # 'my_groups':my_groups,
         'student':student,
@@ -329,8 +328,8 @@ def person_view(request,this_user):
 @login_required(login_url='/login/')
 def face_match_view(request):
     # adapted from: https://stackoverflow.com/questions/976882/shuffling-a-list-of-objects
-    users = User.objects.all()
     # users = User.objects.filter(groups__name='cins465students')
+    users = User.objects.all()
     u_list = list(users)
     n = len(u_list)
     user_list = random.sample(u_list,n)
@@ -357,7 +356,9 @@ def students_api(request):
             return HttpResponse("Unexpected error:"+str(sys.exc_info()[0]))
     if request.method == 'GET':
         # users = User.objects.all()
-        users = User.objects.filter(groups__name='cins465students').exclude(groups__name='professors')
+        users = User.objects.filter(
+            groups__name='cins465students').exclude(
+            groups__name='professors')
         u_list = list(users)
         n = len(u_list)
         user_queryset = random.sample(u_list,n)
@@ -387,7 +388,9 @@ def chatroom(request):
     previous_id = -1
     if first_message_id != -1:
         try:
-            previous_id = Chat_Model.objects.filter(pk__lt=first_message_id).order_by("-pk")[:1][0].id
+            previous_id = Chat_Model.objects.filter(
+                pk__lt=first_message_id).order_by(
+                "-pk")[:1][0].id
         except IndexError:
             previous_id = -1
     chat_messages = reversed(chat_queryset)
