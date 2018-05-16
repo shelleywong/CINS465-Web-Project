@@ -7,11 +7,14 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from .models import *
 
-#in-class practice forms
+# from in-class practice form
 def verifySuggestion(value):
     if len(value) < 1:
         raise forms.ValidationError("Not long enough")
     return value
+
+class Join_Group_Form(forms.Form):
+    group = forms.CharField(label="Group",max_length=240)
 
 class Post_Form(forms.Form):
     subject = forms.CharField(

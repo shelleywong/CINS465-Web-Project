@@ -34,11 +34,30 @@
                       <li>Full Name: {{ user.first_name }} {{ user.last_name }}</li>
                       <li>Email Address: {{ user.email }} </li>
                       <li>About: {{ user.student_model.about }}</li>
+                      <li>My Groups:
+                        <ul class="vertical menu">
+                          {% if student %}
+                          <li>* {{ student_grp }} </li>
+                          {% endif %}
+                          {% if professor %}
+                          <li>* {{ prof_grp }} </li>
+                          {% endif %}
+                        </ul>
+                      </li>
                     </ul>
                     <br>
                     <a href="edit_profile/" class="button expanded button1">
                       Update Your Information
                     </a>
+                    {% if error %}
+                    {{ message }} <br>
+                    {% endif %}
+                    Enter Group Name to Join:
+                    <form action="/profile/" method="post">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <input type="submit" class="button button1" value="Submit"/>
+                    </form>
                   </div>
                 </div>
               </div>

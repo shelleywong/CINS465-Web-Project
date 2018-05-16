@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.models import Group
 
 from .models import *
 from .forms import *
@@ -104,9 +105,52 @@ def logout(request):
     logout(request)
     return render(request,"index.html")
 
+# adding a user to a group - adapted from:
+#https://stackoverflow.com/questions/6288661/adding-a-user-to-a-group-in-django
+#https://stackoverflow.com/questions/4789021/in-django-how-do-i-check-if-a-user-is-in-a-certain-group?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 @login_required(login_url='/login/')
 def profile_view(request):
+    error = False
+    message = ""
+    if request.method == "POST":
+        form = Join_Group_Form(request.POST)
+        if form.is_valid():
+            # form.save()
+            grp = form.cleaned_data['group']
+            group_list = Group.objects.all()
+            for g in group_list:
+                if g.name == grp:
+                    current_user = User.objects.get(username = request.user)
+                    # my_group = Group.objects.get(name='cins465students')
+                    my_group = Group.objects.get(name=grp)
+                    current_user.groups.add(my_group)
+                    # form.save()
+                    return redirect('/')
+                else:
+                    error = True
+                    message = "The group '" + grp + "' does not currently exist."
+    else:
+        form = Join_Group_Form()
+
+    student = False
+    professor = False
+    if request.user.groups.filter(name="cins465students").exists():
+        student = True
+    if request.user.groups.filter(name="professors").exists():
+        professor = True
+    # my_groups = request.user.groups.values_list('name',flat=True)
+    student_grp = Group.objects.get(name='cins465students')
+    prof_grp = Group.objects.get(name='professors')
+
     context = {
+        # 'my_groups':my_groups,
+        'student':student,
+        'professor':professor,
+        'student_grp':student_grp,
+        'prof_grp':prof_grp,
+        'error':error,
+        'message':message,
+        'form':form,
         'user':request.user
     }
     return render(request, 'profile.html', context)
