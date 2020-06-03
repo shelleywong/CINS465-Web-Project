@@ -1,6 +1,6 @@
 Django>=2.0.11
 pytz==2017.3
-Pillow==5.1.0
+Pillow
 channels==2.1.1
 Twisted[tls,http2]
 channels_redis
